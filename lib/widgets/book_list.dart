@@ -17,6 +17,9 @@ class BookList extends ConsumerWidget {
     final bookData = ref.watch(fetchDataProvider);
     return bookData.when(
       data: (bookData) => ListTile(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
         title: Text(
           bookData[getIndex].title,
           style: AppStyle.title,

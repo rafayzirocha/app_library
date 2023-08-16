@@ -77,24 +77,6 @@ class AddNewBookodal extends ConsumerWidget {
                   txtController: synopsisController,
                 ),
                 const Gap(12),
-                TextFieldWidget(
-                  hintText: 'Número de Páginas',
-                  maxLine: 1,
-                  txtController: TextEditingController(),
-                ),
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'Número de Exemplares Disponíveis',
-                  maxLine: 1,
-                  txtController: TextEditingController(),
-                ),
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'ISBN',
-                  maxLine: 1,
-                  txtController: TextEditingController(),
-                ),
-                const Gap(12),
                 Row(
                   children: [
                     Expanded(
