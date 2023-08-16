@@ -1,16 +1,19 @@
-# app_library
+# Aplicativo para a Biblioteca da ETEC PFA
 
-A new Flutter project.
+Bem-vindo ao repositório do aplicativo desenvolvido como parte do Trabalho de Conclusão de Curso (TCC) para facilitar os empréstimos de livros da biblioteca em um projeto Flutter.
 
-## Getting Started
+## Sobre o Projeto
 
-This project is a starting point for a Flutter application.
+Este projeto tem como objetivo facilitar os empréstimos de livros da biblioteca em um aplicativo desenvolvido em Dart e Flutter. O aplicativo de destaca funcionalidades-chave oferecidas pela biblioteca e demonstra seu uso em cenários práticos.
 
-A few resources to get you started if this is your first Flutter project:
+## Recursos Demonstrados
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Integração simples da biblioteca Francisco Bosnyak Filho, da ETEC PFA.
+- Cadastros de Livros, Usuários e Empréstimos.
+- Possibilididade de um aluno realizar empréstimos de livros de forma simples e rápida, sem precisar ir até a biblioteca.
+- Design de interface de usuário amigável.
+- Melhores práticas de desenvolvimento com Dart e Flutter.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+*Aviso: Este projeto é apenas um exemplo desenvolvido como parte de um Trabalho de Conclusão de Curso e não representa um produto comercial.*
