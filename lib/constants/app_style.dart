@@ -22,4 +22,10 @@ class AppStyle {
     fontWeight: FontWeight.w500,
     color: const Color(0xFFA9A9A9),
   );
+
+  static TextStyle subtitleBlue = GoogleFonts.plusJakartaSans(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: const Color(0xFF0066FF),
+  );
 }

@@ -14,9 +14,11 @@ final AddNewBookodalProvider =
 });
 
 class AddNewBookData {
+  final TextEditingController imageUrlController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController authorController = TextEditingController();
   final TextEditingController synopsisController = TextEditingController();
+  final TextEditingController copiesController = TextEditingController();
 }
 
 class AddNewBookModalController extends StateNotifier<AddNewBookData> {
@@ -24,9 +26,11 @@ class AddNewBookModalController extends StateNotifier<AddNewBookData> {
 
   @override
   void dispose() {
+    state.imageUrlController.dispose();
     state.titleController.dispose();
     state.authorController.dispose();
     state.synopsisController.dispose();
+    state.copiesController.dispose();
     super.dispose();
   }
 }
@@ -36,9 +40,11 @@ class AddNewBookodal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final imageUrlController = AddNewBookData().imageUrlController;
     final titleController = AddNewBookData().titleController;
     final authorController = AddNewBookData().authorController;
     final synopsisController = AddNewBookData().synopsisController;
+    final copiesController = AddNewBookData().copiesController;
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     return Padding(
@@ -60,6 +66,12 @@ class AddNewBookodal extends ConsumerWidget {
               children: [
                 const Gap(12),
                 TextFieldWidget(
+                  hintText: 'Url da Imagem',
+                  maxLine: 1,
+                  txtController: imageUrlController,
+                ),
+                const Gap(12),
+                TextFieldWidget(
                   hintText: 'Título',
                   maxLine: 1,
                   txtController: titleController,
@@ -75,6 +87,12 @@ class AddNewBookodal extends ConsumerWidget {
                   hintText: 'Sinopse',
                   maxLine: 4,
                   txtController: synopsisController,
+                ),
+                const Gap(12),
+                TextFieldWidget(
+                  hintText: 'Quantidade de Cópias',
+                  maxLine: 1,
+                  txtController: copiesController,
                 ),
                 const Gap(12),
                 Row(
@@ -112,15 +130,19 @@ class AddNewBookodal extends ConsumerWidget {
                         onPressed: () {
                           ref.read(serviceProvider).addNewBook(
                                 BookModel(
+                                  imageUrl: imageUrlController.text,
                                   title: titleController.text,
                                   author: authorController.text,
                                   synopsis: synopsisController.text,
+                                  copies: copiesController.text,
+                                  status: '',
                                 ),
                               );
 
                           titleController.clear();
                           authorController.clear();
                           synopsisController.clear();
+                          copiesController.clear();
                           Navigator.of(context).pop();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
