@@ -16,10 +16,13 @@ final AddNewBookodalProvider =
 
 class AddNewBookData {
   final TextEditingController imageUrlController = TextEditingController();
+  final TextEditingController isbnController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController authorController = TextEditingController();
   final TextEditingController synopsisController = TextEditingController();
+  final TextEditingController pagesController = TextEditingController();
   final TextEditingController copiesController = TextEditingController();
+  final TextEditingController statusController = TextEditingController();
 }
 
 class AddNewBookModalController extends StateNotifier<AddNewBookData> {
@@ -28,10 +31,13 @@ class AddNewBookModalController extends StateNotifier<AddNewBookData> {
   @override
   void dispose() {
     state.imageUrlController.dispose();
+    state.isbnController.dispose();
     state.titleController.dispose();
     state.authorController.dispose();
     state.synopsisController.dispose();
+    state.pagesController.dispose();
     state.copiesController.dispose();
+    state.statusController.dispose();
     super.dispose();
   }
 }
@@ -40,17 +46,20 @@ class AddNewBookScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final imageUrlController = AddNewBookData().imageUrlController;
+    final isbnController = AddNewBookData().isbnController;
     final titleController = AddNewBookData().titleController;
     final authorController = AddNewBookData().authorController;
     final synopsisController = AddNewBookData().synopsisController;
+    final pagesController = AddNewBookData().pagesController;
     final copiesController = AddNewBookData().copiesController;
+    final statusController = AddNewBookData().statusController;
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -61,6 +70,13 @@ class AddNewBookScreen extends ConsumerWidget {
                   maxLine: 1,
                   txtController: imageUrlController,
                   icon: FeatherIcons.image,
+                ),
+                const Gap(12),
+                TextFieldWidget(
+                  hintText: 'ISBN',
+                  maxLine: 1,
+                  txtController: isbnController,
+                  icon: FeatherIcons.award,
                 ),
                 const Gap(12),
                 TextFieldWidget(
@@ -85,14 +101,29 @@ class AddNewBookScreen extends ConsumerWidget {
                 ),
                 const Gap(12),
                 TextFieldWidget(
+                  hintText: 'Número de Páginas',
+                  maxLine: 1,
+                  txtController: pagesController,
+                  icon: FeatherIcons.file,
+                ),
+                const Gap(12),
+                TextFieldWidget(
                   hintText: 'Cópias Disponíveis',
                   maxLine: 1,
                   txtController: copiesController,
                   icon: FeatherIcons.copy,
                 ),
                 const Gap(12),
+                TextFieldWidget(
+                  hintText: 'Disponibilidade',
+                  maxLine: 1,
+                  txtController: statusController,
+                  icon: FeatherIcons.helpCircle,
+                ),
+                const Gap(12),
                 Container(
                   width: double.infinity,
+                  height: 60,
                   child: FilledButton.tonal(
                     style: FilledButton.styleFrom(
                       backgroundColor: AppStyle.primaryColor,
@@ -106,11 +137,13 @@ class AddNewBookScreen extends ConsumerWidget {
                       ref.read(serviceProvider).addNewBook(
                             BookModel(
                               imageUrl: imageUrlController.text,
+                              isbn: isbnController.text,
                               title: titleController.text,
                               author: authorController.text,
                               synopsis: synopsisController.text,
+                              pages: pagesController.text,
                               copies: copiesController.text,
-                              status: 'Disponível',
+                              status: statusController.text,
                             ),
                           );
 
