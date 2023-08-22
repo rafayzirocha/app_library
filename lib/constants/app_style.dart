@@ -28,4 +28,6 @@ class AppStyle {
     fontWeight: FontWeight.w500,
     color: const Color(0xFF0066FF),
   );
+
+  static Color primaryColor = const Color(0xFF0066FF);
 }

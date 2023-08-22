@@ -21,7 +21,6 @@ class BookList extends ConsumerWidget {
     return bookData.when(
       data: (bookData) => Column(
         children: [
-          const Gap(20),
           InkWell(
             onTap: () {},
             borderRadius: BorderRadius.circular(12),
@@ -66,7 +65,7 @@ class BookList extends ConsumerWidget {
                           size: 14,
                           color: bookData[getIndex].status == 'Disponível'
                               ? const Color(0xFF0066FF)
-                              : const Color(0xFFA9A9A9),
+                              : Colors.red,
                         ),
                         const Gap(4),
                         Text(
@@ -75,7 +74,7 @@ class BookList extends ConsumerWidget {
                           style: GoogleFonts.plusJakartaSans(
                             color: bookData[getIndex].status == 'Disponível'
                                 ? const Color(0xFF0066FF)
-                                : const Color(0xFFA9A9A9),
+                                : Colors.red,
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),

@@ -1,8 +1,10 @@
+import 'package:app_library/views/book_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
+import 'routes/app_routes.dart';
 import 'views/home_page.dart';
 
 void main() async {
@@ -27,6 +29,10 @@ class LibraryApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const HomePage(),
+        routes: {
+          AppRoutes.homePage: (_) => const HomePage(),
+          AppRoutes.bookForm: (_) => AddNewBookScreen(),
+        },
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextFieldWidget extends StatelessWidget {
   const TextFieldWidget({
@@ -7,30 +8,49 @@ class TextFieldWidget extends StatelessWidget {
     required this.hintText,
     required this.maxLine,
     required this.txtController,
+    required this.icon,
   });
 
   final String hintText;
   final int maxLine;
   final TextEditingController txtController;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF5F5F5),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: TextField(
-        controller: txtController,
-        decoration: InputDecoration(
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          hintText: hintText,
-          hintStyle: AppStyle.txtField,
+    return TextField(
+      style: AppStyle.title,
+      controller: txtController,
+      decoration: InputDecoration(
+        labelText: hintText,
+        labelStyle: AppStyle.txtField,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: Color(0xFFD4D4D4),
+          ),
         ),
-        maxLines: maxLine,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppStyle.primaryColor,
+          ),
+        ),
+        prefixIcon: Icon(
+          icon,
+          size: 18,
+        ),
+        prefixIconColor: AppStyle.primaryColor,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        floatingLabelStyle: GoogleFonts.plusJakartaSans(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppStyle.primaryColor,
+        ),
       ),
+      maxLines: maxLine,
     );
   }
 }

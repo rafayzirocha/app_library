@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 
-import '../common/show_modal.dart';
 import '../constants/app_style.dart';
 import '../provider/service_provider.dart';
+import '../routes/app_routes.dart';
 import '../widgets/book_list.dart';
 
 class HomePage extends ConsumerWidget {
@@ -14,37 +15,42 @@ class HomePage extends ConsumerWidget {
     final bookData = ref.watch(fetchDataProvider);
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: ListTile(
-          title: Text(
-            'Bom Dia',
-            style: AppStyle.title,
-          ),
-          subtitle: Text(
-            'Administrador',
-            style: AppStyle.subtitle,
-          ),
-          trailing: const CircleAvatar(
-            backgroundImage: NetworkImage(
-              'https://img.freepik.com/psd-gratuitas/renderizacao-3d-do-personagem-avatar_23-2150611746.jpg?w=740&t=st=1692158086~exp=1692158686~hmac=8d283ae71b93e9b9da51ecdcbea10d278e15c999a6f4ce9e59749e30d9612786',
-            ),
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 12, right: 12),
           child: Column(
             children: [
-              ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: bookData.value != null ? bookData.value!.length : 0,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => BookList(
-                  getIndex: index,
+              const Gap(20),
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Cadastro de Livros',
+                        style: AppStyle.title,
+                      ),
+                      Text(
+                        'Explore a Biblioteca...',
+                        style: AppStyle.subtitle,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Gap(20),
+              Expanded(
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount:
+                      bookData.value != null ? bookData.value!.length : 0,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => BookList(
+                    getIndex: index,
+                  ),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Gap(20);
+                  },
                 ),
               ),
             ],
@@ -58,13 +64,8 @@ class HomePage extends ConsumerWidget {
           color: Colors.white,
         ),
         onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            context: context,
-            builder: (context) => const AddNewBookodal(),
+          Navigator.of(context).pushNamed(
+            AppRoutes.bookForm,
           );
         },
       ),
