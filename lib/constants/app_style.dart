@@ -30,4 +30,5 @@ class AppStyle {
   );
 
   static Color primaryColor = const Color(0xFF0066FF);
+  static Color txtColor = const Color(0xFF3C3C3C);
 }

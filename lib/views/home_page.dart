@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-import '../constants/app_style.dart';
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
 import '../widgets/book_list.dart';
@@ -17,27 +16,9 @@ class HomePage extends ConsumerWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: [
-              const Gap(20),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Cadastro de Livros',
-                        style: AppStyle.title,
-                      ),
-                      Text(
-                        'Explore a Biblioteca...',
-                        style: AppStyle.subtitle,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
               const Gap(20),
               Expanded(
                 child: ListView.separated(

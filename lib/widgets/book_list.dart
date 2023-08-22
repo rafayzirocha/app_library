@@ -58,6 +58,21 @@ class BookList extends ConsumerWidget {
                     const Gap(4),
                     Row(
                       children: [
+                        const Icon(
+                          FeatherIcons.copy,
+                          size: 14,
+                          color: Color(0xFFA9A9A9),
+                        ),
+                        const Gap(4),
+                        Text(
+                          bookData[getIndex].copies,
+                          style: AppStyle.subtitle,
+                        ),
+                      ],
+                    ),
+                    const Gap(4),
+                    Row(
+                      children: [
                         Icon(
                           bookData[getIndex].status == 'Disponível'
                               ? FeatherIcons.thumbsUp
@@ -78,21 +93,6 @@ class BookList extends ConsumerWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),
-                        ),
-                      ],
-                    ),
-                    const Gap(4),
-                    Row(
-                      children: [
-                        const Icon(
-                          FeatherIcons.copy,
-                          size: 14,
-                          color: Color(0xFFA9A9A9),
-                        ),
-                        const Gap(4),
-                        Text(
-                          bookData[getIndex].copies,
-                          style: AppStyle.subtitle,
                         ),
                       ],
                     ),

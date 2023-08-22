@@ -49,6 +49,7 @@ class TextFieldWidget extends StatelessWidget {
           fontWeight: FontWeight.w500,
           color: AppStyle.primaryColor,
         ),
+        contentPadding: const EdgeInsets.all(12),
       ),
       maxLines: maxLine,
     );

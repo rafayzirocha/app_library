@@ -57,124 +57,156 @@ class AddNewBookScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'Url da Imagem',
-                  maxLine: 1,
-                  txtController: imageUrlController,
-                  icon: FeatherIcons.image,
-                ),
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'ISBN',
-                  maxLine: 1,
-                  txtController: isbnController,
-                  icon: FeatherIcons.award,
-                ),
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'Título',
-                  maxLine: 1,
-                  txtController: titleController,
-                  icon: FeatherIcons.feather,
-                ),
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'Autor(a)',
-                  maxLine: 1,
-                  txtController: authorController,
-                  icon: FeatherIcons.user,
-                ),
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'Sinopse',
-                  maxLine: 1,
-                  txtController: synopsisController,
-                  icon: FeatherIcons.fileText,
-                ),
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'Número de Páginas',
-                  maxLine: 1,
-                  txtController: pagesController,
-                  icon: FeatherIcons.file,
-                ),
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'Cópias Disponíveis',
-                  maxLine: 1,
-                  txtController: copiesController,
-                  icon: FeatherIcons.copy,
-                ),
-                const Gap(12),
-                TextFieldWidget(
-                  hintText: 'Disponibilidade',
-                  maxLine: 1,
-                  txtController: statusController,
-                  icon: FeatherIcons.helpCircle,
-                ),
-                const Gap(12),
-                Container(
-                  width: double.infinity,
-                  height: 60,
-                  child: FilledButton.tonal(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: AppStyle.primaryColor,
-                      foregroundColor: const Color(0xFFF5F9FF),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                    ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
                     onPressed: () {
-                      ref.read(serviceProvider).addNewBook(
-                            BookModel(
-                              imageUrl: imageUrlController.text,
-                              isbn: isbnController.text,
-                              title: titleController.text,
-                              author: authorController.text,
-                              synopsis: synopsisController.text,
-                              pages: pagesController.text,
-                              copies: copiesController.text,
-                              status: statusController.text,
-                            ),
-                          );
-
                       Navigator.of(context).pop();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          backgroundColor: AppStyle.primaryColor,
-                          content: Text(
-                            'Livro Cadastrado com Sucesso!',
-                            style: AppStyle.txtSnackBar,
-                          ),
-                          duration: const Duration(seconds: 5),
-                        ),
-                      );
                     },
-                    child: Text(
-                      'Salvar',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
+                    color: AppStyle.txtColor,
+                    icon: const Icon(
+                      FeatherIcons.chevronLeft,
+                      size: 18,
                     ),
                   ),
-                )
-              ],
+                  Text(
+                    'Cadastro de Livros',
+                    style: AppStyle.title,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    color: AppStyle.txtColor,
+                    icon: const Icon(
+                      FeatherIcons.alertCircle,
+                      size: 18,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                  child: Column(
+                    children: [
+                      TextFieldWidget(
+                        hintText: 'Url da Imagem',
+                        maxLine: 1,
+                        txtController: imageUrlController,
+                        icon: FeatherIcons.image,
+                      ),
+                      const Gap(20),
+                      TextFieldWidget(
+                        hintText: 'ISBN',
+                        maxLine: 1,
+                        txtController: isbnController,
+                        icon: FeatherIcons.award,
+                      ),
+                      const Gap(20),
+                      TextFieldWidget(
+                        hintText: 'Título',
+                        maxLine: 1,
+                        txtController: titleController,
+                        icon: FeatherIcons.feather,
+                      ),
+                      const Gap(20),
+                      TextFieldWidget(
+                        hintText: 'Autor(a)',
+                        maxLine: 1,
+                        txtController: authorController,
+                        icon: FeatherIcons.user,
+                      ),
+                      const Gap(20),
+                      TextFieldWidget(
+                        hintText: 'Sinopse',
+                        maxLine: 1,
+                        txtController: synopsisController,
+                        icon: FeatherIcons.fileText,
+                      ),
+                      const Gap(20),
+                      TextFieldWidget(
+                        hintText: 'Número de Páginas',
+                        maxLine: 1,
+                        txtController: pagesController,
+                        icon: FeatherIcons.file,
+                      ),
+                      const Gap(20),
+                      TextFieldWidget(
+                        hintText: 'Cópias Disponíveis',
+                        maxLine: 1,
+                        txtController: copiesController,
+                        icon: FeatherIcons.copy,
+                      ),
+                      const Gap(20),
+                      TextFieldWidget(
+                        hintText: 'Disponibilidade',
+                        maxLine: 1,
+                        txtController: statusController,
+                        icon: FeatherIcons.helpCircle,
+                      ),
+                      const Gap(20),
+                      Container(
+                        width: double.infinity,
+                        child: FilledButton.tonal(
+                          style: FilledButton.styleFrom(
+                            backgroundColor: AppStyle.primaryColor,
+                            foregroundColor: const Color(0xFFF5F9FF),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                          ),
+                          onPressed: () {
+                            ref.read(serviceProvider).addNewBook(
+                                  BookModel(
+                                    imageUrl: imageUrlController.text,
+                                    isbn: isbnController.text,
+                                    title: titleController.text,
+                                    author: authorController.text,
+                                    synopsis: synopsisController.text,
+                                    pages: pagesController.text,
+                                    copies: copiesController.text,
+                                    status: statusController.text,
+                                  ),
+                                );
+
+                            Navigator.of(context).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                backgroundColor: AppStyle.primaryColor,
+                                content: Text(
+                                  'Livro Cadastrado com Sucesso!',
+                                  style: AppStyle.txtSnackBar,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Salvar',
+                            style: GoogleFonts.plusJakartaSans(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
