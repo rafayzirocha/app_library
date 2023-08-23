@@ -100,6 +100,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLine: 1,
                         txtController: imageUrlController,
                         icon: FeatherIcons.image,
+                        keyboardType: TextInputType.url,
                       ),
                       const Gap(20),
                       TextFieldWidget(
@@ -107,6 +108,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLine: 1,
                         txtController: isbnController,
                         icon: FeatherIcons.award,
+                        keyboardType: TextInputType.number,
                       ),
                       const Gap(20),
                       TextFieldWidget(
@@ -114,6 +116,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLine: 1,
                         txtController: titleController,
                         icon: FeatherIcons.feather,
+                        keyboardType: TextInputType.text,
                       ),
                       const Gap(20),
                       TextFieldWidget(
@@ -121,6 +124,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLine: 1,
                         txtController: authorController,
                         icon: FeatherIcons.user,
+                        keyboardType: TextInputType.text,
                       ),
                       const Gap(20),
                       TextFieldWidget(
@@ -128,6 +132,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLine: 1,
                         txtController: synopsisController,
                         icon: FeatherIcons.fileText,
+                        keyboardType: TextInputType.text,
                       ),
                       const Gap(20),
                       TextFieldWidget(
@@ -135,6 +140,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLine: 1,
                         txtController: pagesController,
                         icon: FeatherIcons.file,
+                        keyboardType: TextInputType.number,
                       ),
                       const Gap(20),
                       TextFieldWidget(
@@ -142,6 +148,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLine: 1,
                         txtController: copiesController,
                         icon: FeatherIcons.copy,
+                        keyboardType: TextInputType.number,
                       ),
                       const Gap(20),
                       TextFieldWidget(
@@ -149,6 +156,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLine: 1,
                         txtController: statusController,
                         icon: FeatherIcons.helpCircle,
+                        keyboardType: TextInputType.text,
                       ),
                       const Gap(20),
                       Container(

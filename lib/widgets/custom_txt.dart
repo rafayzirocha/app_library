@@ -9,12 +9,14 @@ class TextFieldWidget extends StatelessWidget {
     required this.maxLine,
     required this.txtController,
     required this.icon,
+    required this.keyboardType,
   });
 
   final String hintText;
   final int maxLine;
   final TextEditingController txtController;
   final IconData icon;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class TextFieldWidget extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.all(12),
       ),
+      keyboardType: keyboardType,
       maxLines: maxLine,
     );
   }
