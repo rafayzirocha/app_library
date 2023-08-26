@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
-import '../widgets/book_list.dart';
+import '../widgets/book_card.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -26,7 +26,7 @@ class HomePage extends ConsumerWidget {
                   itemCount:
                       bookData.value != null ? bookData.value!.length : 0,
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => BookList(
+                  itemBuilder: (context, index) => BookCard(
                     getIndex: index,
                   ),
                   separatorBuilder: (BuildContext context, int index) {

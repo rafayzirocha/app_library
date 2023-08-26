@@ -7,8 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../provider/service_provider.dart';
 
-class BookList extends ConsumerWidget {
-  const BookList({
+class BookCard extends ConsumerWidget {
+  const BookCard({
     super.key,
     required this.getIndex,
   });
@@ -27,7 +27,7 @@ class BookList extends ConsumerWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   height: 80,
                   width: 80,
                   child: ClipRRect(
@@ -55,46 +55,16 @@ class BookList extends ConsumerWidget {
                       overflow: TextOverflow.ellipsis,
                       style: AppStyle.subtitle,
                     ),
-                    const Gap(4),
-                    Row(
-                      children: [
-                        const Icon(
-                          FeatherIcons.copy,
-                          size: 14,
-                          color: Color(0xFFA9A9A9),
-                        ),
-                        const Gap(4),
-                        Text(
-                          bookData[getIndex].copies,
-                          style: AppStyle.subtitle,
-                        ),
-                      ],
-                    ),
-                    const Gap(4),
-                    Row(
-                      children: [
-                        Icon(
-                          bookData[getIndex].status == 'Disponível'
-                              ? FeatherIcons.thumbsUp
-                              : FeatherIcons.thumbsDown,
-                          size: 14,
-                          color: bookData[getIndex].status == 'Disponível'
-                              ? const Color(0xFF0066FF)
-                              : Colors.red,
-                        ),
-                        const Gap(4),
-                        Text(
-                          bookData[getIndex].status,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.plusJakartaSans(
-                            color: bookData[getIndex].status == 'Disponível'
-                                ? const Color(0xFF0066FF)
-                                : Colors.red,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      bookData[getIndex].status,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.plusJakartaSans(
+                        color: bookData[getIndex].status == 'Disponível'
+                            ? const Color(0xFF0066FF)
+                            : Colors.red,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
