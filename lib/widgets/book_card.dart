@@ -1,5 +1,4 @@
 import 'package:app_library/constants/app_style.dart';
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -63,7 +62,7 @@ class BookCard extends ConsumerWidget {
                             ? const Color(0xFF0066FF)
                             : Colors.red,
                         fontSize: 12,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],

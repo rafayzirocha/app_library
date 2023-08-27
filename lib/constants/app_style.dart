@@ -19,16 +19,17 @@ class AppStyle {
 
   static TextStyle subtitle = GoogleFonts.plusJakartaSans(
     fontSize: 12,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w400,
     color: const Color(0xFFA9A9A9),
   );
 
-  static TextStyle subtitleBlue = GoogleFonts.plusJakartaSans(
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
-    color: const Color(0xFF0066FF),
+  static TextStyle subtitle16 = GoogleFonts.plusJakartaSans(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: const Color(0xFFA9A9A9),
   );
 
   static Color primaryColor = const Color(0xFF0066FF);
   static Color txtColor = const Color(0xFF3C3C3C);
+  static Color subtitleColor = const Color(0xFFA9A9A9);
 }
