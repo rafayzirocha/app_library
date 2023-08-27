@@ -185,7 +185,7 @@ class AddNewBookScreen extends ConsumerWidget {
                                 );
 
                             Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
+                            /*ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -197,7 +197,7 @@ class AddNewBookScreen extends ConsumerWidget {
                                 ),
                                 duration: const Duration(seconds: 5),
                               ),
-                            );
+                            );*/
                           },
                           child: Text(
                             'Salvar',

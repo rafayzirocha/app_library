@@ -7,25 +7,14 @@ class AppStyle {
     color: const Color(0xFF3C3C3C),
   );
 
-  static TextStyle txtField = GoogleFonts.plusJakartaSans(
-    fontSize: 16,
-    color: const Color(0xFFA9A9A9),
-  );
-
-  static TextStyle txtSnackBar = GoogleFonts.plusJakartaSans(
-    fontSize: 12,
-    color: Colors.white,
-  );
-
   static TextStyle subtitle = GoogleFonts.plusJakartaSans(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: const Color(0xFFA9A9A9),
   );
 
-  static TextStyle subtitle16 = GoogleFonts.plusJakartaSans(
+  static TextStyle titleGrey = GoogleFonts.plusJakartaSans(
     fontSize: 16,
-    fontWeight: FontWeight.w400,
     color: const Color(0xFFA9A9A9),
   );
 

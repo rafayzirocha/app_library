@@ -97,7 +97,7 @@ class BookSearch extends StatelessWidget {
           border: InputBorder.none,
           contentPadding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
           hintText: 'Busque por um livro...',
-          hintStyle: AppStyle.txtField,
+          hintStyle: AppStyle.titleGrey,
           prefixIcon: Icon(
             FeatherIcons.search,
             size: 16,

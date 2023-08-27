@@ -25,7 +25,7 @@ class TextFieldWidget extends StatelessWidget {
       controller: txtController,
       decoration: InputDecoration(
         labelText: hintText,
-        labelStyle: AppStyle.txtField,
+        labelStyle: AppStyle.title,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(

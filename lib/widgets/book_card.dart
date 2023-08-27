@@ -22,15 +22,15 @@ class BookCard extends ConsumerWidget {
         children: [
           InkWell(
             onTap: () {},
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(20),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 80,
+                  height: 100,
                   width: 80,
                   child: ClipRRect(
-                    borderRadius: BorderRadiusDirectional.circular(12),
+                    borderRadius: BorderRadiusDirectional.circular(20),
                     child: Image.network(
                       bookData[getIndex].imageUrl.isNotEmpty
                           ? bookData[getIndex].imageUrl
@@ -51,6 +51,11 @@ class BookCard extends ConsumerWidget {
                     ),
                     Text(
                       bookData[getIndex].author,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppStyle.subtitle,
+                    ),
+                    Text(
+                      'ISBN ${bookData[getIndex].isbn}',
                       overflow: TextOverflow.ellipsis,
                       style: AppStyle.subtitle,
                     ),
