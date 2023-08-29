@@ -13,9 +13,9 @@ class AppStyle {
     color: const Color(0xFFA9A9A9),
   );
 
-  static TextStyle titleGrey = GoogleFonts.plusJakartaSans(
+  static TextStyle textPrimary = GoogleFonts.plusJakartaSans(
     fontSize: 16,
-    color: const Color(0xFFA9A9A9),
+    color: AppStyle.primaryColor,
   );
 
   static Color primaryColor = const Color(0xFF0066FF);

@@ -1,22 +1,23 @@
-import 'package:app_library/views/book_form.dart';
+import 'package:app_library/pages/book_details.dart';
+import 'package:app_library/pages/book_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
 import 'routes/app_routes.dart';
-import 'views/home_page.dart';
+import 'pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const LibraryApp());
+  runApp(const AppLibrary());
 }
 
-class LibraryApp extends StatelessWidget {
-  const LibraryApp({super.key});
+class AppLibrary extends StatelessWidget {
+  const AppLibrary({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,7 @@ class LibraryApp extends StatelessWidget {
         routes: {
           AppRoutes.homePage: (_) => const HomePage(),
           AppRoutes.bookForm: (_) => AddNewBookScreen(),
+          AppRoutes.bookDetails: (_) => const BookDetails(),
         },
       ),
     );

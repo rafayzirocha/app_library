@@ -8,7 +8,7 @@ final serviceProvider = StateProvider<BookService>((ref) {
   return BookService();
 });
 
-final fetchDataProvider = StreamProvider<List<BookModel>>((ref) async* {
+final buscaLivros = StreamProvider<List<BookModel>>((ref) async* {
   final getData = FirebaseFirestore.instance
       .collection('books')
       .orderBy('title')
