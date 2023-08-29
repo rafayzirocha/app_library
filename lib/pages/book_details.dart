@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-import '../provider/service_provider.dart';
+import '../model/book_model.dart';
 
 class BookDetails extends ConsumerWidget {
   const BookDetails({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final livros = ref.watch(buscaLivros);
+    final livro = ModalRoute.of(context)!.settings.arguments as BookModel;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -43,17 +43,17 @@ class BookDetails extends ConsumerWidget {
                 ],
               ),
               Image.network(
-                'https://m.media-amazon.com/images/I/617CUx6UO9L._AC_UF1000,1000_QL80_FMwebp_.jpg',
+                livro.imageUrl,
                 height: 200,
                 width: 200,
               ),
               const Gap(20),
               Text(
-                'O Pequeno Princípe',
+                livro.title,
                 style: AppStyle.title,
               ),
               Text(
-                'Antoine de Saint-Exupéry',
+                livro.author,
                 style: AppStyle.subtitle,
               ),
               const Gap(20),
@@ -71,7 +71,7 @@ class BookDetails extends ConsumerWidget {
                         ),
                       ),
                       Text(
-                        'Disponível',
+                        livro.status,
                         style: AppStyle.subtitle,
                       ),
                     ],
@@ -87,7 +87,7 @@ class BookDetails extends ConsumerWidget {
                         ),
                       ),
                       Text(
-                        '1 Cópia',
+                        livro.copies,
                         style: AppStyle.subtitle,
                       ),
                     ],
@@ -103,13 +103,19 @@ class BookDetails extends ConsumerWidget {
                         ),
                       ),
                       Text(
-                        '132 Páginas',
+                        livro.pages,
                         style: AppStyle.subtitle,
                       ),
                     ],
                   ),
                 ],
               ),
+              const Gap(20),
+              Container(
+                width: double.infinity,
+                height: 50,
+                child: Text(livro.synopsis),
+              )
             ],
           ),
         ),

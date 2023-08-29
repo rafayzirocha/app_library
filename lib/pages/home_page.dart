@@ -57,6 +57,7 @@ class HomePage extends ConsumerWidget {
                   shrinkWrap: true,
                   itemBuilder: (context, index) => LivroCard(
                     getIndex: index,
+                    livro: livros.value![index],
                   ),
                   separatorBuilder: (BuildContext context, int index) {
                     return const Gap(8);

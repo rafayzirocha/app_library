@@ -1,4 +1,5 @@
 import 'package:app_library/constants/app_style.dart';
+import 'package:app_library/model/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -10,9 +11,11 @@ class LivroCard extends ConsumerWidget {
   const LivroCard({
     super.key,
     required this.getIndex,
+    required this.livro,
   });
 
   final int getIndex;
+  final BookModel livro;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,6 +27,7 @@ class LivroCard extends ConsumerWidget {
             onTap: () {
               Navigator.of(context).pushNamed(
                 AppRoutes.bookDetails,
+                arguments: livro,
               );
             },
             borderRadius: BorderRadius.circular(20),
