@@ -1,4 +1,5 @@
 import 'package:app_library/constants/app_style.dart';
+import 'package:app_library/provider/service_provider.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,16 +34,91 @@ class BookDetails extends ConsumerWidget {
                       FeatherIcons.chevronLeft,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    color: AppStyle.txtColor,
-                    iconSize: 18,
-                    icon: const Icon(
-                      FeatherIcons.share2,
-                    ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        color: AppStyle.txtColor,
+                        iconSize: 18,
+                        icon: const Icon(
+                          FeatherIcons.edit2,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: Colors.white,
+                                elevation: 0,
+                                title: Text(
+                                  'Confirmar Exclusão',
+                                  style: GoogleFonts.plusJakartaSans(
+                                    fontSize: 20,
+                                    color: AppStyle.txtColor,
+                                  ),
+                                ),
+                                content: Text(
+                                  'Você tem certeza de que deseja excluir este livro?',
+                                  style: GoogleFonts.plusJakartaSans(
+                                    color: AppStyle.txtColor,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                      'Cancelar',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        color: AppStyle.primaryColor,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      ref
+                                          .watch(serviceProvider)
+                                          .deleteBook(livro.docId);
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                      'Excluir',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        color: AppStyle.primaryColor,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        color: AppStyle.txtColor,
+                        iconSize: 18,
+                        icon: const Icon(
+                          FeatherIcons.trash,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        color: AppStyle.txtColor,
+                        iconSize: 18,
+                        icon: const Icon(
+                          FeatherIcons.share2,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
+              const Gap(20),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
@@ -174,6 +250,31 @@ class BookDetails extends ConsumerWidget {
                             fontSize: 14,
                           ),
                           textAlign: TextAlign.justify,
+                        ),
+                      ),
+                      const Gap(20),
+                      Container(
+                        width: double.infinity,
+                        height: 50,
+                        child: FilledButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.primaryColor,
+                            ),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Text(
+                            'Realizar Empréstimo',
+                            style: GoogleFonts.plusJakartaSans(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
                       ),
                       const Gap(20),

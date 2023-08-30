@@ -161,14 +161,17 @@ class AddNewBookScreen extends ConsumerWidget {
                       const Gap(20),
                       Container(
                         width: double.infinity,
-                        child: FilledButton.tonal(
-                          style: FilledButton.styleFrom(
-                            backgroundColor: AppStyle.primaryColor,
-                            foregroundColor: const Color(0xFFF5F9FF),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                        height: 50,
+                        child: FilledButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.primaryColor,
                             ),
-                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
                           ),
                           onPressed: () {
                             ref.read(serviceProvider).addNewBook(
@@ -185,30 +188,16 @@ class AddNewBookScreen extends ConsumerWidget {
                                 );
 
                             Navigator.of(context).pop();
-                            /*ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                backgroundColor: AppStyle.primaryColor,
-                                content: Text(
-                                  'Livro Cadastrado com Sucesso!',
-                                  style: AppStyle.txtSnackBar,
-                                ),
-                                duration: const Duration(seconds: 5),
-                              ),
-                            );*/
                           },
                           child: Text(
                             'Salvar',
                             style: GoogleFonts.plusJakartaSans(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
                               color: Colors.white,
+                              fontSize: 14,
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
