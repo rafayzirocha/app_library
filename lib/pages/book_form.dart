@@ -57,11 +57,11 @@ class AddNewBookScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          child: Column(
+            children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
@@ -69,30 +69,39 @@ class AddNewBookScreen extends ConsumerWidget {
                       Navigator.of(context).pop();
                     },
                     color: AppStyle.txtColor,
+                    iconSize: 18,
                     icon: const Icon(
                       FeatherIcons.chevronLeft,
-                      size: 18,
                     ),
                   ),
-                  Text(
-                    'Cadastro de Livros',
-                    style: AppStyle.title,
-                  ),
                   IconButton(
-                    onPressed: () {},
-                    color: AppStyle.txtColor,
+                    onPressed: () {
+                      /*ref.read(serviceProvider).addNewBook(
+                            BookModel(
+                              imageUrl: imageUrlController.text,
+                              isbn: isbnController.text,
+                              title: titleController.text,
+                              author: authorController.text,
+                              synopsis: synopsisController.text,
+                              pages: pagesController.text,
+                              copies: copiesController.text,
+                              status: statusController.text,
+                            ),
+                          );*/
+
+                      Navigator.of(context).pop();
+                    },
+                    color: AppStyle.primaryColor,
+                    iconSize: 18,
                     icon: const Icon(
-                      FeatherIcons.alertCircle,
-                      size: 18,
+                      FeatherIcons.check,
                     ),
                   ),
                 ],
               ),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+              const Gap(20),
+              Expanded(
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
                       TextFieldWidget(
@@ -135,20 +144,28 @@ class AddNewBookScreen extends ConsumerWidget {
                         keyboardType: TextInputType.text,
                       ),
                       const Gap(20),
-                      TextFieldWidget(
-                        hintText: 'Número de Páginas',
-                        maxLine: 1,
-                        txtController: pagesController,
-                        icon: FeatherIcons.file,
-                        keyboardType: TextInputType.number,
-                      ),
-                      const Gap(20),
-                      TextFieldWidget(
-                        hintText: 'Cópias Disponíveis',
-                        maxLine: 1,
-                        txtController: copiesController,
-                        icon: FeatherIcons.copy,
-                        keyboardType: TextInputType.number,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFieldWidget(
+                              hintText: 'Número de Páginas',
+                              maxLine: 1,
+                              txtController: pagesController,
+                              icon: FeatherIcons.file,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                          const Gap(20),
+                          Expanded(
+                            child: TextFieldWidget(
+                              hintText: 'Cópias Disponíveis',
+                              maxLine: 1,
+                              txtController: copiesController,
+                              icon: FeatherIcons.copy,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                        ],
                       ),
                       const Gap(20),
                       TextFieldWidget(
@@ -193,7 +210,7 @@ class AddNewBookScreen extends ConsumerWidget {
                             'Salvar',
                             style: GoogleFonts.plusJakartaSans(
                               color: Colors.white,
-                              fontSize: 14,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -202,8 +219,8 @@ class AddNewBookScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
