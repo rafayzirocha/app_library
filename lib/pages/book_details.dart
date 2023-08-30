@@ -3,6 +3,7 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../model/book_model.dart';
 
@@ -42,80 +43,144 @@ class BookDetails extends ConsumerWidget {
                   ),
                 ],
               ),
-              Image.network(
-                livro.imageUrl,
-                height: 200,
-                width: 200,
-              ),
-              const Gap(20),
-              Text(
-                livro.title,
-                style: AppStyle.title,
-              ),
-              Text(
-                livro.author,
-                style: AppStyle.subtitle,
-              ),
-              const Gap(20),
-              Wrap(
-                spacing: 20.0,
-                children: [
-                  Column(
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Color(0xFFF3F3F3),
-                        child: Icon(
-                          FeatherIcons.check,
-                          size: 18,
-                          color: AppStyle.primaryColor,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          livro.imageUrl,
+                          height: 300,
+                          width: 200,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      const Gap(20),
+                      Text(
+                        livro.title,
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 20,
+                          color: AppStyle.txtColor,
                         ),
                       ),
                       Text(
-                        livro.status,
-                        style: AppStyle.subtitle,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Color(0xFFF3F3F3),
-                        child: Icon(
-                          FeatherIcons.copy,
-                          size: 18,
+                        " por ${livro.author}",
+                        style: GoogleFonts.plusJakartaSans(
                           color: AppStyle.subtitleColor,
+                          fontSize: 14,
                         ),
                       ),
-                      Text(
-                        livro.copies,
-                        style: AppStyle.subtitle,
+                      const Gap(20),
+                      Wrap(
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                'Status',
+                                style: GoogleFonts.plusJakartaSans(
+                                  color: AppStyle.subtitleColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Text(
+                                livro.status,
+                                style: GoogleFonts.plusJakartaSans(
+                                  color: AppStyle.primaryColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const VerticalDivider(),
+                          Column(
+                            children: [
+                              Text(
+                                'Páginas',
+                                style: GoogleFonts.plusJakartaSans(
+                                  color: AppStyle.subtitleColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Text(
+                                livro.pages,
+                                style: GoogleFonts.plusJakartaSans(
+                                  color: AppStyle.primaryColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const VerticalDivider(),
+                          Column(
+                            children: [
+                              Text(
+                                'Cópias',
+                                style: GoogleFonts.plusJakartaSans(
+                                  color: AppStyle.subtitleColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Text(
+                                livro.copies,
+                                style: GoogleFonts.plusJakartaSans(
+                                  color: AppStyle.primaryColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Color(0xFFF3F3F3),
-                        child: Icon(
-                          FeatherIcons.file,
-                          size: 18,
-                          color: AppStyle.subtitleColor,
+                      const Gap(20),
+                      Column(
+                        children: [
+                          Text(
+                            'Categoria',
+                            style: GoogleFonts.plusJakartaSans(
+                              color: AppStyle.subtitleColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            'Literatura Brasileira',
+                            style: GoogleFonts.plusJakartaSans(
+                              color: AppStyle.primaryColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Gap(20),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Sinopse',
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 20,
+                            color: AppStyle.txtColor,
+                          ),
                         ),
                       ),
-                      Text(
-                        livro.pages,
-                        style: AppStyle.subtitle,
+                      const Gap(8),
+                      Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        child: Text(
+                          livro.synopsis,
+                          style: GoogleFonts.plusJakartaSans(
+                            color: AppStyle.subtitleColor,
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
                       ),
+                      const Gap(20),
                     ],
                   ),
-                ],
+                ),
               ),
-              const Gap(20),
-              Container(
-                width: double.infinity,
-                height: 50,
-                child: Text(livro.synopsis),
-              )
             ],
           ),
         ),
