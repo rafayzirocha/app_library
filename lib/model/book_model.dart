@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class BookModel {
   String? docId;
   final String imageUrl;
-  final String isbn;
+  final int isbn;
   final String title;
   final String author;
   final String synopsis;
-  final String pages;
-  final String copies;
+  final int pages;
+  final int copies;
   final String status;
 
   BookModel({
@@ -40,12 +40,12 @@ class BookModel {
     return BookModel(
       docId: map['docId'] != null ? map['docId'] as String : null,
       imageUrl: map['imageUrl'] as String,
-      isbn: map['isbn'] as String,
+      isbn: map['isbn'] as int,
       title: map['title'] as String,
       author: map['author'] as String,
       synopsis: map['synopsis'] as String,
-      pages: map['pages'] as String,
-      copies: map['copies'] as String,
+      pages: map['pages'] as int,
+      copies: map['copies'] as int,
       status: map['status'] as String,
     );
   }
@@ -54,12 +54,12 @@ class BookModel {
     return BookModel(
       docId: doc.id,
       imageUrl: doc['imageUrl'],
-      isbn: doc['isbn'],
+      isbn: doc['isbn'] as int,
       title: doc['title'],
       author: doc['author'],
       synopsis: doc['synopsis'],
-      pages: doc['pages'],
-      copies: doc['copies'],
+      pages: doc['pages'] as int,
+      copies: doc['copies'] as int,
       status: doc['status'],
     );
   }

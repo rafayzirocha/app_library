@@ -191,15 +191,27 @@ class AddNewBookScreen extends ConsumerWidget {
                             ),
                           ),
                           onPressed: () {
+                            int isbn;
+                            int pages;
+                            int copies;
+
+                            try {
+                              isbn = int.parse(isbnController.text);
+                              pages = int.parse(pagesController.text);
+                              copies = int.parse(copiesController.text);
+                            } catch (e) {
+                              return;
+                            }
+
                             ref.read(serviceProvider).addNewBook(
                                   BookModel(
                                     imageUrl: imageUrlController.text,
-                                    isbn: isbnController.text,
+                                    isbn: isbn,
                                     title: titleController.text,
                                     author: authorController.text,
                                     synopsis: synopsisController.text,
-                                    pages: pagesController.text,
-                                    copies: copiesController.text,
+                                    pages: pages,
+                                    copies: copies,
                                     status: statusController.text,
                                   ),
                                 );

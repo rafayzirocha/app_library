@@ -180,7 +180,7 @@ class BookDetails extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                livro.pages,
+                                livro.pages.toString(),
                                 style: GoogleFonts.plusJakartaSans(
                                   color: AppStyle.primaryColor,
                                   fontSize: 14,
@@ -199,7 +199,7 @@ class BookDetails extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                livro.copies,
+                                livro.copies.toString(),
                                 style: GoogleFonts.plusJakartaSans(
                                   color: AppStyle.primaryColor,
                                   fontSize: 14,
