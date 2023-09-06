@@ -48,7 +48,7 @@ class HomePage extends ConsumerWidget {
                     color: AppStyle.txtColor,
                     iconSize: 18,
                     icon: const Icon(
-                      FeatherIcons.messageCircle,
+                      FeatherIcons.mail,
                     ),
                   ),
                 ],
