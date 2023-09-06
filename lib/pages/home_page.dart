@@ -53,7 +53,7 @@ class HomePage extends ConsumerWidget {
                   ),
                 ],
               ),
-              const Gap(20),
+              /*const Gap(20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -122,7 +122,7 @@ class HomePage extends ConsumerWidget {
                     ),
                   )
                 ],
-              ),
+              ),*/
               const Gap(20),
               Expanded(
                 child: ListView.separated(
