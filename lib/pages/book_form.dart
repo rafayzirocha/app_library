@@ -5,8 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/app_style.dart';
-import '../model/book_model.dart';
-import '../provider/service_provider.dart';
 import '../widgets/custom_txt.dart';
 
 final AddNewBookodalProvider =
@@ -72,29 +70,6 @@ class AddNewBookScreen extends ConsumerWidget {
                     iconSize: 18,
                     icon: const Icon(
                       FeatherIcons.chevronLeft,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      /*ref.read(serviceProvider).addNewBook(
-                            BookModel(
-                              imageUrl: imageUrlController.text,
-                              isbn: isbnController.text,
-                              title: titleController.text,
-                              author: authorController.text,
-                              synopsis: synopsisController.text,
-                              pages: pagesController.text,
-                              copies: copiesController.text,
-                              status: statusController.text,
-                            ),
-                          );*/
-
-                      Navigator.of(context).pop();
-                    },
-                    color: AppStyle.primaryColor,
-                    iconSize: 18,
-                    icon: const Icon(
-                      FeatherIcons.check,
                     ),
                   ),
                 ],
@@ -191,7 +166,7 @@ class AddNewBookScreen extends ConsumerWidget {
                             ),
                           ),
                           onPressed: () {
-                            int isbn;
+                            /*int isbn;
                             int pages;
                             int copies;
 
@@ -201,22 +176,29 @@ class AddNewBookScreen extends ConsumerWidget {
                               copies = int.parse(copiesController.text);
                             } catch (e) {
                               return;
-                            }
+                            }*/
 
-                            ref.read(serviceProvider).addNewBook(
+                            /*ref.read(serviceProvider).addNewBook(
                                   BookModel(
-                                    imageUrl: imageUrlController.text,
-                                    isbn: isbn,
                                     title: titleController.text,
-                                    author: authorController.text,
-                                    synopsis: synopsisController.text,
-                                    pages: pages,
-                                    copies: copies,
-                                    status: statusController.text,
+                                    isbn: ['1'],
+                                    authors: ['teste'],
+                                    publisher: 'publisher',
+                                    publishedDate: DateTime.now(),
+                                    description: 'description',
+                                    pageCount: 1,
+                                    copyCount: 1,
+                                    loansCount: 0,
+                                    averageRating: 1,
+                                    ratingsCount: 1,
+                                    thumbnail:
+                                        'https://books.google.com.br/books/publisher/content?id=HofLDwAAQBAJ&hl=pt-BR&pg=PP1&img=1&zoom=3&bul=1&sig=ACfU3U0eDhpIUr7KdFG1mDsJ9CvQnqvNDg&w=1280',
+                                    language: 'language',
+                                    isAvailable: true,
                                   ),
                                 );
 
-                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();*/
                           },
                           child: Text(
                             'Salvar',

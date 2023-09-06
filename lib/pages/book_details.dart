@@ -124,15 +124,29 @@ class BookDetails extends ConsumerWidget {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          livro.imageUrl,
-                          height: 300,
-                          width: 200,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+                      livro.thumbnail.isNotEmpty
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                livro.thumbnail,
+                                height: 300,
+                                width: 200,
+                                fit: BoxFit.fill,
+                              ),
+                            )
+                          : Container(
+                              height: 300,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: const Color(0xFFF3F3F3),
+                              ),
+                              child: Icon(
+                                FeatherIcons.image,
+                                size: 40,
+                                color: AppStyle.subtitleColor,
+                              ),
+                            ),
                       const Gap(20),
                       Text(
                         livro.title,
@@ -142,7 +156,7 @@ class BookDetails extends ConsumerWidget {
                         ),
                       ),
                       Text(
-                        " por ${livro.author}",
+                        " por ${livro.authors.join(', ')}",
                         style: GoogleFonts.plusJakartaSans(
                           color: AppStyle.subtitleColor,
                           fontSize: 14,
@@ -151,7 +165,7 @@ class BookDetails extends ConsumerWidget {
                       const Gap(20),
                       Wrap(
                         children: [
-                          Column(
+                          /*Column(
                             children: [
                               Text(
                                 'Status',
@@ -168,7 +182,7 @@ class BookDetails extends ConsumerWidget {
                                 ),
                               ),
                             ],
-                          ),
+                          ),*/
                           const VerticalDivider(),
                           Column(
                             children: [
@@ -180,7 +194,7 @@ class BookDetails extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                livro.pages.toString(),
+                                livro.pageCount.toString(),
                                 style: GoogleFonts.plusJakartaSans(
                                   color: AppStyle.primaryColor,
                                   fontSize: 14,
@@ -199,7 +213,7 @@ class BookDetails extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                livro.copies.toString(),
+                                livro.copyCount.toString(),
                                 style: GoogleFonts.plusJakartaSans(
                                   color: AppStyle.primaryColor,
                                   fontSize: 14,
@@ -244,7 +258,7 @@ class BookDetails extends ConsumerWidget {
                         width: double.infinity,
                         alignment: Alignment.center,
                         child: Text(
-                          livro.synopsis,
+                          livro.description,
                           style: GoogleFonts.plusJakartaSans(
                             color: AppStyle.subtitleColor,
                             fontSize: 14,

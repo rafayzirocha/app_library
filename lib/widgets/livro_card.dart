@@ -1,5 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/book_model.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -32,35 +33,50 @@ class LivroCard extends ConsumerWidget {
             },
             borderRadius: BorderRadius.circular(20),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 60,
-                  width: 60,
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusDirectional.circular(20),
-                    child: Image.network(
-                      livros[getIndex].imageUrl.isNotEmpty
-                          ? livros[getIndex].imageUrl
-                          : "https://www.jport.co/Editor/image/4721055615600659_empty.png",
-                      fit: BoxFit.cover,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                ),
-                const Gap(12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Text(
-                      livros[getIndex].title,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppStyle.title,
+                    SizedBox(
+                      height: 60,
+                      width: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadiusDirectional.circular(20),
+                        child: livros[getIndex].thumbnail.isNotEmpty
+                            ? Image.network(
+                                livros[getIndex].thumbnail,
+                                fit: BoxFit.cover,
+                                alignment: Alignment.center,
+                              )
+                            : Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: const Color(0xFFF3F3F3),
+                                ),
+                                child: Icon(
+                                  FeatherIcons.image,
+                                  size: 18,
+                                  color: AppStyle.subtitleColor,
+                                ),
+                              ),
+                      ),
                     ),
-                    Text(
-                      livros[getIndex].author,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppStyle.subtitle,
+                    const Gap(12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          livros[getIndex].title,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppStyle.title,
+                        ),
+                        Text(
+                          livros[getIndex].authors.join(', '),
+                          overflow: TextOverflow.ellipsis,
+                          style: AppStyle.subtitle,
+                        ),
+                      ],
                     ),
                   ],
                 ),
