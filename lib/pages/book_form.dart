@@ -1,26 +1,29 @@
-import 'package:feather_icons/feather_icons.dart';
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:app_library/model/book_model.dart';
+import 'package:app_library/provider/service_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/app_style.dart';
 import '../widgets/custom_txt.dart';
 
-final AddNewBookodalProvider =
+final AddNewBookModalProvider =
     StateNotifierProvider<AddNewBookModalController, AddNewBookData>((ref) {
   return AddNewBookModalController();
 });
 
 class AddNewBookData {
-  final TextEditingController imageUrlController = TextEditingController();
-  final TextEditingController isbnController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
-  final TextEditingController authorController = TextEditingController();
-  final TextEditingController synopsisController = TextEditingController();
-  final TextEditingController pagesController = TextEditingController();
-  final TextEditingController copiesController = TextEditingController();
-  final TextEditingController statusController = TextEditingController();
+  final TextEditingController authorsController = TextEditingController();
+  final TextEditingController isbnController = TextEditingController();
+  final TextEditingController publisherController = TextEditingController();
+  final TextEditingController languageController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController pageCountController = TextEditingController();
+  final TextEditingController copyCountController = TextEditingController();
+  final TextEditingController thumbnailController = TextEditingController();
 }
 
 class AddNewBookModalController extends StateNotifier<AddNewBookData> {
@@ -28,187 +31,177 @@ class AddNewBookModalController extends StateNotifier<AddNewBookData> {
 
   @override
   void dispose() {
-    state.imageUrlController.dispose();
-    state.isbnController.dispose();
     state.titleController.dispose();
-    state.authorController.dispose();
-    state.synopsisController.dispose();
-    state.pagesController.dispose();
-    state.copiesController.dispose();
-    state.statusController.dispose();
+    state.authorsController.dispose();
+    state.isbnController.dispose();
+    state.publisherController.dispose();
+    state.languageController.dispose();
+    state.descriptionController.dispose();
+    state.pageCountController.dispose();
+    state.copyCountController.dispose();
+    state.thumbnailController.dispose();
     super.dispose();
   }
 }
 
 class AddNewBookScreen extends ConsumerWidget {
+  const AddNewBookScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final imageUrlController = AddNewBookData().imageUrlController;
-    final isbnController = AddNewBookData().isbnController;
     final titleController = AddNewBookData().titleController;
-    final authorController = AddNewBookData().authorController;
-    final synopsisController = AddNewBookData().synopsisController;
-    final pagesController = AddNewBookData().pagesController;
-    final copiesController = AddNewBookData().copiesController;
-    final statusController = AddNewBookData().statusController;
+    final authorsController = AddNewBookData().authorsController;
+    final isbnController = AddNewBookData().isbnController;
+    final publisherController = AddNewBookData().publisherController;
+    final languageController = AddNewBookData().languageController;
+    final descriptionController = AddNewBookData().descriptionController;
+    final pageCountController = AddNewBookData().pageCountController;
+    final copyCountController = AddNewBookData().copyCountController;
+    final thumbnailController = AddNewBookData().thumbnailController;
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: IconButton(
+          iconSize: 18,
+          color: AppStyle.txtColor,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.chevron_left),
+        ),
+        title: Text(
+          'Cadastrando novo livro',
+          style: AppStyle.title,
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            onPressed: () {
+              List<String> isbnList = isbnController.text.split(',');
+              List<String> authorsList = authorsController.text.split(',');
+              int pageCount;
+              int copyCount;
+
+              try {
+                pageCount = int.parse(pageCountController.text);
+                copyCount = int.parse(copyCountController.text);
+              } catch (e) {
+                return;
+              }
+
+              ref.read(serviceProvider).addNewBook(
+                    BookModel(
+                      title: titleController.text,
+                      isbn: isbnList,
+                      authors: authorsList,
+                      categories: [''],
+                      publisher: publisherController.text,
+                      publishedDate: DateTime.now(),
+                      description: descriptionController.text,
+                      pageCount: pageCount,
+                      copyCount: copyCount,
+                      loansCount: 0,
+                      averageRating: 0,
+                      ratingsCount: 0,
+                      thumbnail: thumbnailController.text,
+                      language: languageController.text,
+                      isAvailable: true,
+                    ),
+                  );
+
+              Navigator.of(context).pop();
+            },
+            iconSize: 18,
+            color: AppStyle.primaryColor,
+            icon: const Icon(Icons.check_rounded),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    color: AppStyle.txtColor,
-                    iconSize: 18,
-                    icon: const Icon(
-                      FeatherIcons.chevronLeft,
-                    ),
-                  ),
-                ],
-              ),
-              const Gap(20),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      TextFieldWidget(
-                        hintText: 'Url da Imagem',
-                        maxLine: 1,
-                        txtController: imageUrlController,
-                        icon: FeatherIcons.image,
-                        keyboardType: TextInputType.url,
-                      ),
-                      const Gap(20),
-                      TextFieldWidget(
-                        hintText: 'ISBN',
-                        maxLine: 1,
-                        txtController: isbnController,
-                        icon: FeatherIcons.award,
-                        keyboardType: TextInputType.number,
-                      ),
-                      const Gap(20),
-                      TextFieldWidget(
-                        hintText: 'Título',
+                      CustomTextField(
+                        title: 'Título',
                         maxLine: 1,
                         txtController: titleController,
-                        icon: FeatherIcons.feather,
                         keyboardType: TextInputType.text,
                       ),
-                      const Gap(20),
-                      TextFieldWidget(
-                        hintText: 'Autor(a)',
+                      const Gap(10),
+                      CustomTextField(
+                        title: 'Autores',
                         maxLine: 1,
-                        txtController: authorController,
-                        icon: FeatherIcons.user,
+                        txtController: authorsController,
                         keyboardType: TextInputType.text,
+                        helperText: 'Separe os autores por vírgula',
                       ),
-                      const Gap(20),
-                      TextFieldWidget(
-                        hintText: 'Sinopse',
+                      const Gap(10),
+                      CustomTextField(
+                        title: 'ISBN',
                         maxLine: 1,
-                        txtController: synopsisController,
-                        icon: FeatherIcons.fileText,
+                        txtController: isbnController,
+                        keyboardType: TextInputType.text,
+                        helperText: 'Separe ISBN por vírgula',
+                      ),
+                      const Gap(10),
+                      CustomTextField(
+                        title: 'Editora',
+                        maxLine: 1,
+                        txtController: publisherController,
                         keyboardType: TextInputType.text,
                       ),
-                      const Gap(20),
+                      const Gap(10),
+                      CustomTextField(
+                        title: 'Idioma',
+                        maxLine: 1,
+                        txtController: languageController,
+                        keyboardType: TextInputType.text,
+                      ),
+                      const Gap(10),
+                      CustomTextField(
+                        title: 'Descrição',
+                        maxLine: 10,
+                        txtController: descriptionController,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                      const Gap(10),
                       Row(
                         children: [
                           Expanded(
-                            child: TextFieldWidget(
-                              hintText: 'Número de Páginas',
+                            child: CustomTextField(
+                              title: 'Páginas',
                               maxLine: 1,
-                              txtController: pagesController,
-                              icon: FeatherIcons.file,
+                              txtController: pageCountController,
                               keyboardType: TextInputType.number,
                             ),
                           ),
-                          const Gap(20),
+                          const Gap(10),
                           Expanded(
-                            child: TextFieldWidget(
-                              hintText: 'Cópias Disponíveis',
+                            child: CustomTextField(
+                              title: 'Cópias Disponíveis',
                               maxLine: 1,
-                              txtController: copiesController,
-                              icon: FeatherIcons.copy,
+                              txtController: copyCountController,
                               keyboardType: TextInputType.number,
                             ),
                           ),
                         ],
                       ),
-                      const Gap(20),
-                      TextFieldWidget(
-                        hintText: 'Disponibilidade',
+                      const Gap(10),
+                      CustomTextField(
+                        title: 'URL da Capa',
                         maxLine: 1,
-                        txtController: statusController,
-                        icon: FeatherIcons.helpCircle,
-                        keyboardType: TextInputType.text,
+                        txtController: thumbnailController,
+                        keyboardType: TextInputType.url,
                       ),
-                      const Gap(20),
-                      Container(
-                        width: double.infinity,
-                        height: 50,
-                        child: FilledButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.primaryColor,
-                            ),
-                            shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {
-                            /*int isbn;
-                            int pages;
-                            int copies;
-
-                            try {
-                              isbn = int.parse(isbnController.text);
-                              pages = int.parse(pagesController.text);
-                              copies = int.parse(copiesController.text);
-                            } catch (e) {
-                              return;
-                            }*/
-
-                            /*ref.read(serviceProvider).addNewBook(
-                                  BookModel(
-                                    title: titleController.text,
-                                    isbn: ['1'],
-                                    authors: ['teste'],
-                                    publisher: 'publisher',
-                                    publishedDate: DateTime.now(),
-                                    description: 'description',
-                                    pageCount: 1,
-                                    copyCount: 1,
-                                    loansCount: 0,
-                                    averageRating: 1,
-                                    ratingsCount: 1,
-                                    thumbnail:
-                                        'https://books.google.com.br/books/publisher/content?id=HofLDwAAQBAJ&hl=pt-BR&pg=PP1&img=1&zoom=3&bul=1&sig=ACfU3U0eDhpIUr7KdFG1mDsJ9CvQnqvNDg&w=1280',
-                                    language: 'language',
-                                    isAvailable: true,
-                                  ),
-                                );
-
-                            Navigator.of(context).pop();*/
-                          },
-                          child: Text(
-                            'Salvar',
-                            style: GoogleFonts.plusJakartaSans(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
+                      const Gap(10),
                     ],
                   ),
                 ),

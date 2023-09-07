@@ -1,15 +1,15 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/book_model.dart';
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
 
-class LivroCard extends ConsumerWidget {
-  const LivroCard({
+class BookCard extends ConsumerWidget {
+  const BookCard({
     super.key,
     required this.getIndex,
     required this.livro,
@@ -55,7 +55,7 @@ class LivroCard extends ConsumerWidget {
                                   color: const Color(0xFFF3F3F3),
                                 ),
                                 child: Icon(
-                                  FeatherIcons.image,
+                                  Icons.image_rounded,
                                   size: 18,
                                   color: AppStyle.subtitleColor,
                                 ),
@@ -74,7 +74,10 @@ class LivroCard extends ConsumerWidget {
                         Text(
                           livros[getIndex].authors.join(', '),
                           overflow: TextOverflow.ellipsis,
-                          style: AppStyle.subtitle,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 14,
+                            color: AppStyle.subtitleColor,
+                          ),
                         ),
                       ],
                     ),

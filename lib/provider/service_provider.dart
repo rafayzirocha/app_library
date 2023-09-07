@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/book_model.dart';
 import '../services/book_service.dart';
 
-final serviceProvider = StateProvider<BookService>((ref) {
-  return BookService();
-});
+final serviceProvider = StateProvider<BookService>(
+  (ref) {
+    return BookService();
+  },
+);
 
 final buscaLivros = StreamProvider<List<BookModel>>((ref) async* {
   final getData = FirebaseFirestore.instance
