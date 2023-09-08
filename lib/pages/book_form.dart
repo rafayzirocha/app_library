@@ -18,6 +18,7 @@ class AddNewBookData {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController authorsController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
+  final TextEditingController categoriesController = TextEditingController();
   final TextEditingController publisherController = TextEditingController();
   final TextEditingController languageController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -34,6 +35,7 @@ class AddNewBookModalController extends StateNotifier<AddNewBookData> {
     state.titleController.dispose();
     state.authorsController.dispose();
     state.isbnController.dispose();
+    state.categoriesController.dispose();
     state.publisherController.dispose();
     state.languageController.dispose();
     state.descriptionController.dispose();
@@ -52,6 +54,7 @@ class AddNewBookScreen extends ConsumerWidget {
     final titleController = AddNewBookData().titleController;
     final authorsController = AddNewBookData().authorsController;
     final isbnController = AddNewBookData().isbnController;
+    final categoriesController = AddNewBookData().categoriesController;
     final publisherController = AddNewBookData().publisherController;
     final languageController = AddNewBookData().languageController;
     final descriptionController = AddNewBookData().descriptionController;
@@ -82,6 +85,8 @@ class AddNewBookScreen extends ConsumerWidget {
             onPressed: () {
               List<String> isbnList = isbnController.text.split(',');
               List<String> authorsList = authorsController.text.split(',');
+              List<String> categoriesList =
+                  categoriesController.text.split(',');
               int pageCount;
               int copyCount;
 
@@ -97,7 +102,7 @@ class AddNewBookScreen extends ConsumerWidget {
                       title: titleController.text,
                       isbn: isbnList,
                       authors: authorsList,
-                      categories: [''],
+                      categories: categoriesList,
                       publisher: publisherController.text,
                       publishedDate: DateTime.now(),
                       description: descriptionController.text,
@@ -127,6 +132,7 @@ class AddNewBookScreen extends ConsumerWidget {
             children: [
               Expanded(
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       CustomTextField(
@@ -150,6 +156,14 @@ class AddNewBookScreen extends ConsumerWidget {
                         txtController: isbnController,
                         keyboardType: TextInputType.text,
                         helperText: 'Separe ISBN por vírgula',
+                      ),
+                      const Gap(10),
+                      CustomTextField(
+                        title: 'Categorias',
+                        maxLine: 1,
+                        txtController: categoriesController,
+                        keyboardType: TextInputType.text,
+                        helperText: 'Separe as categorias por vírgula',
                       ),
                       const Gap(10),
                       CustomTextField(
