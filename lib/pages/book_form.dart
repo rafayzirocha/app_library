@@ -167,24 +167,32 @@ class AddNewBookScreen extends ConsumerWidget {
                       ),
                       const Gap(10),
                       CustomTextField(
-                        title: 'Editora',
-                        maxLine: 1,
-                        txtController: publisherController,
-                        keyboardType: TextInputType.text,
-                      ),
-                      const Gap(10),
-                      CustomTextField(
-                        title: 'Idioma',
-                        maxLine: 1,
-                        txtController: languageController,
-                        keyboardType: TextInputType.text,
-                      ),
-                      const Gap(10),
-                      CustomTextField(
                         title: 'Descrição',
                         maxLine: 10,
                         txtController: descriptionController,
                         keyboardType: TextInputType.multiline,
+                      ),
+                      const Gap(10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              title: 'Editora',
+                              maxLine: 1,
+                              txtController: publisherController,
+                              keyboardType: TextInputType.text,
+                            ),
+                          ),
+                          const Gap(10),
+                          Expanded(
+                            child: CustomTextField(
+                              title: 'Idioma',
+                              maxLine: 1,
+                              txtController: languageController,
+                              keyboardType: TextInputType.text,
+                            ),
+                          ),
+                        ],
                       ),
                       const Gap(10),
                       Row(
