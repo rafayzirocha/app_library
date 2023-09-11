@@ -1,4 +1,5 @@
 import 'package:app_library/constants/app_style.dart';
+import 'package:app_library/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -186,6 +187,16 @@ class BookDetails extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFF0066FF),
+        child: const Icon(
+          Icons.edit_rounded,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.bookForm);
+        },
       ),
     );
   }

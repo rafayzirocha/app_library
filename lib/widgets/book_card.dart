@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_types_as_parameter_names, non_constant_identifier_names
+
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/book_model.dart';
 import 'package:flutter/material.dart';

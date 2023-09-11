@@ -32,7 +32,7 @@ class AppLibrary extends StatelessWidget {
         home: const HomePage(),
         routes: {
           AppRoutes.homePage: (_) => const HomePage(),
-          AppRoutes.bookForm: (_) => AddNewBookScreen(),
+          AppRoutes.bookForm: (_) => const AddNewBookScreen(),
           AppRoutes.bookDetails: (_) => const BookDetails(),
         },
       ),
