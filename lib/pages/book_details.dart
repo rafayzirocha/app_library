@@ -1,5 +1,4 @@
 import 'package:app_library/constants/app_style.dart';
-import 'package:app_library/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -52,7 +51,7 @@ class BookDetails extends ConsumerWidget {
                           color: const Color(0xFFA9A9A9),
                         ),
                       ),
-                      const Gap(10),
+                      const Gap(20),
                       bookData.thumbnail.isNotEmpty
                           ? Container(
                               height: 200,
@@ -145,9 +144,7 @@ class BookDetails extends ConsumerWidget {
           Icons.edit_rounded,
           color: Colors.white,
         ),
-        onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.bookForm);
-        },
+        onPressed: () {},
       ),
     );
   }
@@ -184,46 +181,6 @@ class CircleDetail extends StatelessWidget {
           style: GoogleFonts.jost(
             fontSize: 16,
             color: const Color(0xFFA9A9A9),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class DetailRow extends StatelessWidget {
-  const DetailRow({
-    super.key,
-    required this.bookData,
-    required this.title,
-    required this.subtitle,
-  });
-
-  final BookModel bookData;
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.plusJakartaSans(
-            fontSize: 16,
-            color: AppStyle.subtitleColor,
-          ),
-        ),
-        const Gap(4),
-        Text(
-          subtitle,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.plusJakartaSans(
-            fontSize: 14,
-            color: AppStyle.txtColor,
           ),
         ),
       ],
