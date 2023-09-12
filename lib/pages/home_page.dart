@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-import '../constants/app_style.dart';
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
 import '../widgets/book_card.dart';
