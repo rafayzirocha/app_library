@@ -170,13 +170,6 @@ class AddNewBookScreen extends ConsumerWidget {
                         helperText: 'Separe as categorias por vírgula',
                       ),
                       const Gap(10),
-                      CustomTextField(
-                        title: 'Descrição',
-                        maxLine: 10,
-                        txtController: descriptionController,
-                        keyboardType: TextInputType.multiline,
-                      ),
-                      const Gap(10),
                       Row(
                         children: [
                           Expanded(
@@ -226,6 +219,13 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLine: 1,
                         txtController: thumbnailController,
                         keyboardType: TextInputType.url,
+                      ),
+                      const Gap(10),
+                      CustomTextField(
+                        title: 'Descrição',
+                        maxLine: 10,
+                        txtController: descriptionController,
+                        keyboardType: TextInputType.multiline,
                       ),
                       const Gap(10),
                     ],
