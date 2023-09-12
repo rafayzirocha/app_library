@@ -66,13 +66,31 @@ class BookCard extends ConsumerWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      livros[getIndex].title,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.jost(
-                        fontSize: 16,
-                        color: const Color(0xFF3C3C3C),
-                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          livros[getIndex].title,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.jost(
+                            fontSize: 16,
+                            color: const Color(0xFF3C3C3C),
+                          ),
+                        ),
+                        const Gap(4),
+                        livros[getIndex].isAvailable
+                            ? const Icon(
+                                Icons.verified_rounded,
+                                size: 14,
+                                color: Color(0xFF0066FF),
+                              )
+                            : const Icon(
+                                Icons.warning_rounded,
+                                size: 14,
+                                color: Colors.red,
+                              ),
+                      ],
                     ),
                     Text(
                       livros[getIndex].authors.join(', '),
