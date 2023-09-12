@@ -38,22 +38,38 @@ class BookDetails extends ConsumerWidget {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
+                      Text(
+                        bookData.title,
+                        style: GoogleFonts.jost(
+                          fontSize: 20,
+                          color: const Color(0xFF3C3C3C),
+                        ),
+                      ),
+                      Text(
+                        'por ${bookData.authors.join(', ')}',
+                        style: GoogleFonts.jost(
+                          fontSize: 16,
+                          color: const Color(0xFFA9A9A9),
+                        ),
+                      ),
+                      const Gap(10),
                       bookData.thumbnail.isNotEmpty
                           ? Container(
-                              height: 300,
+                              height: 200,
                               alignment: Alignment.center,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: Image.network(
                                   bookData.thumbnail,
                                   fit: BoxFit.cover,
+                                  width: 200,
                                   alignment: Alignment.center,
                                 ),
                               ),
                             )
                           : Container(
                               height: 200,
-                              width: 160,
+                              width: 200,
                               alignment: Alignment.center,
                               decoration: const BoxDecoration(
                                 color: Color(0xFFF3F3F3),
@@ -65,121 +81,56 @@ class BookDetails extends ConsumerWidget {
                               ),
                             ),
                       const Gap(20),
-                      Column(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(20),
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              color: Color(0xFFF3F3F3),
-                            ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Informações',
-                                    style: AppStyle.title,
-                                  ),
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'Titulo',
-                                  subtitle: bookData.title,
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'Autores',
-                                  subtitle: bookData.authors.join(', '),
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'ISBN',
-                                  subtitle: bookData.isbn.join(', '),
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'Editora',
-                                  subtitle: bookData.publisher,
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'Idioma',
-                                  subtitle: bookData.language,
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'Data de Publicação',
-                                  subtitle: bookData.publishedDate.toString(),
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'Páginas',
-                                  subtitle: bookData.pageCount.toString(),
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'Cópias Disponíveis',
-                                  subtitle: bookData.copyCount.toString(),
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'Empréstimos',
-                                  subtitle: bookData.loansCount.toString(),
-                                ),
-                                const Gap(10),
-                                DetailRow(
-                                  bookData: bookData,
-                                  title: 'Status',
-                                  subtitle: bookData.isAvailable
-                                      ? 'Disponível'
-                                      : 'Indisponível',
-                                ),
-                              ],
-                            ),
+                          CircleDetail(
+                            bookData: bookData,
+                            icon: Icons.hotel_class_rounded,
+                            title: '${bookData.averageRating} estrelas',
+                          ),
+                          CircleDetail(
+                            bookData: bookData,
+                            icon: Icons.thumbs_up_down_rounded,
+                            title: '${bookData.ratingsCount} avaliações',
+                          ),
+                          CircleDetail(
+                            bookData: bookData,
+                            icon: Icons.auto_stories_rounded,
+                            title: '${bookData.pageCount} páginas',
+                          ),
+                          CircleDetail(
+                            bookData: bookData,
+                            icon: Icons.file_copy_rounded,
+                            title: '${bookData.copyCount} cópias',
+                          ),
+                          CircleDetail(
+                            bookData: bookData,
+                            icon: Icons.bookmarks_rounded,
+                            title: '${bookData.loansCount} empréstimos',
                           ),
                         ],
                       ),
                       const Gap(20),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(20),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: Color(0xFFF3F3F3),
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Descrição',
-                                style: AppStyle.title,
-                              ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Descrição',
+                            style: GoogleFonts.jost(
+                              fontSize: 20,
+                              color: const Color(0xFF3C3C3C),
                             ),
-                            const Gap(10),
-                            Text(
-                              bookData.description,
-                              style: GoogleFonts.plusJakartaSans(
-                                fontSize: 14,
-                                color: AppStyle.subtitleColor,
-                              ),
+                          ),
+                          Text(
+                            bookData.description,
+                            style: GoogleFonts.jost(
+                              fontSize: 16,
+                              color: const Color(0xFFA9A9A9),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      const Gap(20),
                     ],
                   ),
                 ),
@@ -198,6 +149,44 @@ class BookDetails extends ConsumerWidget {
           Navigator.pushNamed(context, AppRoutes.bookForm);
         },
       ),
+    );
+  }
+}
+
+class CircleDetail extends StatelessWidget {
+  const CircleDetail({
+    super.key,
+    required this.bookData,
+    required this.icon,
+    required this.title,
+  });
+
+  final BookModel bookData;
+  final IconData icon;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 24,
+          backgroundColor: const Color(0xFFF3F3F3),
+          child: Icon(
+            icon,
+            color: const Color(0xFFA9A9A9),
+            size: 18,
+          ),
+        ),
+        const Gap(4),
+        Text(
+          title,
+          style: GoogleFonts.jost(
+            fontSize: 16,
+            color: const Color(0xFFA9A9A9),
+          ),
+        ),
+      ],
     );
   }
 }
