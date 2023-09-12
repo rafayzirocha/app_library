@@ -5,6 +5,7 @@ import 'package:app_library/provider/service_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/app_style.dart';
 import '../widgets/custom_txt.dart';
@@ -75,7 +76,10 @@ class AddNewBookScreen extends ConsumerWidget {
         ),
         title: Text(
           'Cadastrando novo livro',
-          style: AppStyle.title,
+          style: GoogleFonts.jost(
+            fontSize: 16,
+            color: const Color(0xFF3C3C3C),
+          ),
         ),
         centerTitle: true,
         elevation: 0,

@@ -27,19 +27,25 @@ class CustomTextField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             title,
-            style: AppStyle.title,
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFF3C3C3C),
+            ),
           ),
         ),
         const Gap(10),
         TextField(
-          style: AppStyle.title,
+          style: GoogleFonts.jost(
+            fontSize: 16,
+            color: const Color(0xFF3C3C3C),
+          ),
           controller: txtController,
           cursorColor: AppStyle.primaryColor,
           cursorRadius: const Radius.circular(20),
           decoration: InputDecoration(
             helperText: helperText,
-            helperStyle: GoogleFonts.plusJakartaSans(
-              color: AppStyle.subtitleColor,
+            helperStyle: GoogleFonts.jost(
+              color: const Color(0xFFA9A9A9),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
