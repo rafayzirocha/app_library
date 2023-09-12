@@ -114,112 +114,7 @@ class BookDetails extends ConsumerWidget {
                         ],
                       ),
                       const Gap(20),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Detalhes',
-                              style: GoogleFonts.jost(
-                                fontSize: 20,
-                                color: const Color(0xFF3C3C3C),
-                              ),
-                            ),
-                            const Gap(20),
-                            Text(
-                              'ISBN',
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFF3C3C3C),
-                              ),
-                            ),
-                            Text(
-                              bookData.isbn.join(', '),
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFFA9A9A9),
-                              ),
-                            ),
-                            const Gap(10),
-                            Text(
-                              'Categorias',
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFF3C3C3C),
-                              ),
-                            ),
-                            Text(
-                              bookData.categories.join(', '),
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFFA9A9A9),
-                              ),
-                            ),
-                            const Gap(10),
-                            Text(
-                              'Editora',
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFF3C3C3C),
-                              ),
-                            ),
-                            Text(
-                              bookData.publisher,
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFFA9A9A9),
-                              ),
-                            ),
-                            const Gap(10),
-                            Text(
-                              'Data de Publicação',
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFF3C3C3C),
-                              ),
-                            ),
-                            Text(
-                              bookData.publishedDate.toString(),
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFFA9A9A9),
-                              ),
-                            ),
-                            const Gap(10),
-                            Text(
-                              'Idioma',
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFF3C3C3C),
-                              ),
-                            ),
-                            Text(
-                              bookData.language,
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFFA9A9A9),
-                              ),
-                            ),
-                            const Gap(20),
-                            Text(
-                              'Descrição',
-                              style: GoogleFonts.jost(
-                                fontSize: 20,
-                                color: const Color(0xFF3C3C3C),
-                              ),
-                            ),
-                            Text(
-                              bookData.description,
-                              style: GoogleFonts.jost(
-                                fontSize: 16,
-                                color: const Color(0xFFA9A9A9),
-                              ),
-                            ),
-                            const Gap(20),
-                          ],
-                        ),
-                      ),
+                      Details(bookData: bookData),
                     ],
                   ),
                 ),
@@ -235,6 +130,125 @@ class BookDetails extends ConsumerWidget {
           color: Colors.white,
         ),
         onPressed: () {},
+      ),
+    );
+  }
+}
+
+class Details extends StatelessWidget {
+  const Details({
+    super.key,
+    required this.bookData,
+  });
+
+  final BookModel bookData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Detalhes',
+            style: GoogleFonts.jost(
+              fontSize: 20,
+              color: const Color(0xFF3C3C3C),
+            ),
+          ),
+          const Gap(20),
+          Text(
+            'ISBN',
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFF3C3C3C),
+            ),
+          ),
+          Text(
+            bookData.isbn.join(', '),
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFFA9A9A9),
+            ),
+          ),
+          const Gap(10),
+          Text(
+            'Categorias',
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFF3C3C3C),
+            ),
+          ),
+          Text(
+            bookData.categories.join(', '),
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFFA9A9A9),
+            ),
+          ),
+          const Gap(10),
+          Text(
+            'Editora',
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFF3C3C3C),
+            ),
+          ),
+          Text(
+            bookData.publisher,
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFFA9A9A9),
+            ),
+          ),
+          const Gap(10),
+          Text(
+            'Data de Publicação',
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFF3C3C3C),
+            ),
+          ),
+          Text(
+            bookData.publishedDate.toString(),
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFFA9A9A9),
+            ),
+          ),
+          const Gap(10),
+          Text(
+            'Idioma',
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFF3C3C3C),
+            ),
+          ),
+          Text(
+            bookData.language,
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFFA9A9A9),
+            ),
+          ),
+          const Gap(20),
+          Text(
+            'Descrição',
+            style: GoogleFonts.jost(
+              fontSize: 20,
+              color: const Color(0xFF3C3C3C),
+            ),
+          ),
+          Text(
+            bookData.description,
+            style: GoogleFonts.jost(
+              fontSize: 16,
+              color: const Color(0xFFA9A9A9),
+            ),
+          ),
+          const Gap(20),
+        ],
       ),
     );
   }
