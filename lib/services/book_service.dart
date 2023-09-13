@@ -10,17 +10,6 @@ class BookService {
     bookCollection.add(model.toMap());
   }
 
-  /*void updateBook(String? docId, BookModel model) {
-    //bookCollection.doc(docId).update({'title': 'A Magia do Silêncio'});
-    bookCollection.doc(docId).update(model.toMap());
-  }*/
-
-  /*void updateTask(String? docId, bool? valueUpdate) {
-    taskCollection.doc(docId).update({
-      'isDone': valueUpdate,
-    });
-  }*/
-
   void deleteBook(String? docId) {
     bookCollection.doc(docId).delete();
   }
@@ -31,5 +20,9 @@ class WarningService {
 
   void addNewWarning(WarningModel model) {
     warningCollection.add(model.toMap());
+  }
+
+  void deleteWarning(String? docId) {
+    warningCollection.doc(docId).delete();
   }
 }
