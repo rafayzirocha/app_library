@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_types_as_parameter_names, non_constant_identifier_names
 
 import 'package:app_library/constants/app_style.dart';
-import 'package:app_library/model/book_model.dart';
+import 'package:app_library/model/warning_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -10,25 +10,25 @@ import 'package:google_fonts/google_fonts.dart';
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
 
-class BookCard extends ConsumerWidget {
-  const BookCard({
+class WarningCard extends ConsumerWidget {
+  const WarningCard({
     super.key,
     required this.getIndex,
-    required this.livro,
+    required this.warning,
   });
 
   final int getIndex;
-  final BookModel livro;
+  final WarningModel warning;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final livros = ref.watch(buscaLivros);
-    return livros.when(
-      data: (livros) => InkWell(
+    final warningsData = ref.watch(fetchWarnings);
+    return warningsData.when(
+      data: (warningsData) => InkWell(
         onTap: () {
           Navigator.of(context).pushNamed(
-            AppRoutes.bookDetails,
-            arguments: livro,
+            AppRoutes.warningDetails,
+            arguments: warning,
           );
         },
         borderRadius: BorderRadius.circular(20),
@@ -43,9 +43,9 @@ class BookCard extends ConsumerWidget {
                   width: 60,
                   child: ClipRRect(
                     borderRadius: BorderRadiusDirectional.circular(20),
-                    child: livros[getIndex].thumbnail.isNotEmpty
+                    child: warningsData[getIndex].imageUrl.isNotEmpty
                         ? Image.network(
-                            livros[getIndex].thumbnail,
+                            warningsData[getIndex].imageUrl,
                             fit: BoxFit.cover,
                             alignment: Alignment.center,
                           )
@@ -66,34 +66,16 @@ class BookCard extends ConsumerWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          livros[getIndex].title,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.jost(
-                            fontSize: 16,
-                            color: const Color(0xFF3C3C3C),
-                          ),
-                        ),
-                        const Gap(4),
-                        livros[getIndex].isAvailable
-                            ? const Icon(
-                                Icons.verified_rounded,
-                                size: 14,
-                                color: Color(0xFF0066FF),
-                              )
-                            : const Icon(
-                                Icons.cancel_rounded,
-                                size: 14,
-                                color: Colors.red,
-                              ),
-                      ],
+                    Text(
+                      warningsData[getIndex].title,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.jost(
+                        fontSize: 16,
+                        color: const Color(0xFF3C3C3C),
+                      ),
                     ),
                     Text(
-                      livros[getIndex].authors.join(', '),
+                      'Clique e saiba mais...',
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.jost(
                         fontSize: 14,

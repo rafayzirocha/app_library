@@ -56,7 +56,7 @@ class BookDetails extends ConsumerWidget {
                                   color: Color(0xFF0066FF),
                                 )
                               : const Icon(
-                                  Icons.warning_rounded,
+                                  Icons.cancel_rounded,
                                   size: 18,
                                   color: Colors.red,
                                 ),

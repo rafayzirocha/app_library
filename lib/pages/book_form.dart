@@ -101,7 +101,7 @@ class AddNewBookScreen extends ConsumerWidget {
                 return;
               }
 
-              ref.read(serviceProvider).addNewBook(
+              ref.read(bookProvider).addNewBook(
                     BookModel(
                       title: titleController.text,
                       isbn: isbnList,
