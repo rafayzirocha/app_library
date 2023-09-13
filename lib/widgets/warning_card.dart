@@ -66,13 +66,25 @@ class WarningCard extends ConsumerWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      warningsData[getIndex].title,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.jost(
-                        fontSize: 16,
-                        color: const Color(0xFF3C3C3C),
-                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          warningsData[getIndex].title,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.jost(
+                            fontSize: 16,
+                            color: const Color(0xFF3C3C3C),
+                          ),
+                        ),
+                        const Gap(4),
+                        const Icon(
+                          Icons.verified_rounded,
+                          size: 14,
+                          color: Color(0xFF0066FF),
+                        )
+                      ],
                     ),
                     Text(
                       'Clique e saiba mais...',
