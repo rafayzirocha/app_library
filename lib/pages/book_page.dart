@@ -19,6 +19,13 @@ class BookPage extends ConsumerWidget {
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(onPressed: () {}, icon: Text('Filtrar')),
+                  IconButton(onPressed: () {}, icon: Text('Filtrar')),
+                ],
+              ),
               Expanded(
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),

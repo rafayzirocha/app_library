@@ -51,7 +51,7 @@ class BookDetails extends ConsumerWidget {
                           const Gap(4),
                           bookData.isAvailable
                               ? const Icon(
-                                  Icons.verified_rounded,
+                                  Icons.check_circle_rounded,
                                   size: 18,
                                   color: Color(0xFF0066FF),
                                 )
