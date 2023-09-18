@@ -80,7 +80,7 @@ class WarningCard extends ConsumerWidget {
                         ),
                         const Gap(4),
                         const Icon(
-                          Icons.verified_rounded,
+                          Icons.check_circle_rounded,
                           size: 14,
                           color: Color(0xFF0066FF),
                         )
