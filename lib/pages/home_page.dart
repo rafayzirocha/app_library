@@ -47,12 +47,12 @@ class _HomePageState extends State<HomePage> {
           ),
           NavigationDestination(
             icon: Icon(
-              Icons.library_books_rounded,
+              Icons.book_rounded,
               size: 18,
               color: Color(0xFFA9A9A9),
             ),
             selectedIcon: Icon(
-              Icons.library_books_rounded,
+              Icons.book_rounded,
               size: 18,
               color: Colors.white,
             ),
