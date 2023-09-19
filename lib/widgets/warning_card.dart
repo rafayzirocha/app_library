@@ -87,7 +87,7 @@ class WarningCard extends ConsumerWidget {
                       ],
                     ),
                     Text(
-                      'Clique e saiba mais...',
+                      warningsData[getIndex].publishedDate.toString(),
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.jost(
                         fontSize: 14,

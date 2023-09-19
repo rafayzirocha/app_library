@@ -9,7 +9,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
 import 'pages/warnings_form.dart';
-import 'pages/warnings_page.dart';
 import 'routes/app_routes.dart';
 import 'pages/home_page.dart';
 
@@ -41,7 +40,6 @@ class AppLibrary extends StatelessWidget {
           AppRoutes.bookPage: (_) => const BookPage(),
           AppRoutes.bookForm: (_) => const AddNewBookScreen(),
           AppRoutes.bookDetails: (_) => const BookDetails(),
-          AppRoutes.warningPage: (_) => const WarningsPage(),
           AppRoutes.warningForm: (_) => const AddNewWarningScreen(),
           AppRoutes.warningDetails: (_) => const WarningsDetails(),
         },

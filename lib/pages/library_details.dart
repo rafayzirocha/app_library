@@ -3,12 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../provider/service_provider.dart';
+import '../routes/app_routes.dart';
+import '../widgets/warning_card.dart';
+
 class LibraryDetails extends ConsumerWidget {
   const LibraryDetails({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final data = ModalRoute.of(context)!.settings.arguments as WarningModel;
+    final data = ref.watch(fetchWarnings);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -81,13 +85,62 @@ class LibraryDetails extends ConsumerWidget {
                           ),
                           IconButton(
                             onPressed: () {},
-                            icon: const Icon(Icons.call_rounded),
+                            icon: const Icon(Icons.contact_support_rounded),
                             iconSize: 18,
                             color: const Color(0xFFA9A9A9),
                           ),
                         ],
                       ),
                       const Gap(20),
+                      Text(
+                        'Horário de Funcionamento',
+                        style: GoogleFonts.jost(
+                          fontSize: 20,
+                          color: const Color(0xFF3C3C3C),
+                        ),
+                      ),
+                      Text(
+                        'Segunda à Sexta das 09:00 às 21:00',
+                        style: GoogleFonts.jost(
+                          fontSize: 16,
+                          color: const Color(0xFFA9A9A9),
+                        ),
+                      ),
+                      const Gap(20),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Mural de Avisos',
+                            style: GoogleFonts.jost(
+                              fontSize: 20,
+                              color: const Color(0xFF3C3C3C),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(AppRoutes.warningForm);
+                            },
+                            icon: const Icon(Icons.add_circle_rounded),
+                            iconSize: 18,
+                            color: const Color(0xFF0066FF),
+                          ),
+                        ],
+                      ),
+                      ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: data.value != null ? data.value!.length : 0,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => WarningCard(
+                          getIndex: index,
+                          warning: data.value![index],
+                        ),
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Gap(8);
+                        },
+                      ),
                     ],
                   ),
                 ),

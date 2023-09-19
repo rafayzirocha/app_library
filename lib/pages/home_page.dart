@@ -1,6 +1,5 @@
 import 'package:app_library/pages/book_page.dart';
 import 'package:app_library/pages/library_details.dart';
-import 'package:app_library/pages/warnings_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +19,6 @@ class _HomePageState extends State<HomePage> {
       body: <Widget>[
         const LibraryDetails(),
         const BookPage(),
-        const WarningsPage(),
       ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
@@ -55,19 +53,6 @@ class _HomePageState extends State<HomePage> {
             ),
             selectedIcon: Icon(
               Icons.library_books_rounded,
-              size: 18,
-              color: Colors.white,
-            ),
-            label: '',
-          ),
-          NavigationDestination(
-            icon: Icon(
-              Icons.forum_rounded,
-              size: 18,
-              color: Color(0xFFA9A9A9),
-            ),
-            selectedIcon: Icon(
-              Icons.forum_rounded,
               size: 18,
               color: Colors.white,
             ),
