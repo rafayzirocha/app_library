@@ -26,24 +26,12 @@ class LibraryDetails extends ConsumerWidget {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Biblioteca Francisco Bosnyak Filho',
-                            style: GoogleFonts.jost(
-                              fontSize: 20,
-                              color: const Color(0xFF3C3C3C),
-                            ),
-                          ),
-                          const Gap(4),
-                          const Icon(
-                            Icons.check_circle_rounded,
-                            size: 18,
-                            color: Color(0xFF0066FF),
-                          ),
-                        ],
+                      Text(
+                        'Biblioteca Francisco Bosnyak Filho',
+                        style: GoogleFonts.jost(
+                          fontSize: 20,
+                          color: const Color(0xFF3C3C3C),
+                        ),
                       ),
                       Text(
                         'Etec Pedro Ferreira Alves',
