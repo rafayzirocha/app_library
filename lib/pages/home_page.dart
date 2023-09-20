@@ -1,5 +1,5 @@
 import 'package:app_library/pages/book_page.dart';
-import 'package:app_library/pages/library_details.dart';
+import 'package:app_library/pages/warnings_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: <Widget>[
-        const LibraryDetails(),
+        const WarningsPage(),
         const BookPage(),
       ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
@@ -34,12 +34,12 @@ class _HomePageState extends State<HomePage> {
         destinations: const [
           NavigationDestination(
             icon: Icon(
-              Icons.local_library_rounded,
+              Icons.forum_rounded,
               size: 18,
               color: Color(0xFFA9A9A9),
             ),
             selectedIcon: Icon(
-              Icons.local_library_rounded,
+              Icons.forum_rounded,
               size: 18,
               color: Colors.white,
             ),

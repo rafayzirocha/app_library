@@ -88,7 +88,27 @@ class WarningsDetails extends ConsumerWidget {
                               ),
                             ),
                       const Gap(20),
-                      Details(warningsData: warningsData),
+                      Column(
+                        children: [
+                          Text(
+                            'Descrição',
+                            style: GoogleFonts.jost(
+                              fontSize: 20,
+                              color: const Color(0xFF3C3C3C),
+                            ),
+                          ),
+                          const Gap(10),
+                          Text(
+                            warningsData.description,
+                            textAlign: TextAlign.justify,
+                            style: GoogleFonts.jost(
+                              fontSize: 16,
+                              color: const Color(0xFFA9A9A9),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Gap(20),
                     ],
                   ),
                 ),
@@ -96,50 +116,6 @@ class WarningsDetails extends ConsumerWidget {
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF0066FF),
-        child: const Icon(
-          Icons.edit_rounded,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-    );
-  }
-}
-
-class Details extends StatelessWidget {
-  const Details({
-    super.key,
-    required this.warningsData,
-  });
-
-  final WarningModel warningsData;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Descrição',
-            style: GoogleFonts.jost(
-              fontSize: 20,
-              color: const Color(0xFF3C3C3C),
-            ),
-          ),
-          Text(
-            warningsData.description,
-            style: GoogleFonts.jost(
-              fontSize: 16,
-              color: const Color(0xFFA9A9A9),
-            ),
-          ),
-          const Gap(20),
-        ],
       ),
     );
   }

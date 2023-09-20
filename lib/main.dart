@@ -1,8 +1,8 @@
 import 'package:app_library/pages/book_details.dart';
 import 'package:app_library/pages/book_form.dart';
 import 'package:app_library/pages/book_page.dart';
-import 'package:app_library/pages/library_details.dart';
 import 'package:app_library/pages/warnings_details.dart';
+import 'package:app_library/pages/warnings_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,10 +36,10 @@ class AppLibrary extends StatelessWidget {
         home: const HomePage(),
         routes: {
           AppRoutes.homePage: (_) => const HomePage(),
-          AppRoutes.libraryDetails: (_) => const LibraryDetails(),
           AppRoutes.bookPage: (_) => const BookPage(),
           AppRoutes.bookForm: (_) => const AddNewBookScreen(),
           AppRoutes.bookDetails: (_) => const BookDetails(),
+          AppRoutes.warningPage: (_) => const WarningsPage(),
           AppRoutes.warningForm: (_) => const AddNewWarningScreen(),
           AppRoutes.warningDetails: (_) => const WarningsDetails(),
         },

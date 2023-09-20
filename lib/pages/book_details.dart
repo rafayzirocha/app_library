@@ -205,6 +205,7 @@ class BookDetails extends ConsumerWidget {
                         ],
                       ),
                     ),
+                    const Gap(20),
                   ],
                 ),
               ),
