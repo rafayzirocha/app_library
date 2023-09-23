@@ -22,3 +22,11 @@ class AppStyle {
   static Color txtColor = const Color(0xFF3C3C3C);
   static Color subtitleColor = const Color(0xFFA9A9A9);
 }
+
+class AppColors {
+  static Color blue = const Color(0xFF1254FF);
+  static Color lightBlue = const Color(0xFFE5EFFF);
+  static Color background = const Color(0xFFF5F5F5);
+  static Color title = const Color(0xFF212121);
+  static Color subtitle = const Color(0xFF757575);
+}
