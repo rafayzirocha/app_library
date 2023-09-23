@@ -41,6 +41,7 @@ dependencies:
   intl:
   firebase_core: ^2.15.0
   cloud_firestore: ^4.8.4
+  feather_icons:
 
 dev_dependencies:
   flutter_test:
