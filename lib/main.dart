@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
+import 'pages/menu_page.dart';
 import 'pages/warnings_form.dart';
 import 'routes/app_routes.dart';
 import 'pages/home_page.dart';
@@ -29,11 +30,9 @@ class AppLibrary extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0066FF)),
-          useMaterial3: true,
-        ),
-        home: const HomePage(),
+        darkTheme: ThemeData.dark(useMaterial3: true),
+        themeMode: ThemeMode.dark,
+        home: const MenuPage(),
         routes: {
           AppRoutes.homePage: (_) => const HomePage(),
           AppRoutes.bookPage: (_) => const BookPage(),

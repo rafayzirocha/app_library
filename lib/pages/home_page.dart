@@ -1,5 +1,8 @@
+import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/pages/book_page.dart';
+import 'package:app_library/pages/login_page.dart';
 import 'package:app_library/pages/warnings_page.dart';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,56 +13,52 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentPageIndex = 0;
+  int currentIndex = 0;
+
+  final List<Widget> _telas = [
+    const BookPage(),
+    const WarningsPage(),
+    const LoginPage(),
+  ];
+
+  void navTap(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: <Widget>[
-        const WarningsPage(),
-        const BookPage(),
-      ][currentPageIndex],
-      bottomNavigationBar: NavigationBar(
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        height: 60,
-        indicatorColor: const Color(0xFF0066FF),
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(
-              Icons.forum_rounded,
-              size: 18,
-              color: Color(0xFFA9A9A9),
-            ),
-            selectedIcon: Icon(
-              Icons.forum_rounded,
-              size: 18,
-              color: Colors.white,
-            ),
+      body: _telas[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        elevation: 6,
+        onTap: navTap,
+        iconSize: 18,
+        fixedColor: AppColors.blue,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        unselectedItemColor: AppColors.subtitle,
+        currentIndex: currentIndex,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.auto_stories_outlined),
+            activeIcon: Icon(Icons.auto_stories_rounded),
             label: '',
           ),
-          NavigationDestination(
-            icon: Icon(
-              Icons.book_rounded,
-              size: 18,
-              color: Color(0xFFA9A9A9),
-            ),
-            selectedIcon: Icon(
-              Icons.book_rounded,
-              size: 18,
-              color: Colors.white,
-            ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.groups_outlined),
+            activeIcon: Icon(Icons.groups_rounded),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.collections_bookmark_outlined),
+            activeIcon: Icon(Icons.collections_bookmark_rounded),
             label: '',
           ),
         ],
-        selectedIndex: currentPageIndex,
       ),
     );
   }
