@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_types_as_parameter_names, non_constant_identifier_names
 
-import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,14 +23,15 @@ class BookCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final livros = ref.watch(buscaLivros);
     return livros.when(
-      data: (livros) => InkWell(
+      data: (livros) => GestureDetector(
         onTap: () {
           Navigator.of(context).pushNamed(
             AppRoutes.bookDetails,
             arguments: livro,
           );
+
+          //ref.read(bookProvider).deleteBook(livros[getIndex].docId);
         },
-        borderRadius: BorderRadius.circular(20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,12 +52,12 @@ class BookCard extends ConsumerWidget {
                         : Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: const Color(0xFFF3F3F3),
+                              color: const Color(0xFF1A1A1A),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.image_rounded,
                               size: 18,
-                              color: AppStyle.subtitleColor,
+                              color: Color(0xFFA9A9A9),
                             ),
                           ),
                   ),
@@ -73,9 +73,9 @@ class BookCard extends ConsumerWidget {
                         Text(
                           livros[getIndex].title,
                           overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.jost(
+                          style: GoogleFonts.inter(
                             fontSize: 16,
-                            color: const Color(0xFF3C3C3C),
+                            color: const Color(0xFFDCDCDC),
                           ),
                         ),
                         const Gap(4),
@@ -95,7 +95,7 @@ class BookCard extends ConsumerWidget {
                     Text(
                       livros[getIndex].authors.join(', '),
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.jost(
+                      style: GoogleFonts.inter(
                         fontSize: 14,
                         color: const Color(0xFFA9A9A9),
                       ),

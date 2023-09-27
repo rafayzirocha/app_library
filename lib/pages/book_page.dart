@@ -2,11 +2,9 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../constants/app_style.dart';
+import '../model/book_model.dart';
 import '../provider/service_provider.dart';
-import '../routes/app_routes.dart';
 import '../widgets/book_card.dart';
 
 class BookPage extends ConsumerWidget {
@@ -16,120 +14,95 @@ class BookPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final livros = ref.watch(buscaLivros);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFF131313),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF131313),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 18,
+            color: Color(0xFFDCDCDC),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    ref.read(bookProvider).addNewBook(
+                          BookModel(
+                            title: 'title',
+                            isbn: ['isbn'],
+                            authors: ['authors'],
+                            categories: ['categories'],
+                            publisher: 'publisher',
+                            publishedDate: DateTime.now(),
+                            description: 'description',
+                            pageCount: 1,
+                            copyCount: 1,
+                            loansCount: 0,
+                            averageRating: 0,
+                            ratingsCount: 0,
+                            thumbnail: '',
+                            language: 'language',
+                            isAvailable: true,
+                          ),
+                        );
+                  },
+                  icon: const Icon(
+                    FeatherIcons.plus,
+                    size: 18,
+                    color: Color(0xFFDCDCDC),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    FeatherIcons.search,
+                    size: 18,
+                    color: Color(0xFFDCDCDC),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Olá Administrador',
-                        style: GoogleFonts.inter(
-                          color: AppColors.title,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.circle,
-                            size: 14,
-                            color: Color(0xFF0066FF),
-                          ),
-                          const Gap(4),
-                          Text(
-                            'Biblioteca Etec Pedro Ferreira Alves',
-                            style: GoogleFonts.inter(
-                              color: AppColors.subtitle,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  CircleAvatar(
-                    backgroundColor: AppColors.background,
-                    child: Icon(
-                      Icons.person_rounded,
-                      size: 18,
-                      color: AppColors.subtitle,
-                    ),
-                  ),
-                ],
-              ),
-              const Gap(20),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: AppColors.background,
-                ),
-                child: TextField(
-                  cursorColor: AppColors.blue,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.only(right: 20),
-                    hintText: 'Pesquise por livro...',
-                    hintStyle: GoogleFonts.inter(
-                      color: AppColors.subtitle,
-                      fontSize: 16,
-                    ),
-                    icon: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Icon(
-                        FeatherIcons.search,
-                        size: 18,
-                        color: AppColors.subtitle,
-                      ),
-                    ),
-                  ),
-                  cursorOpacityAnimates: true,
-                  keyboardType: TextInputType.emailAddress,
-                  maxLines: 1,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    color: AppColors.title,
-                  ),
-                ),
-              ),
-              const Gap(20),
               Expanded(
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: livros.value != null ? livros.value!.length : 0,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => BookCard(
-                    getIndex: index,
-                    livro: livros.value![index],
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A1A1A),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Gap(8);
-                  },
+                  child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: livros.value != null ? livros.value!.length : 0,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => BookCard(
+                      getIndex: index,
+                      livro: livros.value![index],
+                    ),
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const Gap(20);
+                    },
+                  ),
                 ),
               ),
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF0066FF),
-        child: const Icon(
-          Icons.add_rounded,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-            AppRoutes.bookForm,
-          );
-        },
       ),
     );
   }

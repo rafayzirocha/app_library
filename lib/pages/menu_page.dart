@@ -1,4 +1,5 @@
 import 'package:app_library/constants/app_style.dart';
+import 'package:app_library/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,17 +65,20 @@ class _MenuPageState extends State<MenuPage> {
                 ),
               ),
               const Gap(20),
-              const Row(
+              Row(
                 children: [
                   Expanded(
                     child: CardCategory(
                       icon: Icons.menu_book_rounded,
                       title: 'Livros',
                       subtitle: '0 Cadastrados',
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppRoutes.bookPage);
+                      },
                     ),
                   ),
-                  Gap(20),
-                  Expanded(
+                  const Gap(20),
+                  const Expanded(
                     child: CardCategory(
                       icon: Icons.favorite_rounded,
                       title: 'Empréstimos',
@@ -175,18 +179,20 @@ class CardCategory extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.subtitle,
+    this.onTap,
   });
 
   final IconData icon;
   final String title;
   final String subtitle;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: GestureDetector(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           alignment: Alignment.centerLeft,
           height: 60,
