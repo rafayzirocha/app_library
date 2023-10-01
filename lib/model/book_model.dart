@@ -5,7 +5,7 @@ class BookModel {
   String title;
   List<String> isbn;
   List<String> authors;
-  List<String> categories;
+  String category;
   String publisher;
   DateTime publishedDate;
   String description;
@@ -23,7 +23,7 @@ class BookModel {
     required this.title,
     required this.isbn,
     required this.authors,
-    required this.categories,
+    required this.category,
     required this.publisher,
     required this.publishedDate,
     required this.description,
@@ -42,7 +42,7 @@ class BookModel {
       'title': title,
       'isbn': isbn,
       'authors': authors,
-      'categories': categories,
+      'category': category,
       'publisher': publisher,
       'publishedDate': publishedDate,
       'description': description,
@@ -63,7 +63,7 @@ class BookModel {
       title: map['title'] as String,
       isbn: List<String>.from(map['isbn']),
       authors: List<String>.from(map['authors']),
-      categories: List<String>.from(map['categories']),
+      category: map['category'] as String,
       publisher: map['publisher'] as String,
       publishedDate: map['publishedDate'].toDate(),
       description: map['description'] as String,
@@ -84,7 +84,7 @@ class BookModel {
       title: doc['title'] as String,
       isbn: List<String>.from(doc['isbn']),
       authors: List<String>.from(doc['authors']),
-      categories: List<String>.from(doc['categories']),
+      category: doc['category'] as String,
       publisher: doc['publisher'] as String,
       publishedDate: (doc['publishedDate'] as Timestamp).toDate(),
       description: doc['description'] as String,

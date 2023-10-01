@@ -1,4 +1,4 @@
-import 'package:feather_icons/feather_icons.dart';
+/*import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -80,24 +80,17 @@ class BookPage extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1A1A1A),
-                    borderRadius: BorderRadius.circular(12),
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: livros.value != null ? livros.value!.length : 0,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => BookCard(
+                    getIndex: index,
+                    livro: livros.value![index],
                   ),
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: livros.value != null ? livros.value!.length : 0,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => BookCard(
-                      getIndex: index,
-                      livro: livros.value![index],
-                    ),
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const Gap(20);
-                    },
-                  ),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Gap(20);
+                  },
                 ),
               ),
             ],
@@ -106,4 +99,4 @@ class BookPage extends ConsumerWidget {
       ),
     );
   }
-}
+}*/

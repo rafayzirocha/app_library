@@ -1,15 +1,13 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'package:app_library/model/book_model.dart';
-import 'package:app_library/provider/service_provider.dart';
+import 'package:app_library/constants/app_style.dart';
+import 'package:app_library/widgets/custom_dropdown.dart';
+import 'package:app_library/widgets/custom_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../model/book_model.dart';
+import '../provider/service_provider.dart';
 
-import '../constants/app_style.dart';
-import '../widgets/custom_txt.dart';
-
+// ignore: non_constant_identifier_names
 final AddNewBookModalProvider =
     StateNotifierProvider<AddNewBookModalController, AddNewBookData>((ref) {
   return AddNewBookModalController();
@@ -19,9 +17,7 @@ class AddNewBookData {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController authorsController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
-  final TextEditingController categoriesController = TextEditingController();
   final TextEditingController publisherController = TextEditingController();
-  final TextEditingController languageController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController pageCountController = TextEditingController();
   final TextEditingController copyCountController = TextEditingController();
@@ -36,9 +32,7 @@ class AddNewBookModalController extends StateNotifier<AddNewBookData> {
     state.titleController.dispose();
     state.authorsController.dispose();
     state.isbnController.dispose();
-    state.categoriesController.dispose();
     state.publisherController.dispose();
-    state.languageController.dispose();
     state.descriptionController.dispose();
     state.pageCountController.dispose();
     state.copyCountController.dispose();
@@ -55,79 +49,69 @@ class AddNewBookScreen extends ConsumerWidget {
     final titleController = AddNewBookData().titleController;
     final authorsController = AddNewBookData().authorsController;
     final isbnController = AddNewBookData().isbnController;
-    final categoriesController = AddNewBookData().categoriesController;
     final publisherController = AddNewBookData().publisherController;
-    final languageController = AddNewBookData().languageController;
     final descriptionController = AddNewBookData().descriptionController;
     final pageCountController = AddNewBookData().pageCountController;
     final copyCountController = AddNewBookData().copyCountController;
     final thumbnailController = AddNewBookData().thumbnailController;
 
+    String? selectedCategory = 'Romance';
+    String? selectedLanguage = 'Português';
+
+    final language = {
+      const DropdownMenuItem(
+        value: 'Português',
+        child: Text(
+          'Português',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Inglês',
+        child: Text(
+          'Inglês',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Espanhol',
+        child: Text(
+          'Espanhol',
+        ),
+      ),
+    };
+
+    final categories = {
+      const DropdownMenuItem(
+        value: 'Romance',
+        child: Text(
+          'Romance',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Ficção',
+        child: Text(
+          'Ficção',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Biografia',
+        child: Text(
+          'Biografia',
+        ),
+      ),
+    };
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppStyle.dark1,
       appBar: AppBar(
+        backgroundColor: AppStyle.dark1,
         leading: IconButton(
-          iconSize: 18,
-          color: AppStyle.txtColor,
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(Icons.chevron_left),
-        ),
-        title: Text(
-          'Cadastrando novo livro',
-          style: GoogleFonts.jost(
-            fontSize: 16,
-            color: const Color(0xFF3C3C3C),
+          onPressed: () {},
+          icon: Icon(
+            Icons.chevron_left,
+            size: 18,
+            color: AppStyle.white,
           ),
         ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-            onPressed: () {
-              List<String> isbnList = isbnController.text.split(',');
-              List<String> authorsList = authorsController.text.split(',');
-              List<String> categoriesList =
-                  categoriesController.text.split(',');
-              int pageCount;
-              int copyCount;
-
-              try {
-                pageCount = int.parse(pageCountController.text);
-                copyCount = int.parse(copyCountController.text);
-              } catch (e) {
-                return;
-              }
-
-              ref.read(bookProvider).addNewBook(
-                    BookModel(
-                      title: titleController.text,
-                      isbn: isbnList,
-                      authors: authorsList,
-                      categories: categoriesList,
-                      publisher: publisherController.text,
-                      publishedDate: DateTime.now(),
-                      description: descriptionController.text,
-                      pageCount: pageCount,
-                      copyCount: copyCount,
-                      loansCount: 0,
-                      averageRating: 0,
-                      ratingsCount: 0,
-                      thumbnail: thumbnailController.text,
-                      language: languageController.text,
-                      isAvailable: true,
-                    ),
-                  );
-
-              Navigator.of(context).pop();
-            },
-            iconSize: 18,
-            color: AppStyle.primaryColor,
-            icon: const Icon(Icons.check_rounded),
-          ),
-        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -139,99 +123,171 @@ class AddNewBookScreen extends ConsumerWidget {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      CustomTextField(
-                        title: 'Título',
-                        maxLine: 1,
-                        txtController: titleController,
-                        keyboardType: TextInputType.text,
+                      CustomField(
+                        controller: titleController,
+                        hintText: 'Título',
+                        keyboardType: TextInputType.name,
+                        maxLines: 1,
                       ),
-                      const Gap(10),
-                      CustomTextField(
-                        title: 'Autores',
-                        maxLine: 1,
-                        txtController: authorsController,
-                        keyboardType: TextInputType.text,
-                        helperText: 'Separe os autores por vírgula',
+                      const Gap(20),
+                      CustomField(
+                        controller: authorsController,
+                        hintText: 'Autores',
+                        keyboardType: TextInputType.name,
+                        maxLines: 1,
                       ),
-                      const Gap(10),
-                      CustomTextField(
-                        title: 'ISBN',
-                        maxLine: 1,
-                        txtController: isbnController,
-                        keyboardType: TextInputType.text,
-                        helperText: 'Separe ISBN por vírgula',
-                      ),
-                      const Gap(10),
-                      CustomTextField(
-                        title: 'Categorias',
-                        maxLine: 1,
-                        txtController: categoriesController,
-                        keyboardType: TextInputType.text,
-                        helperText: 'Separe as categorias por vírgula',
-                      ),
-                      const Gap(10),
+                      const Gap(20),
                       Row(
                         children: [
                           Expanded(
-                            child: CustomTextField(
-                              title: 'Editora',
-                              maxLine: 1,
-                              txtController: publisherController,
-                              keyboardType: TextInputType.text,
+                            child: CustomField(
+                              controller: isbnController,
+                              hintText: 'Isbn',
+                              keyboardType: TextInputType.name,
+                              maxLines: 1,
                             ),
                           ),
-                          const Gap(10),
+                          const Gap(20),
                           Expanded(
-                            child: CustomTextField(
-                              title: 'Idioma',
-                              maxLine: 1,
-                              txtController: languageController,
-                              keyboardType: TextInputType.text,
+                            child: CustomDropDown(
+                              items: List.of(categories),
+                              selectedValue: selectedCategory,
+                              onChanged: (value) {
+                                selectedCategory = value;
+                              },
                             ),
                           ),
                         ],
                       ),
-                      const Gap(10),
+                      const Gap(20),
                       Row(
                         children: [
                           Expanded(
-                            child: CustomTextField(
-                              title: 'Páginas',
-                              maxLine: 1,
-                              txtController: pageCountController,
-                              keyboardType: TextInputType.number,
+                            child: CustomDropDown(
+                              items: List.of(language),
+                              selectedValue: selectedLanguage,
+                              onChanged: (value) {
+                                selectedLanguage = value;
+                              },
                             ),
                           ),
-                          const Gap(10),
+                          const Gap(20),
                           Expanded(
-                            child: CustomTextField(
-                              title: 'Cópias Disponíveis',
-                              maxLine: 1,
-                              txtController: copyCountController,
-                              keyboardType: TextInputType.number,
+                            child: CustomField(
+                              controller: publisherController,
+                              hintText: 'Editora',
+                              keyboardType: TextInputType.name,
+                              maxLines: 1,
                             ),
                           ),
                         ],
                       ),
-                      const Gap(10),
-                      CustomTextField(
-                        title: 'URL da Capa',
-                        maxLine: 1,
-                        txtController: thumbnailController,
+                      const Gap(20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomField(
+                              controller: pageCountController,
+                              hintText: 'Páginas',
+                              keyboardType: TextInputType.number,
+                              maxLines: 1,
+                            ),
+                          ),
+                          const Gap(20),
+                          Expanded(
+                            child: CustomField(
+                              controller: copyCountController,
+                              hintText: 'Cópias',
+                              keyboardType: TextInputType.number,
+                              maxLines: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Gap(20),
+                      CustomField(
+                        controller: thumbnailController,
+                        hintText: 'Url da Capa',
                         keyboardType: TextInputType.url,
+                        maxLines: 1,
                       ),
-                      const Gap(10),
-                      CustomTextField(
-                        title: 'Descrição',
-                        maxLine: 10,
-                        txtController: descriptionController,
+                      const Gap(20),
+                      CustomField(
+                        controller: descriptionController,
+                        hintText: 'Descrição',
                         keyboardType: TextInputType.multiline,
+                        maxLines: 1,
                       ),
-                      const Gap(10),
                     ],
                   ),
                 ),
               ),
+              SizedBox(
+                height: 45,
+                width: double.infinity,
+                child: FilledButton(
+                  style: ButtonStyle(
+                    elevation: const MaterialStatePropertyAll(0),
+                    backgroundColor: MaterialStatePropertyAll(
+                      AppStyle.primary,
+                    ),
+                    shape: const MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    List<String> isbnList = isbnController.text.split(', ');
+                    List<String> authorsList =
+                        authorsController.text.split(', ');
+                    int pageCount;
+                    int copyCount;
+
+                    try {
+                      pageCount = int.parse(pageCountController.text);
+                      copyCount = int.parse(copyCountController.text);
+                    } catch (e) {
+                      return;
+                    }
+
+                    // Atualize selectedLanguage com o valor do dropdown de idioma
+                    if (selectedLanguage != null) {
+                      selectedLanguage = selectedLanguage;
+                    }
+
+                    ref.read(bookProvider).addNewBook(
+                          BookModel(
+                            title: titleController.text,
+                            isbn: isbnList,
+                            authors: authorsList,
+                            category: selectedCategory.toString(),
+                            publisher: publisherController.text,
+                            publishedDate: DateTime.now(),
+                            description: descriptionController.text,
+                            pageCount: pageCount,
+                            copyCount: copyCount,
+                            loansCount: 0,
+                            averageRating: 0,
+                            ratingsCount: 0,
+                            thumbnail: thumbnailController.text,
+                            language: selectedLanguage.toString(),
+                            isAvailable: true,
+                          ),
+                        );
+
+                    //Navigator.of(context).pop();
+                    //Navigator.of(context).pushNamed(AppRoutes.bookPage);
+                  },
+                  child: Text(
+                    'Salvar',
+                    style: AppStyle.title2,
+                  ),
+                ),
+              ),
+              const Gap(20),
             ],
           ),
         ),

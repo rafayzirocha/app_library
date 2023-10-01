@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_types_as_parameter_names, non_constant_identifier_names
 
-import 'package:app_library/model/book_model.dart';
+/*import 'package:app_library/model/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -21,90 +21,42 @@ class BookCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final livros = ref.watch(buscaLivros);
-    return livros.when(
-      data: (livros) => GestureDetector(
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            AppRoutes.bookDetails,
-            arguments: livro,
-          );
-
-          //ref.read(bookProvider).deleteBook(livros[getIndex].docId);
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  height: 60,
-                  width: 60,
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusDirectional.circular(20),
-                    child: livros[getIndex].thumbnail.isNotEmpty
-                        ? Image.network(
-                            livros[getIndex].thumbnail,
-                            fit: BoxFit.cover,
-                            alignment: Alignment.center,
-                          )
-                        : Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: const Color(0xFF1A1A1A),
-                            ),
-                            child: const Icon(
-                              Icons.image_rounded,
-                              size: 18,
-                              color: Color(0xFFA9A9A9),
-                            ),
-                          ),
-                  ),
-                ),
-                const Gap(12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          livros[getIndex].title,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            color: const Color(0xFFDCDCDC),
-                          ),
-                        ),
-                        const Gap(4),
-                        livros[getIndex].isAvailable
-                            ? const Icon(
-                                Icons.check_circle_rounded,
-                                size: 14,
-                                color: Color(0xFF0066FF),
-                              )
-                            : const Icon(
-                                Icons.cancel_rounded,
-                                size: 14,
-                                color: Colors.red,
-                              ),
-                      ],
-                    ),
-                    Text(
-                      livros[getIndex].authors.join(', '),
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.inter(
-                        fontSize: 14,
-                        color: const Color(0xFFA9A9A9),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+    final data = ref.watch(buscaLivros);
+    return data.when(
+      data: (data) => ListTile(
+        title: Text(
+          data[getIndex].title,
+          overflow: TextOverflow.ellipsis,
+        ),
+        titleAlignment: ListTileTitleAlignment.center,
+        titleTextStyle: GoogleFonts.inter(
+          fontSize: 16,
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+        ),
+        subtitle: Text(
+          data[getIndex].authors.join(', '),
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitleTextStyle: GoogleFonts.inter(
+          fontSize: 14,
+          color: const Color(0xFFA5A5A5),
+          fontWeight: FontWeight.w400,
+        ),
+        leading: Container(
+          height: 60,
+          width: 60,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              data[getIndex].thumbnail,
+              fit: BoxFit.cover,
             ),
-          ],
+          ),
+        ),
+        onTap: () {},
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
       error: (error, StackTrace) => Center(
@@ -115,4 +67,4 @@ class BookCard extends ConsumerWidget {
       ),
     );
   }
-}
+}*/

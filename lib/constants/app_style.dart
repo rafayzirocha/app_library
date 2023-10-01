@@ -2,31 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppStyle {
-  static TextStyle title = GoogleFonts.plusJakartaSans(
+  static TextStyle title1 = GoogleFonts.inter(
+    color: AppStyle.white,
+    fontSize: 20,
+  );
+
+  static TextStyle title2 = GoogleFonts.inter(
+    color: AppStyle.white,
     fontSize: 16,
-    color: const Color(0xFF3C3C3C),
   );
 
-  static TextStyle subtitle = GoogleFonts.plusJakartaSans(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: const Color(0xFFA9A9A9),
-  );
-
-  static TextStyle textPrimary = GoogleFonts.plusJakartaSans(
+  static TextStyle title3 = GoogleFonts.inter(
+    color: AppStyle.gray,
     fontSize: 16,
-    color: AppStyle.primaryColor,
   );
 
-  static Color primaryColor = const Color(0xFF0066FF);
-  static Color txtColor = const Color(0xFF3C3C3C);
-  static Color subtitleColor = const Color(0xFFA9A9A9);
-}
+  static TextStyle subtitle = GoogleFonts.inter(
+    color: AppStyle.gray,
+    fontSize: 14,
+  );
 
-class AppColors {
-  static Color blue = const Color(0xFF1254FF);
-  static Color lightBlue = const Color(0xFFE5EFFF);
-  static Color background = const Color(0xFFF5F5F5);
-  static Color title = const Color(0xFF212121);
-  static Color subtitle = const Color(0xFF757575);
+  static Color primary = const Color(0xFF5271FE);
+  static Color white = const Color(0xFFFFFFFF);
+  static Color gray = const Color(0xFFA5A5A5);
+  static Color dark1 = const Color(0xFF202020);
+  static Color dark2 = const Color(0xFF353535);
 }

@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:app_library/model/warning_model.dart';
+/*import 'package:app_library/model/warning_model.dart';
 import 'package:app_library/provider/service_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -123,4 +123,4 @@ class AddNewWarningScreen extends ConsumerWidget {
       ),
     );
   }
-}
+}*/

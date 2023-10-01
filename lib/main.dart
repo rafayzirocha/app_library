@@ -1,17 +1,11 @@
 import 'package:app_library/pages/book_details.dart';
-import 'package:app_library/pages/book_form.dart';
-import 'package:app_library/pages/book_page.dart';
-import 'package:app_library/pages/warnings_details.dart';
-import 'package:app_library/pages/warnings_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
-import 'pages/menu_page.dart';
-import 'pages/warnings_form.dart';
+import 'pages/book_form.dart';
 import 'routes/app_routes.dart';
-import 'pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,15 +26,14 @@ class AppLibrary extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         darkTheme: ThemeData.dark(useMaterial3: true),
         themeMode: ThemeMode.dark,
-        home: const MenuPage(),
+        home: const AddNewBookScreen(),
         routes: {
-          AppRoutes.homePage: (_) => const HomePage(),
-          AppRoutes.bookPage: (_) => const BookPage(),
-          AppRoutes.bookForm: (_) => const AddNewBookScreen(),
+          //AppRoutes.bookPage: (_) => const BookPage(),
+          //AppRoutes.bookForm: (_) => const AddNewBookScreen(),
           AppRoutes.bookDetails: (_) => const BookDetails(),
-          AppRoutes.warningPage: (_) => const WarningsPage(),
-          AppRoutes.warningForm: (_) => const AddNewWarningScreen(),
-          AppRoutes.warningDetails: (_) => const WarningsDetails(),
+          //AppRoutes.warningPage: (_) => const WarningsPage(),
+          //AppRoutes.warningForm: (_) => const AddNewWarningScreen(),
+          //AppRoutes.warningDetails: (_) => const WarningsDetails(),
         },
       ),
     );
