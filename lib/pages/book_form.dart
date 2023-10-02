@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import '../model/book_model.dart';
 import '../provider/service_provider.dart';
-import '../routes/app_routes.dart';
 
 // ignore: non_constant_identifier_names
 final AddNewBookModalProvider =
@@ -390,46 +389,159 @@ class AddNewBookScreen extends ConsumerWidget {
                     ),
                   ),
                   onPressed: () {
-                    List<String> isbnList = isbnController.text.split(', ');
-                    List<String> authorsList =
-                        authorsController.text.split(', ');
-                    int pageCount;
-                    int copyCount;
+                    if (titleController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha o título',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
 
-                    try {
-                      pageCount = int.parse(pageCountController.text);
-                      copyCount = int.parse(copyCountController.text);
-                    } catch (e) {
-                      return;
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (authorsController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha os autores',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (isbnController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha o Isbn',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (publisherController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha a Editora',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (pageCountController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha a Quantidade de Páginas',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (copyCountController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha a Quantidade de Cópias',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (thumbnailController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha a Url da Capa',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (descriptionController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha a Descrição',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      List<String> isbnList = isbnController.text.split(', ');
+                      List<String> authorsList =
+                          authorsController.text.split(', ');
+                      int pageCount;
+                      int copyCount;
+
+                      try {
+                        pageCount = int.parse(pageCountController.text);
+                        copyCount = int.parse(copyCountController.text);
+                      } catch (e) {
+                        return;
+                      }
+
+                      if (selectedLanguage != null) {
+                        selectedLanguage = selectedLanguage;
+                      }
+
+                      ref.read(bookProvider).addNewBook(
+                            BookModel(
+                              title: titleController.text,
+                              isbn: isbnList,
+                              authors: authorsList,
+                              category: selectedCategory.toString(),
+                              publisher: publisherController.text,
+                              publishedDate: DateTime.now(),
+                              description: descriptionController.text,
+                              pageCount: pageCount,
+                              copyCount: copyCount,
+                              loansCount: 0,
+                              averageRating: 0,
+                              ratingsCount: 0,
+                              thumbnail: thumbnailController.text,
+                              language: selectedLanguage.toString(),
+                              isAvailable: true,
+                            ),
+                          );
+
+                      Navigator.of(context).pop();
+                      //Navigator.of(context).pushNamed(AppRoutes.bookPage);
                     }
-
-                    // Atualize selectedLanguage com o valor do dropdown de idioma
-                    if (selectedLanguage != null) {
-                      selectedLanguage = selectedLanguage;
-                    }
-
-                    ref.read(bookProvider).addNewBook(
-                          BookModel(
-                            title: titleController.text,
-                            isbn: isbnList,
-                            authors: authorsList,
-                            category: selectedCategory.toString(),
-                            publisher: publisherController.text,
-                            publishedDate: DateTime.now(),
-                            description: descriptionController.text,
-                            pageCount: pageCount,
-                            copyCount: copyCount,
-                            loansCount: 0,
-                            averageRating: 0,
-                            ratingsCount: 0,
-                            thumbnail: thumbnailController.text,
-                            language: selectedLanguage.toString(),
-                            isAvailable: true,
-                          ),
-                        );
-
-                    Navigator.of(context).pop();
-                    //Navigator.of(context).pushNamed(AppRoutes.bookPage);
                   },
                   child: Text(
                     'Salvar',
