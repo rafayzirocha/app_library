@@ -1,9 +1,11 @@
 import 'package:app_library/pages/book_details.dart';
+import 'package:app_library/pages/book_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
+// ignore: unused_import
 import 'pages/book_form.dart';
 import 'routes/app_routes.dart';
 
@@ -26,10 +28,10 @@ class AppLibrary extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         darkTheme: ThemeData.dark(useMaterial3: true),
         themeMode: ThemeMode.dark,
-        home: const AddNewBookScreen(),
+        home: const BookPage(),
         routes: {
           //AppRoutes.bookPage: (_) => const BookPage(),
-          //AppRoutes.bookForm: (_) => const AddNewBookScreen(),
+          AppRoutes.bookForm: (_) => const AddNewBookScreen(),
           AppRoutes.bookDetails: (_) => const BookDetails(),
           //AppRoutes.warningPage: (_) => const WarningsPage(),
           //AppRoutes.warningForm: (_) => const AddNewWarningScreen(),

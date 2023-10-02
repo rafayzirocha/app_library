@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import '../model/book_model.dart';
 import '../provider/service_provider.dart';
+import '../routes/app_routes.dart';
 
 // ignore: non_constant_identifier_names
 final AddNewBookModalProvider =
@@ -55,7 +56,7 @@ class AddNewBookScreen extends ConsumerWidget {
     final copyCountController = AddNewBookData().copyCountController;
     final thumbnailController = AddNewBookData().thumbnailController;
 
-    String? selectedCategory = 'Romance';
+    String? selectedCategory = 'Arte, Fotografia e Design';
     String? selectedLanguage = 'Português';
 
     final language = {
@@ -81,21 +82,177 @@ class AddNewBookScreen extends ConsumerWidget {
 
     final categories = {
       const DropdownMenuItem(
+        value: 'Arte, Fotografia e Design',
+        child: Text(
+          'Arte, Fotografia e Design',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'História',
+        child: Text(
+          'História',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Administração, Economia e Negócios',
+        child: Text(
+          'Administração, Economia e Negócios',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Religião, Espiritualidade e Esoterismo',
+        child: Text(
+          'Religião, Espiritualidade e Esoterismo',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Biografias e Histórias reais',
+        child: Text(
+          'Biografias e Histórias reais',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Esportes, Hobbies e Estilo de Vida',
+        child: Text(
+          'Esportes, Hobbies e Estilo de Vida',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Direito, Política e Ciências Sociais',
+        child: Text(
+          'Direito, Política e Ciências Sociais',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'HQ, Mangás e Graphic Novels',
+        child: Text(
+          'HQ, Mangás e Graphic Novels',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Erótico',
+        child: Text(
+          'Erótico',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Gastronomia e Culinária',
+        child: Text(
+          'Gastronomia e Culinária',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Tecnologia, Informática e Mídias Digitais',
+        child: Text(
+          'Tecnologia, Informática e Mídias Digitais',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Literatura e Ficção',
+        child: Text(
+          'Literatura e Ficção',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Educação e Didáticos',
+        child: Text(
+          'Educação e Didáticos',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Ciência',
+        child: Text(
+          'Ciência',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Psicologia e Comportamento',
+        child: Text(
+          'Psicologia e Comportamento',
+        ),
+      ),
+      const DropdownMenuItem(
         value: 'Romance',
         child: Text(
           'Romance',
         ),
       ),
       const DropdownMenuItem(
-        value: 'Ficção',
+        value: 'Clássicos',
         child: Text(
-          'Ficção',
+          'Clássicos',
         ),
       ),
       const DropdownMenuItem(
-        value: 'Biografia',
+        value: 'Policial e Suspense',
         child: Text(
-          'Biografia',
+          'Policial e Suspense',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Contos, Crônicas e Humor',
+        child: Text(
+          'Contos, Crônicas e Humor',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Saúde',
+        child: Text(
+          'Saúde',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Young Adult',
+        child: Text(
+          'Young Adult',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Juvenil',
+        child: Text(
+          'Juvenil',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Terror',
+        child: Text(
+          'Terror',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Ficção Científica',
+        child: Text(
+          'Ficção Científica',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Fantasia',
+        child: Text(
+          'Fantasia',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Poesias e Ensaios',
+        child: Text(
+          'Poesias e Ensaios',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Autoajuda e Desenvolvimento Pessoal',
+        child: Text(
+          'Autoajuda e Desenvolvimento Pessoal',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Viagem',
+        child: Text(
+          'Viagem',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Não classificado',
+        child: Text(
+          'Não classificado',
         ),
       ),
     };
@@ -137,27 +294,19 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLines: 1,
                       ),
                       const Gap(20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: CustomField(
-                              controller: isbnController,
-                              hintText: 'Isbn',
-                              keyboardType: TextInputType.name,
-                              maxLines: 1,
-                            ),
-                          ),
-                          const Gap(20),
-                          Expanded(
-                            child: CustomDropDown(
-                              items: List.of(categories),
-                              selectedValue: selectedCategory,
-                              onChanged: (value) {
-                                selectedCategory = value;
-                              },
-                            ),
-                          ),
-                        ],
+                      CustomField(
+                        controller: isbnController,
+                        hintText: 'Isbn',
+                        keyboardType: TextInputType.name,
+                        maxLines: 1,
+                      ),
+                      const Gap(20),
+                      CustomDropDown(
+                        items: List.of(categories),
+                        selectedValue: selectedCategory,
+                        onChanged: (value) {
+                          selectedCategory = value;
+                        },
                       ),
                       const Gap(20),
                       Row(
@@ -218,6 +367,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         keyboardType: TextInputType.multiline,
                         maxLines: 1,
                       ),
+                      const Gap(20),
                     ],
                   ),
                 ),
@@ -278,7 +428,7 @@ class AddNewBookScreen extends ConsumerWidget {
                           ),
                         );
 
-                    //Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                     //Navigator.of(context).pushNamed(AppRoutes.bookPage);
                   },
                   child: Text(

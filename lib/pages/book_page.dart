@@ -1,8 +1,10 @@
-/*import 'package:feather_icons/feather_icons.dart';
+import 'package:app_library/routes/app_routes.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
+// ignore: unused_import
 import '../model/book_model.dart';
 import '../provider/service_provider.dart';
 import '../widgets/book_card.dart';
@@ -34,25 +36,7 @@ class BookPage extends ConsumerWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    ref.read(bookProvider).addNewBook(
-                          BookModel(
-                            title: 'title',
-                            isbn: ['isbn'],
-                            authors: ['authors'],
-                            categories: ['categories'],
-                            publisher: 'publisher',
-                            publishedDate: DateTime.now(),
-                            description: 'description',
-                            pageCount: 1,
-                            copyCount: 1,
-                            loansCount: 0,
-                            averageRating: 0,
-                            ratingsCount: 0,
-                            thumbnail: '',
-                            language: 'language',
-                            isAvailable: true,
-                          ),
-                        );
+                    Navigator.of(context).pushNamed(AppRoutes.bookForm);
                   },
                   icon: const Icon(
                     FeatherIcons.plus,
@@ -89,7 +73,7 @@ class BookPage extends ConsumerWidget {
                     livro: livros.value![index],
                   ),
                   separatorBuilder: (BuildContext context, int index) {
-                    return const Gap(20);
+                    return const Gap(8);
                   },
                 ),
               ),
@@ -99,4 +83,4 @@ class BookPage extends ConsumerWidget {
       ),
     );
   }
-}*/
+}

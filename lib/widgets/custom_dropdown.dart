@@ -33,6 +33,7 @@ class CustomDropDown extends StatelessWidget {
         ),
         dropdownColor: AppStyle.dark2,
         value: selectedValue,
+        isExpanded: true,
         decoration: const InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(left: 20, right: 20),

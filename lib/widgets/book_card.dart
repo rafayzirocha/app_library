@@ -1,13 +1,11 @@
 // ignore_for_file: avoid_types_as_parameter_names, non_constant_identifier_names
 
-/*import 'package:app_library/model/book_model.dart';
+import 'package:app_library/model/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../provider/service_provider.dart';
-import '../routes/app_routes.dart';
 
 class BookCard extends ConsumerWidget {
   const BookCard({
@@ -43,7 +41,7 @@ class BookCard extends ConsumerWidget {
           color: const Color(0xFFA5A5A5),
           fontWeight: FontWeight.w400,
         ),
-        leading: Container(
+        leading: SizedBox(
           height: 60,
           width: 60,
           child: ClipRRect(
@@ -67,4 +65,4 @@ class BookCard extends ConsumerWidget {
       ),
     );
   }
-}*/
+}
