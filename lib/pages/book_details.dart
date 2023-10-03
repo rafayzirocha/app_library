@@ -1,5 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/provider/service_provider.dart';
+import 'package:app_library/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -33,7 +34,9 @@ class BookDetails extends ConsumerWidget {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AppRoutes.bookForm);
+                  },
                   icon: Icon(
                     Icons.edit_rounded,
                     size: 18,
@@ -59,6 +62,11 @@ class BookDetails extends ConsumerWidget {
                           actions: [
                             TextButton(
                               style: ButtonStyle(
+                                shape: MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
                                 textStyle: MaterialStatePropertyAll(
                                   GoogleFonts.inter(
                                     color: AppStyle.gray,
@@ -79,6 +87,11 @@ class BookDetails extends ConsumerWidget {
                             ),
                             TextButton(
                               style: ButtonStyle(
+                                shape: MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
                                 textStyle: MaterialStatePropertyAll(
                                   GoogleFonts.inter(
                                     color: AppStyle.primary,
@@ -216,6 +229,22 @@ class BookDetails extends ConsumerWidget {
                       side: BorderSide.none,
                       elevation: 0,
                     ),
+                    Chip(
+                      label: Text(
+                        data.isbn.join(', '),
+                        style: GoogleFonts.inter(
+                          color: AppStyle.gray,
+                          fontSize: 14,
+                        ),
+                      ),
+                      backgroundColor: AppStyle.dark2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide.none,
+                      ),
+                      side: BorderSide.none,
+                      elevation: 0,
+                    ),
                     const Gap(20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -286,82 +315,11 @@ class BookDetails extends ConsumerWidget {
                       ],
                     ),
                     const Gap(20),
-                    Chip(
-                      label: Text(
-                        data.isbn.join(', '),
-                        style: GoogleFonts.inter(
-                          color: AppStyle.gray,
-                          fontSize: 14,
-                        ),
-                      ),
-                      backgroundColor: AppStyle.dark2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide.none,
-                      ),
-                      side: BorderSide.none,
-                      elevation: 0,
-                    ),
-                    const Gap(20),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Chip(
-                          label: Text(
-                            data.language,
-                            style: GoogleFonts.inter(
-                              color: AppStyle.gray,
-                              fontSize: 14,
-                            ),
-                          ),
-                          backgroundColor: AppStyle.dark2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: BorderSide.none,
-                          ),
-                          side: BorderSide.none,
-                          elevation: 0,
-                        ),
-                        const Gap(20),
-                        Chip(
-                          label: Text(
-                            data.publisher,
-                            style: GoogleFonts.inter(
-                              color: AppStyle.gray,
-                              fontSize: 14,
-                            ),
-                          ),
-                          backgroundColor: AppStyle.dark2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: BorderSide.none,
-                          ),
-                          side: BorderSide.none,
-                          elevation: 0,
-                        ),
-                        const Gap(20),
-                        Chip(
-                          label: Text(
-                            data.publishedDate.toString(),
-                            style: GoogleFonts.inter(
-                              color: AppStyle.gray,
-                              fontSize: 14,
-                            ),
-                          ),
-                          backgroundColor: AppStyle.dark2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: BorderSide.none,
-                          ),
-                          side: BorderSide.none,
-                          elevation: 0,
-                        ),
-                      ],
-                    ),
-                    const Gap(20),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                      ),
                       child: Column(
                         children: [
                           Text(
@@ -379,6 +337,35 @@ class BookDetails extends ConsumerWidget {
                     ),
                     const Gap(20),
                   ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: SizedBox(
+                height: 45,
+                width: double.infinity,
+                child: FilledButton(
+                  style: ButtonStyle(
+                    elevation: const MaterialStatePropertyAll(0),
+                    backgroundColor: MaterialStatePropertyAll(
+                      AppStyle.primary,
+                    ),
+                    shape: const MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AppRoutes.emprestimoPage);
+                  },
+                  child: Text(
+                    'Realizar empréstimo',
+                    style: AppStyle.title2,
+                  ),
                 ),
               ),
             ),

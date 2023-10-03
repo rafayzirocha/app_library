@@ -1,5 +1,6 @@
 import 'package:app_library/pages/book_details.dart';
 import 'package:app_library/pages/book_page.dart';
+import 'package:app_library/pages/emprestimo_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,6 +37,7 @@ class AppLibrary extends StatelessWidget {
           //AppRoutes.warningPage: (_) => const WarningsPage(),
           //AppRoutes.warningForm: (_) => const AddNewWarningScreen(),
           //AppRoutes.warningDetails: (_) => const WarningsDetails(),
+          AppRoutes.emprestimoPage: (_) => const EmprestimoPage(),
         },
       ),
     );

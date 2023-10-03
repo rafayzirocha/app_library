@@ -6,4 +6,5 @@ class AppRoutes {
   static const warningPage = '/warningPage';
   static const warningForm = '/warningForm';
   static const warningDetails = '/warningDetails';
+  static const emprestimoPage = '/emprestimoPage';
 }
