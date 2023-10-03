@@ -1,5 +1,5 @@
+import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/routes/app_routes.dart';
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -14,72 +14,41 @@ class BookPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final livros = ref.watch(buscaLivros);
+    final data = ref.watch(buscaLivros);
+
     return Scaffold(
-      backgroundColor: const Color(0xFF131313),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF131313),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(
-            Icons.chevron_left,
-            size: 18,
-            color: Color(0xFFDCDCDC),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.bookForm);
-                  },
-                  icon: const Icon(
-                    FeatherIcons.plus,
-                    size: 18,
-                    color: Color(0xFFDCDCDC),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    FeatherIcons.search,
-                    size: 18,
-                    color: Color(0xFFDCDCDC),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+      backgroundColor: AppStyle.dark1,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: livros.value != null ? livros.value!.length : 0,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => BookCard(
-                    getIndex: index,
-                    livro: livros.value![index],
-                  ),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Gap(8);
-                  },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Gap(20),
+            Expanded(
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                itemCount: data.value != null ? data.value!.length : 0,
+                shrinkWrap: true,
+                itemBuilder: (context, index) => BookCard(
+                  getIndex: index,
+                  livro: data.value![index],
                 ),
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Gap(8);
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppStyle.primary,
+        child: Icon(
+          Icons.add,
+          color: AppStyle.white,
+        ),
+        onPressed: () {
+          Navigator.of(context).pushNamed(AppRoutes.bookForm);
+        },
       ),
     );
   }

@@ -7,10 +7,12 @@ class CustomField extends StatelessWidget {
   final String hintText;
   final TextInputType keyboardType;
   final int maxLines;
+  final Function? onChanged;
 
   const CustomField({
     Key? key,
     this.controller,
+    this.onChanged,
     required this.hintText,
     required this.keyboardType,
     required this.maxLines,
@@ -34,6 +36,11 @@ class CustomField extends StatelessWidget {
         keyboardType: keyboardType,
         maxLines: maxLines,
         style: AppStyle.title3,
+        onChanged: (value) {
+          if (onChanged != null) {
+            onChanged!(value);
+          }
+        },
       ),
     );
   }

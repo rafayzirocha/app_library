@@ -24,7 +24,7 @@ class AppStyle {
 
   static Color primary = const Color(0xFF5271FE);
   static Color white = const Color(0xFFFFFFFF);
-  static Color gray = const Color(0xFFA5A5A5);
+  static Color gray = const Color(0xFFA9A9A9);
   static Color dark1 = const Color(0xFF202020);
   static Color dark2 = const Color(0xFF353535);
 }

@@ -261,7 +261,9 @@ class AddNewBookScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: AppStyle.dark1,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
           icon: Icon(
             Icons.chevron_left,
             size: 18,
@@ -473,7 +475,7 @@ class AddNewBookScreen extends ConsumerWidget {
                       );
 
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (thumbnailController.text.isEmpty) {
+                    } /*else if (thumbnailController.text.isEmpty) {
                       final snackBar = SnackBar(
                         elevation: 0,
                         backgroundColor: AppStyle.dark1,
@@ -487,7 +489,8 @@ class AddNewBookScreen extends ConsumerWidget {
                       );
 
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (descriptionController.text.isEmpty) {
+                    } */
+                    else if (descriptionController.text.isEmpty) {
                       final snackBar = SnackBar(
                         elevation: 0,
                         backgroundColor: AppStyle.dark1,

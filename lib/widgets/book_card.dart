@@ -1,11 +1,13 @@
 // ignore_for_file: avoid_types_as_parameter_names, non_constant_identifier_names
 
+import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:gap/gap.dart';
 
 import '../provider/service_provider.dart';
+import '../routes/app_routes.dart';
 
 class BookCard extends ConsumerWidget {
   const BookCard({
@@ -22,40 +24,64 @@ class BookCard extends ConsumerWidget {
     final data = ref.watch(buscaLivros);
     return data.when(
       data: (data) => ListTile(
-        title: Text(
-          data[getIndex].title,
-          overflow: TextOverflow.ellipsis,
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              data[getIndex].title,
+              overflow: TextOverflow.ellipsis,
+              style: AppStyle.title2,
+            ),
+            const Gap(4),
+            data[getIndex].isAvailable
+                ? Icon(
+                    Icons.circle,
+                    size: 14,
+                    color: AppStyle.primary,
+                  )
+                : const Icon(
+                    Icons.circle,
+                    size: 14,
+                    color: Colors.red,
+                  ),
+          ],
         ),
         titleAlignment: ListTileTitleAlignment.center,
-        titleTextStyle: GoogleFonts.inter(
-          fontSize: 16,
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-        ),
         subtitle: Text(
           data[getIndex].authors.join(', '),
+          style: AppStyle.subtitle,
           overflow: TextOverflow.ellipsis,
-        ),
-        subtitleTextStyle: GoogleFonts.inter(
-          fontSize: 14,
-          color: const Color(0xFFA5A5A5),
-          fontWeight: FontWeight.w400,
         ),
         leading: SizedBox(
           height: 60,
           width: 60,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.network(
-              data[getIndex].thumbnail,
-              fit: BoxFit.cover,
-            ),
+            child: data[getIndex].thumbnail.isNotEmpty
+                ? Image.network(
+                    data[getIndex].thumbnail,
+                    fit: BoxFit.cover,
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: AppStyle.dark2,
+                    ),
+                    child: Icon(
+                      Icons.image_rounded,
+                      size: 18,
+                      color: AppStyle.gray,
+                    ),
+                  ),
           ),
         ),
-        onTap: () {},
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            AppRoutes.bookDetails,
+            arguments: livro,
+          );
+        },
       ),
       error: (error, StackTrace) => Center(
         child: Text(StackTrace.toString()),

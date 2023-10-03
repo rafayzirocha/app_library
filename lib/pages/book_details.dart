@@ -1,5 +1,5 @@
+import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/provider/service_provider.dart';
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -12,19 +12,19 @@ class BookDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bookData = ModalRoute.of(context)!.settings.arguments as BookModel;
+    final data = ModalRoute.of(context)!.settings.arguments as BookModel;
     return Scaffold(
-      backgroundColor: const Color(0xFF131313),
+      backgroundColor: AppStyle.dark1,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF131313),
+        backgroundColor: AppStyle.dark1,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.chevron_left,
             size: 18,
-            color: Color(0xFFDCDCDC),
+            color: AppStyle.white,
           ),
         ),
         actions: [
@@ -34,21 +34,96 @@ class BookDetails extends ConsumerWidget {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(
-                    FeatherIcons.edit2,
+                  icon: Icon(
+                    Icons.edit_rounded,
                     size: 18,
-                    color: Color(0xFFDCDCDC),
+                    color: AppStyle.white,
                   ),
                 ),
                 IconButton(
                   onPressed: () {
-                    ref.read(bookProvider).deleteBook(bookData.docId);
-                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: AppStyle.dark1,
+                          elevation: 0,
+                          title: Text(
+                            'Confirmar Exclusão',
+                            style: AppStyle.title1,
+                          ),
+                          content: Text(
+                            'Tem certeza de que deseja excluir este registro?',
+                            style: AppStyle.title3,
+                          ),
+                          actions: [
+                            TextButton(
+                              style: ButtonStyle(
+                                textStyle: MaterialStatePropertyAll(
+                                  GoogleFonts.inter(
+                                    color: AppStyle.gray,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                'Cancelar',
+                                style: GoogleFonts.inter(
+                                  color: AppStyle.gray,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              style: ButtonStyle(
+                                textStyle: MaterialStatePropertyAll(
+                                  GoogleFonts.inter(
+                                    color: AppStyle.primary,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                ref.read(bookProvider).deleteBook(data.docId);
+
+                                Navigator.of(context).pop();
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    elevation: 0,
+                                    backgroundColor: AppStyle.dark1,
+                                    showCloseIcon: true,
+                                    closeIconColor: AppStyle.gray,
+                                    content: Text(
+                                      'Registro excluído com sucesso!',
+                                      style: AppStyle.subtitle,
+                                    ),
+                                    duration: const Duration(seconds: 5),
+                                  ),
+                                );
+
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                'Confirmar',
+                                style: GoogleFonts.inter(
+                                  color: AppStyle.primary,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
-                  icon: const Icon(
-                    FeatherIcons.trash,
+                  icon: Icon(
+                    Icons.delete_rounded,
                     size: 18,
-                    color: Color(0xFFDCDCDC),
+                    color: AppStyle.white,
                   ),
                 ),
               ],
@@ -71,21 +146,18 @@ class BookDetails extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            bookData.title,
-                            style: GoogleFonts.inter(
-                              fontSize: 20,
-                              color: const Color(0xFFDCDCDC),
-                            ),
+                            data.title,
+                            style: AppStyle.title1,
                           ),
                           const Gap(4),
-                          bookData.isAvailable
-                              ? const Icon(
-                                  Icons.check_circle_rounded,
+                          data.isAvailable
+                              ? Icon(
+                                  Icons.circle,
                                   size: 18,
-                                  color: Color(0xFF0066FF),
+                                  color: AppStyle.primary,
                                 )
                               : const Icon(
-                                  Icons.cancel_rounded,
+                                  Icons.circle,
                                   size: 18,
                                   color: Colors.red,
                                 ),
@@ -93,21 +165,18 @@ class BookDetails extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      'por ${bookData.authors.join(', ')}',
-                      style: GoogleFonts.inter(
-                        fontSize: 16,
-                        color: const Color(0xFFA9A9A9),
-                      ),
+                      'por ${data.authors.join(', ')}',
+                      style: AppStyle.title3,
                     ),
                     const Gap(20),
-                    bookData.thumbnail.isNotEmpty
+                    data.thumbnail.isNotEmpty
                         ? Container(
                             height: 200,
                             alignment: Alignment.center,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: Image.network(
-                                bookData.thumbnail,
+                                data.thumbnail,
                                 fit: BoxFit.cover,
                                 width: 200,
                                 alignment: Alignment.center,
@@ -118,18 +187,178 @@ class BookDetails extends ConsumerWidget {
                             height: 200,
                             width: 200,
                             alignment: Alignment.center,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFF1A1A1A),
-                              borderRadius: BorderRadius.all(
+                            decoration: BoxDecoration(
+                              color: AppStyle.dark2,
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               ),
                             ),
-                            child: const Icon(
+                            child: Icon(
                               Icons.image_rounded,
                               size: 40,
-                              color: Color(0xFFA9A9A9),
+                              color: AppStyle.gray,
                             ),
                           ),
+                    const Gap(20),
+                    Chip(
+                      label: Text(
+                        data.category,
+                        style: GoogleFonts.inter(
+                          color: AppStyle.gray,
+                          fontSize: 14,
+                        ),
+                      ),
+                      backgroundColor: AppStyle.dark2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide.none,
+                      ),
+                      side: BorderSide.none,
+                      elevation: 0,
+                    ),
+                    const Gap(20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            IconButton.filled(
+                              onPressed: () {},
+                              icon: const Icon(Icons.description_rounded),
+                              iconSize: 18,
+                              color: AppStyle.gray,
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  AppStyle.dark2,
+                                ),
+                              ),
+                            ),
+                            const Gap(10),
+                            Text(
+                              data.pageCount.toString(),
+                              style: AppStyle.subtitle,
+                            ),
+                          ],
+                        ),
+                        const Gap(20),
+                        Column(
+                          children: [
+                            IconButton.filled(
+                              onPressed: () {},
+                              icon: const Icon(Icons.favorite_rounded),
+                              iconSize: 18,
+                              color: AppStyle.gray,
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  AppStyle.dark2,
+                                ),
+                              ),
+                            ),
+                            const Gap(10),
+                            Text(
+                              data.loansCount.toString(),
+                              style: AppStyle.subtitle,
+                            ),
+                          ],
+                        ),
+                        const Gap(20),
+                        Column(
+                          children: [
+                            IconButton.filled(
+                              onPressed: () {},
+                              icon: const Icon(Icons.copy_rounded),
+                              iconSize: 18,
+                              color: AppStyle.gray,
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  AppStyle.dark2,
+                                ),
+                              ),
+                            ),
+                            const Gap(10),
+                            Text(
+                              data.copyCount.toString(),
+                              style: AppStyle.subtitle,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Gap(20),
+                    Chip(
+                      label: Text(
+                        data.isbn.join(', '),
+                        style: GoogleFonts.inter(
+                          color: AppStyle.gray,
+                          fontSize: 14,
+                        ),
+                      ),
+                      backgroundColor: AppStyle.dark2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide.none,
+                      ),
+                      side: BorderSide.none,
+                      elevation: 0,
+                    ),
+                    const Gap(20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Chip(
+                          label: Text(
+                            data.language,
+                            style: GoogleFonts.inter(
+                              color: AppStyle.gray,
+                              fontSize: 14,
+                            ),
+                          ),
+                          backgroundColor: AppStyle.dark2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide.none,
+                          ),
+                          side: BorderSide.none,
+                          elevation: 0,
+                        ),
+                        const Gap(20),
+                        Chip(
+                          label: Text(
+                            data.publisher,
+                            style: GoogleFonts.inter(
+                              color: AppStyle.gray,
+                              fontSize: 14,
+                            ),
+                          ),
+                          backgroundColor: AppStyle.dark2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide.none,
+                          ),
+                          side: BorderSide.none,
+                          elevation: 0,
+                        ),
+                        const Gap(20),
+                        Chip(
+                          label: Text(
+                            data.publishedDate.toString(),
+                            style: GoogleFonts.inter(
+                              color: AppStyle.gray,
+                              fontSize: 14,
+                            ),
+                          ),
+                          backgroundColor: AppStyle.dark2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide.none,
+                          ),
+                          side: BorderSide.none,
+                          elevation: 0,
+                        ),
+                      ],
+                    ),
                     const Gap(20),
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
@@ -137,19 +366,13 @@ class BookDetails extends ConsumerWidget {
                         children: [
                           Text(
                             'Descrição',
-                            style: GoogleFonts.inter(
-                              fontSize: 20,
-                              color: const Color(0xFFDCDCDC),
-                            ),
+                            style: AppStyle.title1,
                           ),
                           const Gap(10),
                           Text(
-                            bookData.description,
+                            data.description,
                             textAlign: TextAlign.justify,
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: const Color(0xFFA9A9A9),
-                            ),
+                            style: AppStyle.title3,
                           ),
                         ],
                       ),
@@ -161,52 +384,6 @@ class BookDetails extends ConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ChipDetails extends StatelessWidget {
-  const ChipDetails({
-    super.key,
-    required this.bookData,
-    this.icon,
-    required this.title,
-  });
-
-  final BookModel bookData;
-  final IconData? icon;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Chip(
-      side: BorderSide.none,
-      backgroundColor: const Color(0xFFF5F9FF),
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        side: BorderSide.none,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      label: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (icon != null)
-            Icon(
-              icon,
-              size: 18,
-              color: const Color(0xFF0066FF),
-            ),
-          if (icon != null) const Gap(4),
-          Text(
-            title,
-            style: GoogleFonts.jost(
-              fontSize: 14,
-              color: const Color(0xFF0066FF),
-            ),
-          ),
-        ],
       ),
     );
   }
