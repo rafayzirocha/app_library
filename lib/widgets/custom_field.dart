@@ -26,6 +26,7 @@ class CustomField extends StatelessWidget {
         color: AppStyle.dark2,
       ),
       child: TextFormField(
+        cursorColor: AppStyle.primary,
         autocorrect: true,
         controller: controller,
         decoration: InputDecoration(

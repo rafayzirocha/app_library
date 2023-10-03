@@ -51,11 +51,23 @@ class BookPage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
+      appBar: AppBar(
+        backgroundColor: AppStyle.dark1,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            Icons.chevron_left,
+            size: 18,
+            color: AppStyle.white,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Gap(20),
             const Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: CustomField(
