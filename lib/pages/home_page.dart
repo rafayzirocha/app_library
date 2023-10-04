@@ -59,7 +59,9 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     IconButton.filled(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(AppRoutes.warningPage);
+                      },
                       icon: const Icon(Icons.campaign_rounded),
                       iconSize: 18,
                       color: AppStyle.gray,
@@ -85,7 +87,9 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     IconButton.filled(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(AppRoutes.userPage);
+                      },
                       icon: const Icon(Icons.group_rounded),
                       iconSize: 18,
                       color: AppStyle.gray,
@@ -176,7 +180,9 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     IconButton.filled(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(AppRoutes.warningForm);
+                      },
                       icon: const Icon(Icons.add),
                       iconSize: 18,
                       color: AppStyle.gray,
@@ -219,38 +225,106 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const Gap(10),
                     Text(
-                      'Novo Usuário',
-                      style: AppStyle.subtitle,
-                    ),
-                  ],
-                ),
-                const Gap(20),
-                Column(
-                  children: [
-                    IconButton.filled(
-                      onPressed: () {},
-                      icon: const Icon(Icons.add),
-                      iconSize: 18,
-                      color: AppStyle.gray,
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          AppStyle.dark2,
-                        ),
-                        shape: MaterialStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Gap(10),
-                    Text(
                       'Criar Empréstimo',
                       style: AppStyle.subtitle,
                     ),
                   ],
                 ),
               ],
+            ),
+            const Gap(20),
+            Text(
+              'Sobre',
+              style: AppStyle.title1,
+            ),
+            const Gap(20),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                children: [
+                  IconButton.filled(
+                    onPressed: () {},
+                    icon: const Icon(Icons.home_rounded),
+                    iconSize: 18,
+                    color: AppStyle.gray,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        AppStyle.dark2,
+                      ),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Gap(10),
+                  Text(
+                    'Biblioteca Francisco Bosnyak Filho',
+                    style: AppStyle.title3,
+                  ),
+                ],
+              ),
+            ),
+            const Gap(20),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                children: [
+                  IconButton.filled(
+                    onPressed: () {},
+                    icon: const Icon(Icons.email_rounded),
+                    iconSize: 18,
+                    color: AppStyle.gray,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        AppStyle.dark2,
+                      ),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Gap(10),
+                  Text(
+                    'e096bibli@cps.sp.gov.br',
+                    style: AppStyle.title3,
+                  ),
+                ],
+              ),
+            ),
+            const Gap(20),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                children: [
+                  IconButton.filled(
+                    onPressed: () {},
+                    icon: const Icon(Icons.location_on_rounded),
+                    iconSize: 18,
+                    color: AppStyle.gray,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        AppStyle.dark2,
+                      ),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Gap(10),
+                  Expanded(
+                    child: Text(
+                      'Rua Ariovaldo S. Franco, 237, Jd. 31 de março, Mirante 13801-005 Mogi Mirim, SP',
+                      style: AppStyle.title3,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

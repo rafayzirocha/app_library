@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import '../model/book_model.dart';
 import '../provider/service_provider.dart';
+import '../routes/app_routes.dart';
 
 // ignore: non_constant_identifier_names
 final AddNewBookModalProvider =
@@ -543,7 +544,21 @@ class AddNewBookScreen extends ConsumerWidget {
                           );
 
                       Navigator.of(context).pop();
-                      //Navigator.of(context).pushNamed(AppRoutes.bookPage);
+                      Navigator.of(context).pushNamed(AppRoutes.bookPage);
+
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Livro cadastrado com sucesso!',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   },
                   child: Text(

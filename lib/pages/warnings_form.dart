@@ -1,14 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 
-/*import 'package:app_library/model/warning_model.dart';
 import 'package:app_library/provider/service_provider.dart';
+import 'package:app_library/widgets/custom_dropdown.dart';
+import 'package:app_library/widgets/custom_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/app_style.dart';
-import '../widgets/custom_txt.dart';
+import '../model/warning_model.dart';
+import '../routes/app_routes.dart';
 
 final AddNewWarningModalProvider =
     StateNotifierProvider<AddNewWarningModalController, AddNewWarningData>(
@@ -43,45 +44,37 @@ class AddNewWarningScreen extends ConsumerWidget {
     final descriptionController = AddNewWarningData().descriptionController;
     final urlController = AddNewWarningData().urlController;
 
+    String? categoria = 'Eventos';
+
+    final categories = {
+      const DropdownMenuItem(
+        value: 'Eventos',
+        child: Text(
+          'Eventos',
+        ),
+      ),
+      const DropdownMenuItem(
+        value: 'Prêmios',
+        child: Text(
+          'Prêmios',
+        ),
+      ),
+    };
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppStyle.dark1,
       appBar: AppBar(
+        backgroundColor: AppStyle.dark1,
         leading: IconButton(
-          iconSize: 18,
-          color: AppStyle.txtColor,
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.chevron_left),
-        ),
-        title: Text(
-          'Cadastrando novo aviso',
-          style: GoogleFonts.jost(
-            fontSize: 16,
-            color: const Color(0xFF3C3C3C),
+          icon: Icon(
+            Icons.chevron_left,
+            size: 18,
+            color: AppStyle.white,
           ),
         ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-            onPressed: () {
-              ref.read(warningProvider).addNewWarning(
-                    WarningModel(
-                      title: titleController.text,
-                      description: descriptionController.text,
-                      imageUrl: urlController.text,
-                      publishedDate: DateTime.now(),
-                    ),
-                  );
-              Navigator.of(context).pop();
-            },
-            iconSize: 18,
-            color: AppStyle.primaryColor,
-            icon: const Icon(Icons.check_rounded),
-          ),
-        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -93,34 +86,128 @@ class AddNewWarningScreen extends ConsumerWidget {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      CustomTextField(
-                        title: 'Título',
-                        maxLine: 1,
-                        txtController: titleController,
-                        keyboardType: TextInputType.text,
+                      CustomField(
+                        hintText: 'Titulo',
+                        keyboardType: TextInputType.name,
+                        maxLines: 1,
+                        controller: titleController,
                       ),
-                      const Gap(10),
-                      CustomTextField(
-                        title: 'Descrição',
-                        maxLine: 10,
-                        txtController: descriptionController,
+                      const Gap(20),
+                      CustomDropDown(
+                        items: categories.toList(),
+                        selectedValue: categoria,
+                        onChanged: (value) {
+                          categoria = value;
+                        },
+                      ),
+                      const Gap(20),
+                      CustomField(
+                        hintText: 'Descrição',
                         keyboardType: TextInputType.multiline,
+                        maxLines: 1,
+                        controller: descriptionController,
                       ),
-                      const Gap(10),
-                      CustomTextField(
-                        title: 'Url da Imagem',
-                        maxLine: 1,
-                        txtController: urlController,
-                        keyboardType: TextInputType.text,
+                      const Gap(20),
+                      CustomField(
+                        hintText: 'Url da Imagem',
+                        keyboardType: TextInputType.url,
+                        maxLines: 1,
+                        controller: urlController,
                       ),
+                      const Gap(20),
                     ],
                   ),
                 ),
               ),
+              SizedBox(
+                height: 45,
+                width: double.infinity,
+                child: FilledButton(
+                  style: ButtonStyle(
+                    elevation: const MaterialStatePropertyAll(0),
+                    backgroundColor: MaterialStatePropertyAll(
+                      AppStyle.primary,
+                    ),
+                    shape: const MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    if (titleController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha o título',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (descriptionController.text.isEmpty) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Preencha a Descrição',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      if (categoria != null) {
+                        categoria = categoria;
+                      }
+
+                      ref.read(warningProvider).addNewWarning(
+                            WarningModel(
+                              title: titleController.text,
+                              description: descriptionController.text,
+                              category: categoria.toString(),
+                              imageUrl: urlController.text,
+                              publishedDate: DateTime.now(),
+                            ),
+                          );
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed(AppRoutes.warningPage);
+
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        backgroundColor: AppStyle.dark1,
+                        showCloseIcon: true,
+                        closeIconColor: AppStyle.gray,
+                        content: Text(
+                          'Aviso cadastrado com sucesso!',
+                          style: AppStyle.subtitle,
+                        ),
+                        duration: const Duration(seconds: 5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
+                  child: Text(
+                    'Salvar',
+                    style: AppStyle.title2,
+                  ),
+                ),
+              ),
+              const Gap(20),
             ],
           ),
         ),
       ),
     );
   }
-}*/
+}

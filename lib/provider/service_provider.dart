@@ -1,3 +1,4 @@
+import 'package:app_library/model/user_model.dart';
 import 'package:app_library/model/warning_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,12 @@ final bookProvider = StateProvider<BookService>(
 final warningProvider = StateProvider<WarningService>(
   (ref) {
     return WarningService();
+  },
+);
+
+final usersProvider = StateProvider<UsersService>(
+  (ref) {
+    return UsersService();
   },
 );
 
@@ -41,6 +48,21 @@ final fetchWarnings = StreamProvider<List<WarningModel>>((ref) async* {
         (event) => event.docs
             .map(
               (snapshot) => WarningModel.fromSnapshot(snapshot),
+            )
+            .toList(),
+      );
+  yield* getData;
+});
+
+final buscaUsuarios = StreamProvider<List<UserModel>>((ref) async* {
+  final getData = FirebaseFirestore.instance
+      .collection('users')
+      .orderBy('name')
+      .snapshots()
+      .map(
+        (event) => event.docs
+            .map(
+              (snapshot) => UserModel.fromSnapshot(snapshot),
             )
             .toList(),
       );

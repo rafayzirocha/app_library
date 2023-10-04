@@ -4,6 +4,7 @@ class WarningModel {
   String? docId;
   String title;
   String description;
+  String category;
   String imageUrl;
   DateTime publishedDate;
 
@@ -11,6 +12,7 @@ class WarningModel {
     this.docId,
     required this.title,
     required this.description,
+    required this.category,
     required this.imageUrl,
     required this.publishedDate,
   });
@@ -19,6 +21,7 @@ class WarningModel {
     return <String, dynamic>{
       'title': title,
       'description': description,
+      'category': category,
       'imageUrl': imageUrl,
       'publishedDate': publishedDate,
     };
@@ -29,6 +32,7 @@ class WarningModel {
       docId: map['docId'] != null ? map['docId'] as String : null,
       title: map['title'] as String,
       description: map['description'] as String,
+      category: map['category'] as String,
       imageUrl: map['imageUrl'] as String,
       publishedDate: map['publishedDate'].toDate(),
     );
@@ -40,6 +44,7 @@ class WarningModel {
       docId: doc.id,
       title: doc['title'] as String,
       description: doc['description'] as String,
+      category: doc['category'] as String,
       imageUrl: doc['imageUrl'] as String,
       publishedDate: (doc['publishedDate'] as Timestamp).toDate(),
     );
