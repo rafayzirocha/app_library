@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 import '../provider/service_provider.dart';
+import '../routes/app_routes.dart';
 
 class UserPage extends ConsumerWidget {
   const UserPage({super.key});
@@ -48,6 +49,16 @@ class UserPage extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppStyle.primary,
+        child: Icon(
+          Icons.add,
+          color: AppStyle.white,
+        ),
+        onPressed: () {
+          Navigator.of(context).pushNamed(AppRoutes.userForm);
+        },
       ),
     );
   }

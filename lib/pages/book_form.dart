@@ -1,6 +1,7 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/widgets/custom_dropdown.dart';
 import 'package:app_library/widgets/custom_field.dart';
+import 'package:app_library/widgets/custom_field_descricao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -19,6 +20,7 @@ class AddNewBookData {
   final TextEditingController authorsController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
   final TextEditingController publisherController = TextEditingController();
+  final TextEditingController publishedDateController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController pageCountController = TextEditingController();
   final TextEditingController copyCountController = TextEditingController();
@@ -34,6 +36,7 @@ class AddNewBookModalController extends StateNotifier<AddNewBookData> {
     state.authorsController.dispose();
     state.isbnController.dispose();
     state.publisherController.dispose();
+    state.publishedDateController.dispose();
     state.descriptionController.dispose();
     state.pageCountController.dispose();
     state.copyCountController.dispose();
@@ -51,6 +54,7 @@ class AddNewBookScreen extends ConsumerWidget {
     final authorsController = AddNewBookData().authorsController;
     final isbnController = AddNewBookData().isbnController;
     final publisherController = AddNewBookData().publisherController;
+    final publishedDateController = AddNewBookData().publishedDateController;
     final descriptionController = AddNewBookData().descriptionController;
     final pageCountController = AddNewBookData().pageCountController;
     final copyCountController = AddNewBookData().copyCountController;
@@ -311,23 +315,30 @@ class AddNewBookScreen extends ConsumerWidget {
                         },
                       ),
                       const Gap(20),
+                      CustomDropDown(
+                        items: List.of(language),
+                        selectedValue: selectedLanguage,
+                        onChanged: (value) {
+                          selectedLanguage = value;
+                        },
+                      ),
+                      const Gap(20),
                       Row(
                         children: [
-                          Expanded(
-                            child: CustomDropDown(
-                              items: List.of(language),
-                              selectedValue: selectedLanguage,
-                              onChanged: (value) {
-                                selectedLanguage = value;
-                              },
-                            ),
-                          ),
-                          const Gap(20),
                           Expanded(
                             child: CustomField(
                               controller: publisherController,
                               hintText: 'Editora',
                               keyboardType: TextInputType.name,
+                              maxLines: 1,
+                            ),
+                          ),
+                          const Gap(20),
+                          Expanded(
+                            child: CustomField(
+                              controller: publishedDateController,
+                              hintText: 'Ano de Publicação',
+                              keyboardType: TextInputType.number,
                               maxLines: 1,
                             ),
                           ),
@@ -363,11 +374,11 @@ class AddNewBookScreen extends ConsumerWidget {
                         maxLines: 1,
                       ),
                       const Gap(20),
-                      CustomField(
+                      CustomFieldDescricao(
                         controller: descriptionController,
                         hintText: 'Descrição',
                         keyboardType: TextInputType.multiline,
-                        maxLines: 1,
+                        maxLines: 15,
                       ),
                       const Gap(20),
                     ],
@@ -476,22 +487,7 @@ class AddNewBookScreen extends ConsumerWidget {
                       );
 
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } /*else if (thumbnailController.text.isEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        backgroundColor: AppStyle.dark1,
-                        showCloseIcon: true,
-                        closeIconColor: AppStyle.gray,
-                        content: Text(
-                          'Preencha a Url da Capa',
-                          style: AppStyle.subtitle,
-                        ),
-                        duration: const Duration(seconds: 5),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } */
-                    else if (descriptionController.text.isEmpty) {
+                    } else if (descriptionController.text.isEmpty) {
                       final snackBar = SnackBar(
                         elevation: 0,
                         backgroundColor: AppStyle.dark1,
@@ -511,10 +507,12 @@ class AddNewBookScreen extends ConsumerWidget {
                           authorsController.text.split(', ');
                       int pageCount;
                       int copyCount;
+                      int ano;
 
                       try {
                         pageCount = int.parse(pageCountController.text);
                         copyCount = int.parse(copyCountController.text);
+                        ano = int.parse(publishedDateController.text);
                       } catch (e) {
                         return;
                       }
@@ -530,7 +528,7 @@ class AddNewBookScreen extends ConsumerWidget {
                               authors: authorsList,
                               category: selectedCategory.toString(),
                               publisher: publisherController.text,
-                              publishedDate: DateTime.now(),
+                              publishedDate: ano,
                               description: descriptionController.text,
                               pageCount: pageCount,
                               copyCount: copyCount,

@@ -7,7 +7,7 @@ class BookModel {
   List<String> authors;
   String category;
   String publisher;
-  DateTime publishedDate;
+  int publishedDate;
   String description;
   int pageCount;
   int copyCount;
@@ -65,7 +65,7 @@ class BookModel {
       authors: List<String>.from(map['authors']),
       category: map['category'] as String,
       publisher: map['publisher'] as String,
-      publishedDate: map['publishedDate'].toDate(),
+      publishedDate: map['publishedDate'] as int,
       description: map['description'] as String,
       pageCount: map['pageCount'] as int,
       copyCount: map['copyCount'] as int,
@@ -86,7 +86,7 @@ class BookModel {
       authors: List<String>.from(doc['authors']),
       category: doc['category'] as String,
       publisher: doc['publisher'] as String,
-      publishedDate: (doc['publishedDate'] as Timestamp).toDate(),
+      publishedDate: doc['publishedDate'] as int,
       description: doc['description'] as String,
       pageCount: doc['pageCount'] as int,
       copyCount: doc['copyCount'] as int,

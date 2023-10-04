@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../provider/service_provider.dart';
+import '../routes/app_routes.dart';
 
 class UserCard extends ConsumerWidget {
   const UserCard({
@@ -44,14 +45,19 @@ class UserCard extends ConsumerWidget {
                 color: AppStyle.dark2,
               ),
               child: Icon(
-                Icons.image_rounded,
+                Icons.person_rounded,
                 size: 18,
                 color: AppStyle.gray,
               ),
             ),
           ),
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            AppRoutes.userDetails,
+            arguments: user,
+          );
+        },
       ),
       error: (error, StackTrace) => Center(
         child: Text(StackTrace.toString()),

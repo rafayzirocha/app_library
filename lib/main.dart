@@ -1,7 +1,9 @@
 import 'package:app_library/pages/book_details.dart';
 import 'package:app_library/pages/book_page.dart';
+import 'package:app_library/pages/emprestimo_form.dart';
 import 'package:app_library/pages/emprestimo_page.dart';
 import 'package:app_library/pages/home_page.dart';
+import 'package:app_library/pages/user_details.dart';
 import 'package:app_library/pages/user_page.dart';
 import 'package:app_library/pages/warnings_details.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'firebase_options.dart';
 // ignore: unused_import
 import 'pages/book_form.dart';
+import 'pages/user_form.dart';
 import 'pages/warnings_form.dart';
 import 'pages/warnings_page.dart';
 import 'routes/app_routes.dart';
@@ -44,6 +47,9 @@ class AppLibrary extends StatelessWidget {
           AppRoutes.warningDetails: (_) => const DetalhesAvisos(),
           AppRoutes.emprestimoPage: (_) => const EmprestimoPage(),
           AppRoutes.userPage: (_) => const UserPage(),
+          AppRoutes.userForm: (_) => const AddNewUserPage(),
+          AppRoutes.userDetails: (_) => const UserDetails(),
+          AppRoutes.emprestimoForm: (_) => const AddNewEmprestimoScreen(),
         },
       ),
     );

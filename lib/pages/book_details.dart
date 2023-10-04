@@ -245,6 +245,45 @@ class BookDetails extends ConsumerWidget {
                       side: BorderSide.none,
                       elevation: 0,
                     ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Chip(
+                          label: Text(
+                            'Editora ${data.publisher}',
+                            style: GoogleFonts.inter(
+                              color: AppStyle.gray,
+                              fontSize: 14,
+                            ),
+                          ),
+                          backgroundColor: AppStyle.dark2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide.none,
+                          ),
+                          side: BorderSide.none,
+                          elevation: 0,
+                        ),
+                        const Gap(20),
+                        Chip(
+                          label: Text(
+                            data.publishedDate.toString(),
+                            style: GoogleFonts.inter(
+                              color: AppStyle.gray,
+                              fontSize: 14,
+                            ),
+                          ),
+                          backgroundColor: AppStyle.dark2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide.none,
+                          ),
+                          side: BorderSide.none,
+                          elevation: 0,
+                        ),
+                      ],
+                    ),
                     const Gap(20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,

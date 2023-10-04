@@ -208,7 +208,38 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     IconButton.filled(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(AppRoutes.userForm);
+                      },
+                      icon: const Icon(Icons.add),
+                      iconSize: 18,
+                      color: AppStyle.gray,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(
+                          AppStyle.dark2,
+                        ),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Gap(10),
+                    Text(
+                      'Novo Usuário',
+                      style: AppStyle.subtitle,
+                    ),
+                  ],
+                ),
+                const Gap(20),
+                Column(
+                  children: [
+                    IconButton.filled(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.emprestimoForm);
+                      },
                       icon: const Icon(Icons.add),
                       iconSize: 18,
                       color: AppStyle.gray,
