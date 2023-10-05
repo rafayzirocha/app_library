@@ -3,6 +3,7 @@ import 'package:app_library/pages/book_page.dart';
 import 'package:app_library/pages/emprestimo_form.dart';
 import 'package:app_library/pages/emprestimo_page.dart';
 import 'package:app_library/pages/home_page.dart';
+import 'package:app_library/pages/perfil_page.dart';
 import 'package:app_library/pages/user_details.dart';
 import 'package:app_library/pages/user_page.dart';
 import 'package:app_library/pages/warnings_details.dart';
@@ -50,6 +51,7 @@ class AppLibrary extends StatelessWidget {
           AppRoutes.userForm: (_) => const AddNewUserPage(),
           AppRoutes.userDetails: (_) => const UserDetails(),
           AppRoutes.emprestimoForm: (_) => const AddNewEmprestimoScreen(),
+          AppRoutes.perfilPage: (_) => const PerfilPage(),
         },
       ),
     );

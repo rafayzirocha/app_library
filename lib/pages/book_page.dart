@@ -4,9 +4,6 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-
-// ignore: unused_import
-import '../model/book_model.dart';
 import '../provider/service_provider.dart';
 import '../widgets/book_card.dart';
 
@@ -17,7 +14,7 @@ class BookPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(buscaLivros);
 
-    List<String> suaListaDeStrings = [
+    /*List<String> suaListaDeStrings = [
       'Arte, Fotografia e Design',
       'História',
       'Administração, Economia e Negócios',
@@ -47,7 +44,7 @@ class BookPage extends ConsumerWidget {
       'Autoajuda e Desenvolvimento Pessoal',
       'Viagem',
       'Não classificado',
-    ];
+    ];*/
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
@@ -60,8 +57,13 @@ class BookPage extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/dog.png'),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutes.perfilPage);
+                    },
+                    child: const CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/dog.png'),
+                    ),
                   ),
                   const Gap(10),
                   Row(
