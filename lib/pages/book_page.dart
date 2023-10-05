@@ -1,5 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/routes/app_routes.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -50,55 +51,59 @@ class BookPage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
-      appBar: AppBar(
-        backgroundColor: AppStyle.dark1,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: Icon(
-            Icons.chevron_left,
-            size: 18,
-            color: AppStyle.white,
-          ),
-        ),
-      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(left: 20, right: 20),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    spacing: 10.0,
-                    children: List<Widget>.generate(
-                      suaListaDeStrings.length,
-                      (int index) {
-                        final String label = suaListaDeStrings[index];
-                        return FilterChip(
-                          padding: const EdgeInsets.all(10),
-                          label: Text(
-                            label,
-                            style: AppStyle.subtitle,
+                  const CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/dog.png'),
+                  ),
+                  const Gap(10),
+                  Row(
+                    children: [
+                      IconButton.filled(
+                        onPressed: () {},
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        icon: Text(
+                          'Selecionar Categorias',
+                          style: AppStyle.subtitle,
+                        ),
+                        iconSize: 18,
+                        color: AppStyle.gray,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            AppStyle.dark2,
                           ),
-                          backgroundColor: AppStyle.dark2,
-                          elevation: 0,
-                          onSelected: (value) {},
-                          pressElevation: 0,
-                          selected: false,
-                          selectedColor: AppStyle.primary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                          shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
-                          side: BorderSide.none,
-                        );
-                      },
-                    ),
+                        ),
+                      ),
+                      const Gap(10),
+                      IconButton.filled(
+                        onPressed: () {},
+                        icon: const Icon(FeatherIcons.search),
+                        iconSize: 18,
+                        color: AppStyle.gray,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            AppStyle.dark2,
+                          ),
+                          shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

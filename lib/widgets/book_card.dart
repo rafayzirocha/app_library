@@ -5,6 +5,7 @@ import 'package:app_library/model/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
@@ -24,28 +25,10 @@ class BookCard extends ConsumerWidget {
     final data = ref.watch(buscaLivros);
     return data.when(
       data: (data) => ListTile(
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              data[getIndex].title,
-              overflow: TextOverflow.ellipsis,
-              style: AppStyle.title2,
-            ),
-            const Gap(4),
-            data[getIndex].isAvailable
-                ? Icon(
-                    Icons.circle,
-                    size: 14,
-                    color: AppStyle.primary,
-                  )
-                : const Icon(
-                    Icons.circle,
-                    size: 14,
-                    color: Colors.red,
-                  ),
-          ],
+        title: Text(
+          data[getIndex].title,
+          overflow: TextOverflow.ellipsis,
+          style: AppStyle.title2,
         ),
         titleAlignment: ListTileTitleAlignment.center,
         subtitle: Text(
@@ -74,6 +57,34 @@ class BookCard extends ConsumerWidget {
                       color: AppStyle.gray,
                     ),
                   ),
+          ),
+        ),
+        trailing: IconButton.filled(
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              AppRoutes.bookDetails,
+              arguments: livro,
+            );
+          },
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          icon: Text(
+            data[getIndex].category,
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              color: AppStyle.white,
+            ),
+          ),
+          iconSize: 18,
+          color: AppStyle.white,
+          style: ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(
+              AppStyle.primary,
+            ),
+            shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
           ),
         ),
         onTap: () {
