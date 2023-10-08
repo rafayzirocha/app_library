@@ -3,6 +3,7 @@ import 'package:app_library/pages/book_page.dart';
 import 'package:app_library/pages/emprestimo_form.dart';
 import 'package:app_library/pages/emprestimo_page.dart';
 import 'package:app_library/pages/home_page.dart';
+import 'package:app_library/pages/login_page.dart';
 import 'package:app_library/pages/perfil_page.dart';
 import 'package:app_library/pages/user_details.dart';
 import 'package:app_library/pages/user_page.dart';
@@ -38,7 +39,7 @@ class AppLibrary extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         darkTheme: ThemeData.dark(useMaterial3: true),
         themeMode: ThemeMode.dark,
-        home: const HomePage(),
+        home: const LoginPage(),
         routes: {
           AppRoutes.bookPage: (_) => const BookPage(),
           AppRoutes.bookForm: (_) => const AddNewBookScreen(),

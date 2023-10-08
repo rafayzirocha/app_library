@@ -43,6 +43,7 @@ dependencies:
   cloud_firestore: ^4.8.4
   feather_icons:
   flutter_svg:
+  firebase_auth:
 
 dev_dependencies:
   flutter_test:

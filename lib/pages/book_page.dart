@@ -105,6 +105,25 @@ class BookPage extends ConsumerWidget {
                           ),
                         ),
                       ),
+                      const Gap(10),
+                      IconButton.filled(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(AppRoutes.bookForm);
+                        },
+                        icon: const Icon(FeatherIcons.plus),
+                        iconSize: 18,
+                        color: AppStyle.white,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            AppStyle.primary,
+                          ),
+                          shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -127,16 +146,6 @@ class BookPage extends ConsumerWidget {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppStyle.primary,
-        child: Icon(
-          Icons.add,
-          color: AppStyle.white,
-        ),
-        onPressed: () {
-          Navigator.of(context).pushNamed(AppRoutes.bookForm);
-        },
       ),
     );
   }
