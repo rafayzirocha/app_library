@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../model/book_model.dart';
 
@@ -413,4 +414,37 @@ class BookDetails extends ConsumerWidget {
       ),
     );
   }
+}
+
+Future<dynamic> CustomMsgSuccess(
+    BuildContext context, String title, String description) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        backgroundColor: AppStyle.dark1,
+        elevation: 0,
+        title: Text(
+          title,
+          style: AppStyle.title1,
+        ),
+        content: Text(
+          description,
+          style: AppStyle.title3,
+          textAlign: TextAlign.center,
+        ),
+        icon: LottieBuilder.network(
+          'https://lottie.host/786c7314-fe1d-460e-8696-01848358913d/WbWfT8H3Ze.json',
+          height: 200,
+          width: 200,
+          repeat: false,
+          alignment: Alignment.center,
+        ),
+        alignment: Alignment.center,
+        insetPadding: const EdgeInsets.all(80),
+        scrollable: true,
+        contentPadding: const EdgeInsets.only(bottom: 100, left: 20, right: 20),
+      );
+    },
+  );
 }

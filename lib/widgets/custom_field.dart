@@ -8,6 +8,7 @@ class CustomField extends StatelessWidget {
   final TextInputType keyboardType;
   final int maxLines;
   final Function? onChanged;
+  final bool? obscureText;
 
   const CustomField({
     Key? key,
@@ -16,6 +17,7 @@ class CustomField extends StatelessWidget {
     required this.hintText,
     required this.keyboardType,
     required this.maxLines,
+    this.obscureText,
   }) : super(key: key);
 
   @override

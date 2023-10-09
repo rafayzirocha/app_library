@@ -5,6 +5,7 @@ import 'package:app_library/widgets/custom_field_descricao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
 import '../model/book_model.dart';
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
@@ -544,19 +545,11 @@ class AddNewBookScreen extends ConsumerWidget {
                       Navigator.of(context).pop();
                       Navigator.of(context).pushNamed(AppRoutes.bookPage);
 
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        backgroundColor: AppStyle.dark1,
-                        showCloseIcon: true,
-                        closeIconColor: AppStyle.gray,
-                        content: Text(
-                          'Livro cadastrado com sucesso!',
-                          style: AppStyle.subtitle,
-                        ),
-                        duration: const Duration(seconds: 5),
+                      CustomMsgSuccess(
+                        context,
+                        'Sucesso',
+                        'O livro foi cadastrado e já está disponível na biblioteca!',
                       );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   },
                   child: Text(
@@ -572,4 +565,37 @@ class AddNewBookScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+Future<dynamic> CustomMsgSuccess(
+    BuildContext context, String title, String description) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        backgroundColor: AppStyle.dark1,
+        elevation: 0,
+        title: Text(
+          title,
+          style: AppStyle.title1,
+        ),
+        content: Text(
+          description,
+          style: AppStyle.title3,
+          textAlign: TextAlign.center,
+        ),
+        icon: LottieBuilder.network(
+          'https://lottie.host/786c7314-fe1d-460e-8696-01848358913d/WbWfT8H3Ze.json',
+          height: 200,
+          width: 200,
+          repeat: false,
+          alignment: Alignment.center,
+        ),
+        alignment: Alignment.center,
+        insetPadding: const EdgeInsets.all(80),
+        scrollable: true,
+        contentPadding: const EdgeInsets.only(bottom: 100, left: 20, right: 20),
+      );
+    },
+  );
 }

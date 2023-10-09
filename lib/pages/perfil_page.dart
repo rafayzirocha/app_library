@@ -35,7 +35,7 @@ class PerfilPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 64,
                     backgroundImage: AssetImage('assets/images/dog.png'),
                   ),
