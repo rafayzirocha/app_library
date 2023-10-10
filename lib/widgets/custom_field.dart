@@ -5,19 +5,17 @@ import '../constants/app_style.dart';
 class CustomField extends StatelessWidget {
   final TextEditingController? controller;
   final String hintText;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
   final int maxLines;
   final Function? onChanged;
-  final bool? obscureText;
 
   const CustomField({
     Key? key,
     this.controller,
     this.onChanged,
     required this.hintText,
-    required this.keyboardType,
+    this.keyboardType,
     required this.maxLines,
-    this.obscureText,
   }) : super(key: key);
 
   @override

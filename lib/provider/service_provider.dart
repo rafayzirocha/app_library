@@ -1,8 +1,10 @@
 import 'package:app_library/model/warning_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/book_model.dart';
+import '../services/auth_service.dart';
 import '../services/book_service.dart';
 
 final bookProvider = StateProvider<BookService>(
@@ -16,6 +18,13 @@ final warningProvider = StateProvider<WarningService>(
     return WarningService();
   },
 );
+
+final authServiceProvider = Provider<AuthService>((ref) {
+  return AuthService(
+    firebaseAuth: FirebaseAuth.instance,
+    firestore: FirebaseFirestore.instance,
+  );
+});
 
 final buscaLivros = StreamProvider<List<BookModel>>((ref) async* {
   final getData = FirebaseFirestore.instance

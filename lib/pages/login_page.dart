@@ -1,24 +1,22 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:app_library/constants/app_style.dart';
-import 'package:app_library/routes/app_routes.dart';
-import 'package:app_library/widgets/custom_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-final authStateProvider = StateProvider<User?>(
-  (ref) => FirebaseAuth.instance.currentUser,
-);
+import '../constants/app_style.dart';
+import '../provider/service_provider.dart';
+import '../routes/app_routes.dart';
+import '../widgets/custom_field.dart';
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final authState = ref.watch(authStateProvider);
+    final authService = ref.watch(authServiceProvider);
+
     final emailController = TextEditingController();
     final senhaController = TextEditingController();
 
@@ -30,119 +28,206 @@ class LoginPage extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomField(
-                hintText: 'Email',
-                keyboardType: TextInputType.emailAddress,
-                maxLines: 1,
-                controller: emailController,
-              ),
-              const Gap(20),
-              CustomField(
-                hintText: 'Senha',
-                keyboardType: TextInputType.visiblePassword,
-                maxLines: 1,
-                controller: senhaController,
-                obscureText: true,
-              ),
-              const Gap(20),
-              SizedBox(
-                height: 45,
-                width: double.infinity,
-                child: FilledButton(
-                  style: ButtonStyle(
-                    elevation: const MaterialStatePropertyAll(0),
-                    backgroundColor: MaterialStatePropertyAll(
-                      AppStyle.primary,
-                    ),
-                    shape: const MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            LottieBuilder.network(
+                              'https://lottie.host/5b7d0452-225c-4133-b237-7980a97c17b7/E8G9WvzaGQ.json',
+                              height: 300,
+                              repeat: true,
+                              alignment: Alignment.center,
+                            ),
+                            const Gap(20),
+                            Text(
+                              'Olá, bem vindo(a) de volta 👋',
+                              style: AppStyle.title1,
+                            ),
+                            Text(
+                              'Entre com suas credenciais e explore nossa biblioteca!',
+                              style: AppStyle.title3,
+                            ),
+                          ],
                         ),
                       ),
+                      const Gap(20),
+                      Text(
+                        'Email',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
+                      CustomField(
+                        hintText: 'Informe o email',
+                        keyboardType: TextInputType.emailAddress,
+                        maxLines: 1,
+                        controller: emailController,
+                      ),
+                      const Gap(20),
+                      Text(
+                        'Senha',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: AppStyle.dark2,
+                        ),
+                        child: TextFormField(
+                          cursorColor: AppStyle.primary,
+                          autocorrect: true,
+                          controller: senhaController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 14),
+                            hintText: 'Informe sua senha',
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.visibility),
+                              onPressed: () {},
+                            ),
+                            suffixIconColor: AppStyle.gray,
+                          ),
+                          keyboardType: TextInputType.visiblePassword,
+                          maxLines: 1,
+                          style: AppStyle.title3,
+                          obscureText: true,
+                        ),
+                      ),
+                      const Gap(20),
+                      SizedBox(
+                        height: 80,
+                        width: double.infinity,
+                        child: FilledButton(
+                          style: ButtonStyle(
+                            elevation: const MaterialStatePropertyAll(0),
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.primary,
+                            ),
+                            shape: const MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            final email = emailController.text;
+                            final password = senhaController.text;
+
+                            try {
+                              await authService.signInWithEmailAndPassword(
+                                  email, password);
+
+                              Navigator.of(context)
+                                  .pushNamed(AppRoutes.perfilPage);
+                            } on FirebaseAuthException catch (e) {
+                              switch (e.code) {
+                                case 'user-not-found':
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      elevation: 0,
+                                      backgroundColor: AppStyle.dark1,
+                                      showCloseIcon: true,
+                                      closeIconColor: AppStyle.gray,
+                                      content: Text(
+                                        'Usuário não encontrado',
+                                        style: AppStyle.subtitle,
+                                      ),
+                                      duration: const Duration(seconds: 5),
+                                    ),
+                                  );
+                                  break;
+                                case 'wrong-password':
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      elevation: 0,
+                                      backgroundColor: AppStyle.dark1,
+                                      showCloseIcon: true,
+                                      closeIconColor: AppStyle.gray,
+                                      content: Text(
+                                        'Senha incorreta',
+                                        style: AppStyle.subtitle,
+                                      ),
+                                      duration: const Duration(seconds: 5),
+                                    ),
+                                  );
+                                  break;
+                                case 'too-many-requests':
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      elevation: 0,
+                                      backgroundColor: AppStyle.dark1,
+                                      showCloseIcon: true,
+                                      closeIconColor: AppStyle.gray,
+                                      content: Text(
+                                        'Muitas tentativas de login. Tente novamente mais tarde.',
+                                        style: AppStyle.subtitle,
+                                      ),
+                                      duration: const Duration(seconds: 5),
+                                    ),
+                                  );
+                                  break;
+                                default:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      elevation: 0,
+                                      backgroundColor: AppStyle.dark1,
+                                      showCloseIcon: true,
+                                      closeIconColor: AppStyle.gray,
+                                      content: Text(
+                                        'Ocorreu um erro. Tente novamente mais tarde.',
+                                        style: AppStyle.subtitle,
+                                      ),
+                                      duration: const Duration(seconds: 5),
+                                    ),
+                                  );
+                              }
+                            }
+                          },
+                          child: Text(
+                            'Acessar',
+                            style: AppStyle.title2,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoutes.registerPage);
+                },
+                style: ButtonStyle(
+                  overlayColor: MaterialStatePropertyAll(
+                    AppStyle.dark2,
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Não tem uma conta?',
+                      style: GoogleFonts.inter(
+                        color: AppStyle.gray,
+                      ),
                     ),
-                  ),
-                  onPressed: () async {
-                    final email = emailController.text;
-                    final password = senhaController.text;
-
-                    try {
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: email,
-                        password: password,
-                      );
-
-                      Navigator.of(context).pushNamed(AppRoutes.bookPage);
-                      CustomMsgSuccess(
-                        context,
-                        'Olá!',
-                        'Creio que uma forma de felicidade é a leitura.',
-                      );
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'user-not-found') {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            elevation: 0,
-                            backgroundColor: AppStyle.dark1,
-                            showCloseIcon: true,
-                            closeIconColor: AppStyle.gray,
-                            content: Text(
-                              'Email não encontrado',
-                              style: AppStyle.subtitle,
-                            ),
-                            duration: const Duration(seconds: 5),
-                          ),
-                        );
-                      } else if (e.code == 'wrong-password') {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            elevation: 0,
-                            backgroundColor: AppStyle.dark1,
-                            showCloseIcon: true,
-                            closeIconColor: AppStyle.gray,
-                            content: Text(
-                              'Senha incorreta. Tente novamente',
-                              style: AppStyle.subtitle,
-                            ),
-                            duration: const Duration(seconds: 5),
-                          ),
-                        );
-                      } else if (emailController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            elevation: 0,
-                            backgroundColor: AppStyle.dark1,
-                            showCloseIcon: true,
-                            closeIconColor: AppStyle.gray,
-                            content: Text(
-                              'Informe o email',
-                              style: AppStyle.subtitle,
-                            ),
-                            duration: const Duration(seconds: 5),
-                          ),
-                        );
-                      } else if (senhaController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            elevation: 0,
-                            backgroundColor: AppStyle.dark1,
-                            showCloseIcon: true,
-                            closeIconColor: AppStyle.gray,
-                            content: Text(
-                              'Informe a senha',
-                              style: AppStyle.subtitle,
-                            ),
-                            duration: const Duration(seconds: 5),
-                          ),
-                        );
-                      }
-                      print(e);
-                    }
-                  },
-                  child: Text(
-                    'Acessar',
-                    style: AppStyle.title2,
-                  ),
+                    const Gap(4),
+                    Text(
+                      'Registrar',
+                      style: GoogleFonts.inter(
+                        color: AppStyle.primary,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -151,37 +236,4 @@ class LoginPage extends ConsumerWidget {
       ),
     );
   }
-}
-
-Future<dynamic> CustomMsgSuccess(
-    BuildContext context, String title, String description) {
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        backgroundColor: AppStyle.dark1,
-        elevation: 0,
-        title: Text(
-          title,
-          style: AppStyle.title1,
-        ),
-        content: Text(
-          description,
-          style: AppStyle.title3,
-          textAlign: TextAlign.center,
-        ),
-        icon: LottieBuilder.network(
-          'https://lottie.host/786c7314-fe1d-460e-8696-01848358913d/WbWfT8H3Ze.json',
-          height: 200,
-          width: 200,
-          repeat: false,
-          alignment: Alignment.center,
-        ),
-        alignment: Alignment.center,
-        insetPadding: const EdgeInsets.all(80),
-        scrollable: true,
-        contentPadding: EdgeInsets.only(bottom: 100, left: 20, right: 20),
-      );
-    },
-  );
 }

@@ -44,6 +44,7 @@ dependencies:
   firebase_auth:
   feather_icons:
   lottie:
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:

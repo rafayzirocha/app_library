@@ -1,7 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/routes/app_routes.dart';
 import 'package:feather_icons/feather_icons.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -59,14 +58,10 @@ class BookPage extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: () async {
-                      await AuthHelper.logout();
-
-                      Navigator.of(context).pushNamed(AppRoutes.loginPage);
-                    },
+                    onTap: () async {},
                     child: const CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/dog.png'),
-                    ),
+                        //backgroundImage: AssetImage('assets/images/dog.png'),
+                        ),
                   ),
                   const Gap(10),
                   Row(
@@ -142,12 +137,5 @@ class BookPage extends ConsumerWidget {
         },
       ),
     );
-  }
-}
-
-class AuthHelper {
-  static Future<void> logout() async {
-    // Faz o logout no Firebase
-    await FirebaseAuth.instance.signOut();
   }
 }
