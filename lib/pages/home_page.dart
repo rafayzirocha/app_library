@@ -87,9 +87,7 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     IconButton.filled(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(AppRoutes.userPage);
-                      },
+                      onPressed: () {},
                       icon: const Icon(Icons.group_rounded),
                       iconSize: 18,
                       color: AppStyle.gray,
@@ -208,9 +206,7 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     IconButton.filled(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(AppRoutes.userForm);
-                      },
+                      onPressed: () {},
                       icon: const Icon(Icons.add),
                       iconSize: 18,
                       color: AppStyle.gray,

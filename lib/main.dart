@@ -5,8 +5,6 @@ import 'package:app_library/pages/emprestimo_page.dart';
 import 'package:app_library/pages/home_page.dart';
 import 'package:app_library/pages/login_page.dart';
 import 'package:app_library/pages/perfil_page.dart';
-import 'package:app_library/pages/user_details.dart';
-import 'package:app_library/pages/user_page.dart';
 import 'package:app_library/pages/warnings_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +12,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
 import 'pages/book_form.dart';
-import 'pages/user_form.dart';
 import 'pages/warnings_form.dart';
 import 'pages/warnings_page.dart';
 import 'routes/app_routes.dart';
@@ -47,9 +44,6 @@ class AppLibrary extends StatelessWidget {
           AppRoutes.warningForm: (_) => const AddNewWarningScreen(),
           AppRoutes.warningDetails: (_) => const DetalhesAvisos(),
           AppRoutes.emprestimoPage: (_) => const EmprestimoPage(),
-          AppRoutes.userPage: (_) => const UserPage(),
-          AppRoutes.userForm: (_) => const AddNewUserPage(),
-          AppRoutes.userDetails: (_) => const UserDetails(),
           AppRoutes.emprestimoForm: (_) => const AddNewEmprestimoScreen(),
           AppRoutes.perfilPage: (_) => const PerfilPage(),
           AppRoutes.homePage: (_) => const HomePage(),
