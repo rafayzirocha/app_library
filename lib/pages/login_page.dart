@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import '../constants/app_style.dart';
@@ -23,7 +24,7 @@ class LoginPage extends ConsumerWidget {
       backgroundColor: AppStyle.dark1,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -51,6 +52,7 @@ class LoginPage extends ConsumerWidget {
                             Text(
                               'Entre com suas credenciais e explore nossa biblioteca!',
                               style: AppStyle.title3,
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
@@ -227,6 +229,34 @@ class LoginPage extends ConsumerWidget {
                           ),
                         ),
                       ),
+                      const Gap(20),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            AppRoutes.registerPage,
+                          );
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Não possui uma conta?',
+                              style: GoogleFonts.inter(
+                                color: AppStyle.gray,
+                              ),
+                            ),
+                            const Gap(4),
+                            Text(
+                              'Registrar',
+                              style: GoogleFonts.inter(
+                                color: AppStyle.primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Gap(20),
                     ],
                   ),
                 ),

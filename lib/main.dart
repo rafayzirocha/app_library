@@ -36,7 +36,7 @@ class AppLibrary extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         darkTheme: ThemeData.dark(useMaterial3: true),
         themeMode: ThemeMode.dark,
-        home: const LoginPage(),
+        home: const RegisterPage(),
         routes: {
           AppRoutes.bookPage: (_) => const BookPage(),
           AppRoutes.bookForm: (_) => const AddNewBookScreen(),
