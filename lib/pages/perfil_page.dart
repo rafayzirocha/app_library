@@ -78,7 +78,7 @@ class PerfilPage extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              'assets/images/phone.svg',
+                              'assets/images/mobile-phone.svg',
                               color: AppStyle.primary,
                             ),
                             const Gap(10),
@@ -94,7 +94,7 @@ class PerfilPage extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              'assets/images/school.svg',
+                              'assets/images/mortarboard.svg',
                               color: AppStyle.primary,
                             ),
                             const Gap(10),

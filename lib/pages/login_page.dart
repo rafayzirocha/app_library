@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import '../constants/app_style.dart';
@@ -30,6 +29,7 @@ class LoginPage extends ConsumerWidget {
             children: [
               Expanded(
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -121,73 +121,103 @@ class LoginPage extends ConsumerWidget {
                             final email = emailController.text;
                             final password = senhaController.text;
 
-                            try {
-                              await authService.signInWithEmailAndPassword(
-                                  email, password);
+                            if (emailController.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  elevation: 0,
+                                  backgroundColor: AppStyle.dark1,
+                                  showCloseIcon: true,
+                                  closeIconColor: AppStyle.gray,
+                                  content: Text(
+                                    'Informe o email',
+                                    style: AppStyle.subtitle,
+                                  ),
+                                  duration: const Duration(seconds: 5),
+                                ),
+                              );
+                            } else if (senhaController.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  elevation: 0,
+                                  backgroundColor: AppStyle.dark1,
+                                  showCloseIcon: true,
+                                  closeIconColor: AppStyle.gray,
+                                  content: Text(
+                                    'Informe a senha',
+                                    style: AppStyle.subtitle,
+                                  ),
+                                  duration: const Duration(seconds: 5),
+                                ),
+                              );
+                            } else {
+                              try {
+                                await authService.signInWithEmailAndPassword(
+                                    email, password);
 
-                              Navigator.of(context)
-                                  .pushNamed(AppRoutes.perfilPage);
-                            } on FirebaseAuthException catch (e) {
-                              switch (e.code) {
-                                case 'user-not-found':
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      elevation: 0,
-                                      backgroundColor: AppStyle.dark1,
-                                      showCloseIcon: true,
-                                      closeIconColor: AppStyle.gray,
-                                      content: Text(
-                                        'Usuário não encontrado',
-                                        style: AppStyle.subtitle,
+                                Navigator.of(context)
+                                    .pushNamed(AppRoutes.perfilPage);
+                              } on FirebaseAuthException catch (e) {
+                                switch (e.code) {
+                                  case 'user-not-found':
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        elevation: 0,
+                                        backgroundColor: AppStyle.dark1,
+                                        showCloseIcon: true,
+                                        closeIconColor: AppStyle.gray,
+                                        content: Text(
+                                          'Usuário não encontrado',
+                                          style: AppStyle.subtitle,
+                                        ),
+                                        duration: const Duration(seconds: 5),
                                       ),
-                                      duration: const Duration(seconds: 5),
-                                    ),
-                                  );
-                                  break;
-                                case 'wrong-password':
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      elevation: 0,
-                                      backgroundColor: AppStyle.dark1,
-                                      showCloseIcon: true,
-                                      closeIconColor: AppStyle.gray,
-                                      content: Text(
-                                        'Senha incorreta',
-                                        style: AppStyle.subtitle,
+                                    );
+                                    break;
+                                  case 'wrong-password':
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        elevation: 0,
+                                        backgroundColor: AppStyle.dark1,
+                                        showCloseIcon: true,
+                                        closeIconColor: AppStyle.gray,
+                                        content: Text(
+                                          'Senha incorreta',
+                                          style: AppStyle.subtitle,
+                                        ),
+                                        duration: const Duration(seconds: 5),
                                       ),
-                                      duration: const Duration(seconds: 5),
-                                    ),
-                                  );
-                                  break;
-                                case 'too-many-requests':
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      elevation: 0,
-                                      backgroundColor: AppStyle.dark1,
-                                      showCloseIcon: true,
-                                      closeIconColor: AppStyle.gray,
-                                      content: Text(
-                                        'Muitas tentativas de login. Tente novamente mais tarde.',
-                                        style: AppStyle.subtitle,
+                                    );
+                                    break;
+                                  case 'too-many-requests':
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        elevation: 0,
+                                        backgroundColor: AppStyle.dark1,
+                                        showCloseIcon: true,
+                                        closeIconColor: AppStyle.gray,
+                                        content: Text(
+                                          'Muitas tentativas de login. Tente novamente mais tarde.',
+                                          style: AppStyle.subtitle,
+                                        ),
+                                        duration: const Duration(seconds: 5),
                                       ),
-                                      duration: const Duration(seconds: 5),
-                                    ),
-                                  );
-                                  break;
-                                default:
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      elevation: 0,
-                                      backgroundColor: AppStyle.dark1,
-                                      showCloseIcon: true,
-                                      closeIconColor: AppStyle.gray,
-                                      content: Text(
-                                        'Ocorreu um erro. Tente novamente mais tarde.',
-                                        style: AppStyle.subtitle,
+                                    );
+                                    break;
+                                  default:
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        elevation: 0,
+                                        backgroundColor: AppStyle.dark1,
+                                        showCloseIcon: true,
+                                        closeIconColor: AppStyle.gray,
+                                        content: Text(
+                                          'Ocorreu um erro. Tente novamente mais tarde.',
+                                          style: AppStyle.subtitle,
+                                        ),
+                                        duration: const Duration(seconds: 5),
                                       ),
-                                      duration: const Duration(seconds: 5),
-                                    ),
-                                  );
+                                    );
+                                }
                               }
                             }
                           },
@@ -199,35 +229,6 @@ class LoginPage extends ConsumerWidget {
                       ),
                     ],
                   ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(AppRoutes.registerPage);
-                },
-                style: ButtonStyle(
-                  overlayColor: MaterialStatePropertyAll(
-                    AppStyle.dark2,
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Não tem uma conta?',
-                      style: GoogleFonts.inter(
-                        color: AppStyle.gray,
-                      ),
-                    ),
-                    const Gap(4),
-                    Text(
-                      'Registrar',
-                      style: GoogleFonts.inter(
-                        color: AppStyle.primary,
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ],
