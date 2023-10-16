@@ -57,8 +57,10 @@ class BookPage extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () async {},
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutes.perfilPage);
+                    },
                     child: CircleAvatar(
                       backgroundColor: AppStyle.dark2,
                       child: SvgPicture.asset(
