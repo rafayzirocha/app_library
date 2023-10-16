@@ -1,8 +1,8 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/routes/app_routes.dart';
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import '../provider/service_provider.dart';
 import '../widgets/book_card.dart';
@@ -59,9 +59,15 @@ class BookPage extends ConsumerWidget {
                 children: [
                   InkWell(
                     onTap: () async {},
-                    child: const CircleAvatar(
-                        //backgroundImage: AssetImage('assets/images/dog.png'),
-                        ),
+                    child: CircleAvatar(
+                      backgroundColor: AppStyle.dark2,
+                      child: SvgPicture.asset(
+                        'assets/images/user-group.svg',
+                        height: 16,
+                        width: 16,
+                        color: AppStyle.gray,
+                      ),
+                    ),
                   ),
                   const Gap(10),
                   Row(
@@ -89,12 +95,39 @@ class BookPage extends ConsumerWidget {
                       const Gap(10),
                       IconButton.filled(
                         onPressed: () {},
-                        icon: const Icon(FeatherIcons.search),
-                        iconSize: 18,
+                        icon: SvgPicture.asset(
+                          'assets/images/search.svg',
+                          height: 16,
+                          width: 16,
+                          color: AppStyle.gray,
+                        ),
                         color: AppStyle.gray,
                         style: ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll(
                             AppStyle.dark2,
+                          ),
+                          shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Gap(10),
+                      IconButton.filled(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(AppRoutes.bookForm);
+                        },
+                        icon: SvgPicture.asset(
+                          'assets/images/plus.svg',
+                          height: 12,
+                          width: 12,
+                          color: AppStyle.white,
+                        ),
+                        color: AppStyle.gray,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            AppStyle.primary,
                           ),
                           shape: MaterialStatePropertyAll(
                             RoundedRectangleBorder(
@@ -125,16 +158,6 @@ class BookPage extends ConsumerWidget {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppStyle.primary,
-        child: Icon(
-          Icons.add,
-          color: AppStyle.white,
-        ),
-        onPressed: () {
-          Navigator.of(context).pushNamed(AppRoutes.bookForm);
-        },
       ),
     );
   }
