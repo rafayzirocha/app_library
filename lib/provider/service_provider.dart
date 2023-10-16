@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/book_model.dart';
+import '../model/user_model.dart';
 import '../services/auth_service.dart';
 import '../services/book_service.dart';
 
@@ -54,4 +55,22 @@ final fetchWarnings = StreamProvider<List<WarningModel>>((ref) async* {
             .toList(),
       );
   yield* getData;
+});
+
+final buscaUsuarioLogado = StreamProvider<UserModel>((ref) async* {
+  final emailLogado = FirebaseAuth.instance.currentUser?.email;
+  if (emailLogado != null) {
+    final getData = FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: emailLogado)
+        .snapshots()
+        .map(
+          (event) => event.docs
+              .map(
+                (snapshot) => UserModel.fromSnapshot(snapshot),
+              )
+              .first,
+        );
+    yield* getData;
+  }
 });
