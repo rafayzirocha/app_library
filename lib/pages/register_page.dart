@@ -311,7 +311,7 @@ class RegisterPage extends ConsumerWidget {
                                 );
 
                                 Navigator.of(context)
-                                    .pushNamed(AppRoutes.perfilPage);
+                                    .pushNamed(AppRoutes.bookPage);
                               } on FirebaseAuthException catch (e) {
                                 switch (e.code) {
                                   case 'weak-password':
