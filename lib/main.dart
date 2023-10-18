@@ -47,7 +47,7 @@ class AppLibrary extends StatelessWidget {
           AppRoutes.emprestimoPage: (_) => const EmprestimoPage(),
           AppRoutes.emprestimoForm: (_) => const AddNewEmprestimoScreen(),
           AppRoutes.perfilPage: (_) => const PerfilPage(),
-          AppRoutes.homePage: (_) => HomePage(),
+          AppRoutes.homePage: (_) => const HomePage(),
           AppRoutes.loginPage: (_) => const LoginPage(),
           AppRoutes.registerPage: (_) => const RegisterPage(),
         },

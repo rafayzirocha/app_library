@@ -1,5 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/pages/book_page.dart';
+import 'package:app_library/pages/dashboard_page.dart';
 import 'package:app_library/pages/perfil_page.dart';
 import 'package:app_library/pages/warnings_page.dart';
 
@@ -21,9 +22,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppStyle.dark1,
       body: <Widget>[
+        const DashboardPage(),
         const BookPage(),
         const AvisosPage(),
-        const PerfilPage(),
+        const DashboardPage(),
       ][currentIndex],
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
@@ -54,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           ),
           NavigationDestination(
             icon: SvgPicture.asset(
-              'assets/images/book.svg',
+              'assets/images/book-1.svg',
               color: AppStyle.gray,
               height: 16,
               width: 16,
@@ -69,13 +71,28 @@ class _HomePageState extends State<HomePage> {
           ),
           NavigationDestination(
             icon: SvgPicture.asset(
-              'assets/images/home-1.svg',
+              'assets/images/megaphone.svg',
               color: AppStyle.gray,
               height: 16,
               width: 16,
             ),
             selectedIcon: SvgPicture.asset(
-              'assets/images/home.svg',
+              'assets/images/megaphone-1.svg',
+              color: AppStyle.primary,
+              height: 16,
+              width: 16,
+            ),
+            label: '',
+          ),
+          NavigationDestination(
+            icon: SvgPicture.asset(
+              'assets/images/love-1.svg',
+              color: AppStyle.gray,
+              height: 16,
+              width: 16,
+            ),
+            selectedIcon: SvgPicture.asset(
+              'assets/images/love.svg',
               color: AppStyle.primary,
               height: 16,
               width: 16,

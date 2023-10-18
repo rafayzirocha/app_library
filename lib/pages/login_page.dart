@@ -157,7 +157,7 @@ class LoginPage extends ConsumerWidget {
                                     email, password);
 
                                 Navigator.of(context)
-                                    .pushNamed(AppRoutes.bookPage);
+                                    .pushNamed(AppRoutes.homePage);
                               } on FirebaseAuthException catch (e) {
                                 switch (e.code) {
                                   case 'user-not-found':

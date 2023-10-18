@@ -4,7 +4,7 @@ import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
@@ -59,25 +59,17 @@ class BookCard extends ConsumerWidget {
           ),
         ),
         trailing: IconButton.filled(
-          onPressed: () {
-            Navigator.of(context).pushNamed(
-              AppRoutes.bookDetails,
-              arguments: livro,
-            );
-          },
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          icon: Text(
-            data[getIndex].category,
-            style: GoogleFonts.inter(
-              fontSize: 14,
-              color: AppStyle.white,
-            ),
+          onPressed: () {},
+          icon: SvgPicture.asset(
+            'assets/images/love.svg',
+            height: 16,
+            width: 16,
+            color: AppStyle.primary,
           ),
-          iconSize: 18,
-          color: AppStyle.white,
+          color: AppStyle.gray,
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(
-              AppStyle.primary,
+              AppStyle.dark2,
             ),
             shape: MaterialStatePropertyAll(
               RoundedRectangleBorder(
