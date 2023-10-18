@@ -66,7 +66,7 @@ class BookPage extends ConsumerWidget {
                     child: CircleAvatar(
                       backgroundColor: AppStyle.dark2,
                       child: SvgPicture.asset(
-                        'assets/images/user-group.svg',
+                        'assets/images/user.svg',
                         height: 16,
                         width: 16,
                         color: AppStyle.gray,

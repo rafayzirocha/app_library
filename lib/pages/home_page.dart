@@ -1,7 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/pages/book_page.dart';
 import 'package:app_library/pages/dashboard_page.dart';
-import 'package:app_library/pages/perfil_page.dart';
 import 'package:app_library/pages/warnings_page.dart';
 
 import 'package:flutter/material.dart';

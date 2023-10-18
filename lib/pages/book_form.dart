@@ -2,6 +2,7 @@ import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/widgets/custom_dropdown.dart';
 import 'package:app_library/widgets/custom_field.dart';
 import 'package:app_library/widgets/custom_field_descricao.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -264,50 +265,79 @@ class AddNewBookScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
-      appBar: AppBar(
-        backgroundColor: AppStyle.dark1,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: Icon(
-            Icons.chevron_left,
-            size: 18,
-            color: AppStyle.white,
-          ),
-        ),
-      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              IconButton.filled(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(FeatherIcons.chevronLeft),
+                iconSize: 18,
+                color: AppStyle.gray,
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                    AppStyle.dark2,
+                  ),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+              const Gap(20),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        'Título',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomField(
                         controller: titleController,
-                        hintText: 'Título',
+                        hintText: '',
                         keyboardType: TextInputType.name,
                         maxLines: 1,
                       ),
                       const Gap(20),
+                      Text(
+                        'Autores',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomField(
                         controller: authorsController,
-                        hintText: 'Autores',
+                        hintText: '',
                         keyboardType: TextInputType.name,
                         maxLines: 1,
                       ),
                       const Gap(20),
+                      Text(
+                        'Isbn',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomField(
                         controller: isbnController,
-                        hintText: 'Isbn',
+                        hintText: '',
                         keyboardType: TextInputType.name,
                         maxLines: 1,
                       ),
                       const Gap(20),
+                      Text(
+                        'Categorias',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomDropDown(
                         items: List.of(categories),
                         selectedValue: selectedCategory,
@@ -316,6 +346,11 @@ class AddNewBookScreen extends ConsumerWidget {
                         },
                       ),
                       const Gap(20),
+                      Text(
+                        'Idioma',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomDropDown(
                         items: List.of(language),
                         selectedValue: selectedLanguage,
@@ -327,20 +362,40 @@ class AddNewBookScreen extends ConsumerWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: CustomField(
-                              controller: publisherController,
-                              hintText: 'Editora',
-                              keyboardType: TextInputType.name,
-                              maxLines: 1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Editora',
+                                  style: AppStyle.title2,
+                                ),
+                                const Gap(10),
+                                CustomField(
+                                  controller: publisherController,
+                                  hintText: '',
+                                  keyboardType: TextInputType.name,
+                                  maxLines: 1,
+                                ),
+                              ],
                             ),
                           ),
                           const Gap(20),
                           Expanded(
-                            child: CustomField(
-                              controller: publishedDateController,
-                              hintText: 'Ano de Publicação',
-                              keyboardType: TextInputType.number,
-                              maxLines: 1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Ano de Publicação',
+                                  style: AppStyle.title2,
+                                ),
+                                const Gap(10),
+                                CustomField(
+                                  controller: publishedDateController,
+                                  hintText: '',
+                                  keyboardType: TextInputType.number,
+                                  maxLines: 1,
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -349,216 +404,255 @@ class AddNewBookScreen extends ConsumerWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: CustomField(
-                              controller: pageCountController,
-                              hintText: 'Páginas',
-                              keyboardType: TextInputType.number,
-                              maxLines: 1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Páginas',
+                                  style: AppStyle.title2,
+                                ),
+                                const Gap(10),
+                                CustomField(
+                                  controller: pageCountController,
+                                  hintText: '',
+                                  keyboardType: TextInputType.number,
+                                  maxLines: 1,
+                                ),
+                              ],
                             ),
                           ),
                           const Gap(20),
                           Expanded(
-                            child: CustomField(
-                              controller: copyCountController,
-                              hintText: 'Cópias',
-                              keyboardType: TextInputType.number,
-                              maxLines: 1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Cópias',
+                                  style: AppStyle.title2,
+                                ),
+                                const Gap(10),
+                                CustomField(
+                                  controller: copyCountController,
+                                  hintText: '',
+                                  keyboardType: TextInputType.number,
+                                  maxLines: 1,
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                       const Gap(20),
+                      Text(
+                        'Url da Capa',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomField(
                         controller: thumbnailController,
-                        hintText: 'Url da Capa',
+                        hintText: '',
                         keyboardType: TextInputType.url,
                         maxLines: 1,
                       ),
                       const Gap(20),
+                      Text(
+                        'Descrição',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomFieldDescricao(
                         controller: descriptionController,
-                        hintText: 'Descrição',
+                        hintText: '',
                         keyboardType: TextInputType.multiline,
                         maxLines: 15,
+                      ),
+                      const Gap(20),
+                      SizedBox(
+                        height: 80,
+                        width: double.infinity,
+                        child: FilledButton(
+                          style: ButtonStyle(
+                            elevation: const MaterialStatePropertyAll(0),
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.primary,
+                            ),
+                            shape: const MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                              ),
+                            ),
+                          ),
+                          onPressed: () {
+                            if (titleController.text.isEmpty) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Preencha o título',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (authorsController.text.isEmpty) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Preencha os autores',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (isbnController.text.isEmpty) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Preencha o Isbn',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (publisherController.text.isEmpty) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Preencha a Editora',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (pageCountController.text.isEmpty) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Preencha a Quantidade de Páginas',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (copyCountController.text.isEmpty) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Preencha a Quantidade de Cópias',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (descriptionController.text.isEmpty) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Preencha a Descrição',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else {
+                              List<String> isbnList =
+                                  isbnController.text.split(', ');
+                              List<String> authorsList =
+                                  authorsController.text.split(', ');
+                              int pageCount;
+                              int copyCount;
+                              int ano;
+
+                              try {
+                                pageCount = int.parse(pageCountController.text);
+                                copyCount = int.parse(copyCountController.text);
+                                ano = int.parse(publishedDateController.text);
+                              } catch (e) {
+                                return;
+                              }
+
+                              if (selectedLanguage != null) {
+                                selectedLanguage = selectedLanguage;
+                              }
+
+                              ref.read(bookProvider).addNewBook(
+                                    BookModel(
+                                      title: titleController.text,
+                                      isbn: isbnList,
+                                      authors: authorsList,
+                                      category: selectedCategory.toString(),
+                                      publisher: publisherController.text,
+                                      publishedDate: ano,
+                                      description: descriptionController.text,
+                                      pageCount: pageCount,
+                                      copyCount: copyCount,
+                                      loansCount: 0,
+                                      averageRating: 0,
+                                      ratingsCount: 0,
+                                      thumbnail: thumbnailController.text,
+                                      language: selectedLanguage.toString(),
+                                      isAvailable: true,
+                                    ),
+                                  );
+
+                              Navigator.of(context).pop();
+                              Navigator.of(context)
+                                  .pushNamed(AppRoutes.homePage);
+
+                              CustomMsgSuccess(
+                                context,
+                                'Sucesso',
+                                'O livro foi cadastrado e já está disponível na biblioteca!',
+                              );
+                            }
+                          },
+                          child: Text(
+                            'Salvar',
+                            style: AppStyle.title2,
+                          ),
+                        ),
                       ),
                       const Gap(20),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
-                height: 45,
-                width: double.infinity,
-                child: FilledButton(
-                  style: ButtonStyle(
-                    elevation: const MaterialStatePropertyAll(0),
-                    backgroundColor: MaterialStatePropertyAll(
-                      AppStyle.primary,
-                    ),
-                    shape: const MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (titleController.text.isEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        backgroundColor: AppStyle.dark1,
-                        showCloseIcon: true,
-                        closeIconColor: AppStyle.gray,
-                        content: Text(
-                          'Preencha o título',
-                          style: AppStyle.subtitle,
-                        ),
-                        duration: const Duration(seconds: 5),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (authorsController.text.isEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        backgroundColor: AppStyle.dark1,
-                        showCloseIcon: true,
-                        closeIconColor: AppStyle.gray,
-                        content: Text(
-                          'Preencha os autores',
-                          style: AppStyle.subtitle,
-                        ),
-                        duration: const Duration(seconds: 5),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (isbnController.text.isEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        backgroundColor: AppStyle.dark1,
-                        showCloseIcon: true,
-                        closeIconColor: AppStyle.gray,
-                        content: Text(
-                          'Preencha o Isbn',
-                          style: AppStyle.subtitle,
-                        ),
-                        duration: const Duration(seconds: 5),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (publisherController.text.isEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        backgroundColor: AppStyle.dark1,
-                        showCloseIcon: true,
-                        closeIconColor: AppStyle.gray,
-                        content: Text(
-                          'Preencha a Editora',
-                          style: AppStyle.subtitle,
-                        ),
-                        duration: const Duration(seconds: 5),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (pageCountController.text.isEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        backgroundColor: AppStyle.dark1,
-                        showCloseIcon: true,
-                        closeIconColor: AppStyle.gray,
-                        content: Text(
-                          'Preencha a Quantidade de Páginas',
-                          style: AppStyle.subtitle,
-                        ),
-                        duration: const Duration(seconds: 5),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (copyCountController.text.isEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        backgroundColor: AppStyle.dark1,
-                        showCloseIcon: true,
-                        closeIconColor: AppStyle.gray,
-                        content: Text(
-                          'Preencha a Quantidade de Cópias',
-                          style: AppStyle.subtitle,
-                        ),
-                        duration: const Duration(seconds: 5),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (descriptionController.text.isEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        backgroundColor: AppStyle.dark1,
-                        showCloseIcon: true,
-                        closeIconColor: AppStyle.gray,
-                        content: Text(
-                          'Preencha a Descrição',
-                          style: AppStyle.subtitle,
-                        ),
-                        duration: const Duration(seconds: 5),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else {
-                      List<String> isbnList = isbnController.text.split(', ');
-                      List<String> authorsList =
-                          authorsController.text.split(', ');
-                      int pageCount;
-                      int copyCount;
-                      int ano;
-
-                      try {
-                        pageCount = int.parse(pageCountController.text);
-                        copyCount = int.parse(copyCountController.text);
-                        ano = int.parse(publishedDateController.text);
-                      } catch (e) {
-                        return;
-                      }
-
-                      if (selectedLanguage != null) {
-                        selectedLanguage = selectedLanguage;
-                      }
-
-                      ref.read(bookProvider).addNewBook(
-                            BookModel(
-                              title: titleController.text,
-                              isbn: isbnList,
-                              authors: authorsList,
-                              category: selectedCategory.toString(),
-                              publisher: publisherController.text,
-                              publishedDate: ano,
-                              description: descriptionController.text,
-                              pageCount: pageCount,
-                              copyCount: copyCount,
-                              loansCount: 0,
-                              averageRating: 0,
-                              ratingsCount: 0,
-                              thumbnail: thumbnailController.text,
-                              language: selectedLanguage.toString(),
-                              isAvailable: true,
-                            ),
-                          );
-
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pushNamed(AppRoutes.bookPage);
-
-                      CustomMsgSuccess(
-                        context,
-                        'Sucesso',
-                        'O livro foi cadastrado e já está disponível na biblioteca!',
-                      );
-                    }
-                  },
-                  child: Text(
-                    'Salvar',
-                    style: AppStyle.title2,
-                  ),
-                ),
-              ),
-              const Gap(20),
             ],
           ),
         ),
