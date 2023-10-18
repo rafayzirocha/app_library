@@ -86,13 +86,13 @@ class _HomePageState extends State<HomePage> {
           ),
           NavigationDestination(
             icon: SvgPicture.asset(
-              'assets/images/love-1.svg',
+              'assets/images/user-group-1.svg',
               color: AppStyle.gray,
               height: 16,
               width: 16,
             ),
             selectedIcon: SvgPicture.asset(
-              'assets/images/love.svg',
+              'assets/images/user-group.svg',
               color: AppStyle.primary,
               height: 16,
               width: 16,
