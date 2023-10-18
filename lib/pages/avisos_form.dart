@@ -3,6 +3,7 @@
 import 'package:app_library/provider/service_provider.dart';
 import 'package:app_library/widgets/custom_dropdown.dart';
 import 'package:app_library/widgets/custom_field.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -12,20 +13,19 @@ import '../model/warning_model.dart';
 import '../routes/app_routes.dart';
 import '../widgets/custom_field_descricao.dart';
 
-final AddNewWarningModalProvider =
-    StateNotifierProvider<AddNewWarningModalController, AddNewWarningData>(
-        (ref) {
-  return AddNewWarningModalController();
+final AddNovoAvisoProvider =
+    StateNotifierProvider<AddNovoAvisoController, AddNovoAvisoData>((ref) {
+  return AddNovoAvisoController();
 });
 
-class AddNewWarningData {
+class AddNovoAvisoData {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController urlController = TextEditingController();
 }
 
-class AddNewWarningModalController extends StateNotifier<AddNewWarningData> {
-  AddNewWarningModalController() : super(AddNewWarningData());
+class AddNovoAvisoController extends StateNotifier<AddNovoAvisoData> {
+  AddNovoAvisoController() : super(AddNovoAvisoData());
 
   @override
   void dispose() {
@@ -41,13 +41,13 @@ class AddNewWarningScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final titleController = AddNewWarningData().titleController;
-    final descriptionController = AddNewWarningData().descriptionController;
-    final urlController = AddNewWarningData().urlController;
+    final titleController = AddNovoAvisoData().titleController;
+    final descriptionController = AddNovoAvisoData().descriptionController;
+    final urlController = AddNovoAvisoData().urlController;
 
     String? categoria = 'Eventos';
 
-    final categories = {
+    final categorias = {
       const DropdownMenuItem(
         value: 'Eventos',
         child: Text(
@@ -64,56 +64,84 @@ class AddNewWarningScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
-      appBar: AppBar(
-        backgroundColor: AppStyle.dark1,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: Icon(
-            Icons.chevron_left,
-            size: 18,
-            color: AppStyle.white,
-          ),
-        ),
-      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              IconButton.filled(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(FeatherIcons.chevronLeft),
+                iconSize: 18,
+                color: AppStyle.gray,
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                    AppStyle.dark2,
+                  ),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+              const Gap(20),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        'Título',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomField(
-                        hintText: 'Titulo',
+                        hintText: '',
                         keyboardType: TextInputType.name,
                         maxLines: 1,
                         controller: titleController,
                       ),
                       const Gap(20),
+                      Text(
+                        'Url da Imagem',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
+                      CustomField(
+                        hintText: '',
+                        keyboardType: TextInputType.url,
+                        maxLines: 1,
+                        controller: urlController,
+                      ),
+                      const Gap(20),
+                      Text(
+                        'Categoria',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomDropDown(
-                        items: categories.toList(),
+                        items: categorias.toList(),
                         selectedValue: categoria,
                         onChanged: (value) {
                           categoria = value;
                         },
                       ),
                       const Gap(20),
+                      Text(
+                        'Descrição',
+                        style: AppStyle.title2,
+                      ),
+                      const Gap(10),
                       CustomFieldDescricao(
                         controller: descriptionController,
-                        hintText: 'Descrição',
+                        hintText: '',
                         keyboardType: TextInputType.multiline,
-                        maxLines: 25,
-                      ),
-                      const Gap(20),
-                      CustomField(
-                        hintText: 'Url da Imagem',
-                        keyboardType: TextInputType.url,
-                        maxLines: 1,
-                        controller: urlController,
+                        maxLines: 15,
                       ),
                       const Gap(20),
                     ],
@@ -121,7 +149,7 @@ class AddNewWarningScreen extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                height: 45,
+                height: 80,
                 width: double.infinity,
                 child: FilledButton(
                   style: ButtonStyle(
@@ -132,7 +160,7 @@ class AddNewWarningScreen extends ConsumerWidget {
                     shape: const MaterialStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
-                          Radius.circular(12),
+                          Radius.circular(20),
                         ),
                       ),
                     ),

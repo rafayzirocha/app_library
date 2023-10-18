@@ -13,8 +13,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
 import 'pages/book_form.dart';
-import 'pages/warnings_form.dart';
-import 'pages/warnings_page.dart';
+import 'pages/avisos_form.dart';
+import 'pages/avisos_page.dart';
 import 'routes/app_routes.dart';
 
 void main() async {
