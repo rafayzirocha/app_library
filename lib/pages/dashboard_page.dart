@@ -55,6 +55,7 @@ class DashboardPage extends ConsumerWidget {
                                     ),
                                   ),
                                   child: InkWell(
+                                    splashFactory: InkRipple.splashFactory,
                                     borderRadius: BorderRadius.circular(20),
                                     onTap: () {},
                                     child: Container(
@@ -105,6 +106,7 @@ class DashboardPage extends ConsumerWidget {
                                     ),
                                   ),
                                   child: InkWell(
+                                    splashFactory: InkRipple.splashFactory,
                                     borderRadius: BorderRadius.circular(20),
                                     onTap: () {},
                                     child: Container(
@@ -155,6 +157,7 @@ class DashboardPage extends ConsumerWidget {
                                     ),
                                   ),
                                   child: InkWell(
+                                    splashFactory: InkRipple.splashFactory,
                                     borderRadius: BorderRadius.circular(20),
                                     onTap: () {},
                                     child: Container(
@@ -206,6 +209,7 @@ class DashboardPage extends ConsumerWidget {
                               ),
                             ),
                             child: InkWell(
+                              splashFactory: InkRipple.splashFactory,
                               borderRadius: BorderRadius.circular(20),
                               onTap: () {},
                               child: Container(
