@@ -227,6 +227,7 @@ class WarningDetails extends ConsumerWidget {
                           ),
                         ],
                       ),
+                      const Gap(20),
                     ],
                   ),
                 ),

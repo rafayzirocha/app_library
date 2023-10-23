@@ -36,10 +36,10 @@ class BookDetails extends ConsumerWidget {
                     },
                     icon: const Icon(FeatherIcons.chevronLeft),
                     iconSize: 18,
-                    color: AppStyle.white,
+                    color: AppStyle.gray,
                     style: ButtonStyle(
-                      backgroundColor: const MaterialStatePropertyAll(
-                        Colors.transparent,
+                      backgroundColor: MaterialStatePropertyAll(
+                        AppStyle.dark2,
                       ),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
@@ -55,15 +55,15 @@ class BookDetails extends ConsumerWidget {
                           onPressed: () {},
                           icon: SvgPicture.asset(
                             'assets/images/pen.svg',
-                            color: AppStyle.white,
+                            color: AppStyle.gray,
                             height: 16,
                             width: 16,
                           ),
                           iconSize: 18,
-                          color: AppStyle.white,
+                          color: AppStyle.gray,
                           style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                              Colors.transparent,
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.dark2,
                             ),
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
@@ -124,15 +124,15 @@ class BookDetails extends ConsumerWidget {
                           },
                           icon: SvgPicture.asset(
                             'assets/images/trash-2.svg',
-                            color: Colors.red,
+                            color: AppStyle.white,
                             height: 16,
                             width: 16,
                           ),
                           iconSize: 18,
-                          color: Colors.red,
+                          color: AppStyle.white,
                           style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                              Colors.transparent,
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.primary,
                             ),
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
@@ -219,102 +219,123 @@ class BookDetails extends ConsumerWidget {
                         ),
                       ),
                       const Gap(20),
+                      Container(
+                        decoration: ShapeDecoration(
+                          shape: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppStyle.dark2,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/mortarboard.svg',
+                              color: AppStyle.primary,
+                              height: 16,
+                              width: 16,
+                            ),
+                            const Gap(20),
+                            Text(
+                              'ISBN ${data.isbn.join(',')}',
+                              style: AppStyle.title3,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Gap(20),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            decoration: ShapeDecoration(
-                              shape: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppStyle.dark2,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                Container(
-                                  decoration: ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
+                          Expanded(
+                            child: Container(
+                              decoration: ShapeDecoration(
+                                shape: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: AppStyle.dark2,
                                   ),
-                                  child: SvgPicture.asset(
-                                    'assets/images/star.svg',
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/language.svg',
                                     color: AppStyle.primary,
                                     height: 16,
                                     width: 16,
                                   ),
-                                ),
-                                const Gap(10),
-                                Text(
-                                  '${data.averageRating} estrelas',
-                                  style: AppStyle.title3,
-                                ),
-                              ],
+                                  const Gap(10),
+                                  Text(
+                                    data.language,
+                                    style: AppStyle.title3,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           const Gap(20),
-                          Container(
-                            decoration: ShapeDecoration(
-                              shape: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppStyle.dark2,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                Container(
-                                  decoration: ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
+                          Expanded(
+                            child: Container(
+                              decoration: ShapeDecoration(
+                                shape: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: AppStyle.dark2,
                                   ),
-                                  child: SvgPicture.asset(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                children: [
+                                  SvgPicture.asset(
                                     'assets/images/file.svg',
                                     color: AppStyle.primary,
                                     height: 16,
                                     width: 16,
                                   ),
-                                ),
-                                const Gap(10),
-                                Text(
-                                  '${data.pageCount} páginas',
-                                  style: AppStyle.title3,
-                                ),
-                              ],
+                                  const Gap(10),
+                                  Text(
+                                    '${data.pageCount} páginas',
+                                    style: AppStyle.title3,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           const Gap(20),
-                          Container(
-                            decoration: ShapeDecoration(
-                              shape: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: AppStyle.dark2,
+                          Expanded(
+                            child: Container(
+                              decoration: ShapeDecoration(
+                                shape: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: AppStyle.dark2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                borderRadius: BorderRadius.circular(20),
                               ),
-                            ),
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/images/copy.svg',
-                                  color: AppStyle.primary,
-                                  height: 16,
-                                  width: 16,
-                                ),
-                                const Gap(10),
-                                Text(
-                                  '${data.copyCount} cópias',
-                                  style: AppStyle.title3,
-                                ),
-                              ],
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/copy.svg',
+                                    color: AppStyle.primary,
+                                    height: 16,
+                                    width: 16,
+                                  ),
+                                  const Gap(10),
+                                  Text(
+                                    '${data.copyCount} cópias',
+                                    style: AppStyle.title3,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
