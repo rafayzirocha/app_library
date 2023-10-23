@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class UsersDetails extends ConsumerWidget {
   const UsersDetails({super.key});
@@ -260,6 +261,15 @@ class UsersDetails extends ConsumerWidget {
                             ),
                           ),
                         ],
+                      ),
+                      const Gap(20),
+                      Text(
+                        'Empréstimos',
+                        style: AppStyle.title1,
+                      ),
+                      Text(
+                        'Nenhum empréstimo encontrado...',
+                        style: AppStyle.title3,
                       ),
                     ],
                   ),
