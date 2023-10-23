@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import '../provider/service_provider.dart';
-import '../widgets/book_card.dart';
 import '../widgets/user_card.dart';
 
 class UsersPage extends ConsumerWidget {

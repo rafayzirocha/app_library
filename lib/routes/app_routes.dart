@@ -11,4 +11,5 @@ class AppRoutes {
   static const perfilPage = '/perfilPage';
   static const loginPage = '/loginPage';
   static const registerPage = '/registerPage';
+  static const usersDetails = '/usersDetails';
 }

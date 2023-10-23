@@ -53,10 +53,10 @@ class UserCard extends ConsumerWidget {
           ),
         ),
         onTap: () {
-          //Navigator.of(context).pushNamed(
-          //  AppRoutes.bookDetails,
-          //  arguments: livro,
-          //);
+          Navigator.of(context).pushNamed(
+            AppRoutes.usersDetails,
+            arguments: user,
+          );
         },
       ),
       error: (error, StackTrace) => Center(
