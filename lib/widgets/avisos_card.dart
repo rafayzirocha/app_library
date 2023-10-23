@@ -4,7 +4,6 @@ import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/warning_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
@@ -56,29 +55,6 @@ class AvisosCard extends ConsumerWidget {
                       color: AppStyle.gray,
                     ),
                   ),
-          ),
-        ),
-        trailing: IconButton.filled(
-          onPressed: () {},
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          icon: Text(
-            data[getIndex].category,
-            style: GoogleFonts.inter(
-              fontSize: 14,
-              color: AppStyle.white,
-            ),
-          ),
-          iconSize: 18,
-          color: AppStyle.white,
-          style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(
-              AppStyle.primary,
-            ),
-            shape: MaterialStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
           ),
         ),
         onTap: () {

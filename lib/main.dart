@@ -43,7 +43,7 @@ class AppLibrary extends StatelessWidget {
           AppRoutes.bookDetails: (_) => const BookDetails(),
           AppRoutes.warningPage: (_) => const AvisosPage(),
           AppRoutes.warningForm: (_) => const AddNewWarningScreen(),
-          AppRoutes.warningDetails: (_) => const DetalhesAvisos(),
+          AppRoutes.warningDetails: (_) => const WarningDetails(),
           AppRoutes.emprestimoPage: (_) => const EmprestimoPage(),
           AppRoutes.emprestimoForm: (_) => const AddNewEmprestimoScreen(),
           AppRoutes.perfilPage: (_) => const PerfilPage(),

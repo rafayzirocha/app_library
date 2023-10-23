@@ -1,226 +1,225 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/warning_model.dart';
 import 'package:app_library/provider/service_provider.dart';
-import 'package:app_library/routes/app_routes.dart';
+import 'package:feather_icons/feather_icons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DetalhesAvisos extends ConsumerWidget {
-  const DetalhesAvisos({super.key});
+class WarningDetails extends ConsumerWidget {
+  const WarningDetails({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ModalRoute.of(context)!.settings.arguments as WarningModel;
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: AppStyle.dark1,
-      appBar: AppBar(
-        backgroundColor: AppStyle.dark1,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: Icon(
-            Icons.chevron_left,
-            size: 18,
-            color: AppStyle.white,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.warningForm);
-                  },
-                  icon: Icon(
-                    Icons.edit_rounded,
-                    size: 18,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton.filled(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(FeatherIcons.chevronLeft),
+                    iconSize: 18,
                     color: AppStyle.white,
+                    style: ButtonStyle(
+                      backgroundColor: const MaterialStatePropertyAll(
+                        Colors.transparent,
+                      ),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          backgroundColor: AppStyle.dark1,
-                          elevation: 0,
-                          title: Text(
-                            'Confirmar Exclusão',
-                            style: AppStyle.title1,
+                  if (user?.email == 'e096bibli@cps.sp.gov.br')
+                    Row(
+                      children: [
+                        IconButton.filled(
+                          onPressed: () {},
+                          icon: SvgPicture.asset(
+                            'assets/images/pen.svg',
+                            color: AppStyle.white,
+                            height: 16,
+                            width: 16,
                           ),
-                          content: Text(
-                            'Tem certeza de que deseja excluir este registro?',
-                            style: AppStyle.title3,
-                          ),
-                          actions: [
-                            TextButton(
-                              style: ButtonStyle(
-                                shape: MaterialStatePropertyAll(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                textStyle: MaterialStatePropertyAll(
-                                  GoogleFonts.inter(
-                                    color: AppStyle.gray,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text(
-                                'Cancelar',
-                                style: GoogleFonts.inter(
-                                  color: AppStyle.gray,
-                                  fontSize: 16,
-                                ),
+                          iconSize: 18,
+                          color: AppStyle.white,
+                          style: ButtonStyle(
+                            backgroundColor: const MaterialStatePropertyAll(
+                              Colors.transparent,
+                            ),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
                             ),
-                            TextButton(
-                              style: ButtonStyle(
-                                shape: MaterialStatePropertyAll(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
+                          ),
+                        ),
+                        IconButton.filled(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                backgroundColor: AppStyle.dark1,
+                                elevation: 0,
+                                title: Text(
+                                  'Confirmação de exclusão',
+                                  style: AppStyle.title1,
                                 ),
-                                textStyle: MaterialStatePropertyAll(
-                                  GoogleFonts.inter(
-                                    color: AppStyle.primary,
-                                    fontSize: 16,
-                                  ),
+                                content: Text(
+                                  'Tem certeza que deseja excluir este livro?',
+                                  style: AppStyle.title3,
                                 ),
-                              ),
-                              onPressed: () {
-                                ref
-                                    .read(warningProvider)
-                                    .deleteWarning(data.docId);
-
-                                Navigator.of(context).pop();
-
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    elevation: 0,
-                                    backgroundColor: AppStyle.dark1,
-                                    showCloseIcon: true,
-                                    closeIconColor: AppStyle.gray,
-                                    content: Text(
-                                      'Registro excluído com sucesso!',
-                                      style: AppStyle.subtitle,
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStatePropertyAll(
+                                        AppStyle.dark2,
+                                      ),
                                     ),
-                                    duration: const Duration(seconds: 5),
+                                    child: Text(
+                                      'Cancelar',
+                                      style: GoogleFonts.inter(
+                                        color: AppStyle.primary,
+                                      ),
+                                    ),
                                   ),
-                                );
+                                  TextButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(warningProvider)
+                                          .deleteWarning(data.docId);
 
-                                Navigator.of(context).pop();
-                              },
-                              child: Text(
-                                'Confirmar',
-                                style: GoogleFonts.inter(
-                                  color: AppStyle.primary,
-                                  fontSize: 16,
-                                ),
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                      'Excluir',
+                                      style: GoogleFonts.inter(
+                                        color: AppStyle.primary,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          icon: SvgPicture.asset(
+                            'assets/images/trash-2.svg',
+                            color: Colors.red,
+                            height: 16,
+                            width: 16,
+                          ),
+                          iconSize: 18,
+                          color: Colors.red,
+                          style: ButtonStyle(
+                            backgroundColor: const MaterialStatePropertyAll(
+                              Colors.transparent,
+                            ),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
                             ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  icon: Icon(
-                    Icons.delete_rounded,
-                    size: 18,
-                    color: AppStyle.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Text(
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+              const Gap(20),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Text(
                         data.title,
                         style: AppStyle.title1,
                       ),
-                    ),
-                    const Gap(20),
-                    data.imageUrl.isNotEmpty
-                        ? Container(
-                            height: 200,
-                            alignment: Alignment.center,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                data.imageUrl,
-                                fit: BoxFit.cover,
-                                width: 200,
-                                alignment: Alignment.center,
+                      const Gap(20),
+                      data.imageUrl.isNotEmpty
+                          ? Container(
+                              height: 200,
+                              alignment: Alignment.center,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  data.imageUrl,
+                                  fit: BoxFit.cover,
+                                  width: 200,
+                                  alignment: Alignment.center,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: 200,
+                              width: 200,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: AppStyle.dark2,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                              ),
+                              child: Icon(
+                                Icons.image_rounded,
+                                size: 40,
+                                color: AppStyle.gray,
                               ),
                             ),
-                          )
-                        : Container(
-                            height: 200,
-                            width: 200,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: AppStyle.dark2,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.image_rounded,
-                              size: 40,
-                              color: AppStyle.gray,
-                            ),
+                      const Gap(20),
+                      Container(
+                        decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                    const Gap(20),
-                    Chip(
-                      label: Text(
-                        data.category,
-                        style: GoogleFonts.inter(
-                          color: AppStyle.gray,
-                          fontSize: 14,
+                          color: AppStyle.primary,
+                        ),
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/medal.svg',
+                              color: AppStyle.white,
+                              height: 16,
+                              width: 16,
+                            ),
+                            const Gap(10),
+                            Text(
+                              data.category,
+                              style: GoogleFonts.inter(
+                                color: AppStyle.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      backgroundColor: AppStyle.dark2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide.none,
-                      ),
-                      side: BorderSide.none,
-                      elevation: 0,
-                    ),
-                    const Gap(20),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                      ),
-                      child: Column(
+                      const Gap(20),
+                      Column(
                         children: [
                           Text(
                             'Descrição',
                             style: AppStyle.title1,
                           ),
-                          const Gap(10),
+                          const Gap(20),
                           Text(
                             data.description,
                             textAlign: TextAlign.justify,
@@ -228,13 +227,12 @@ class DetalhesAvisos extends ConsumerWidget {
                           ),
                         ],
                       ),
-                    ),
-                    const Gap(20),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

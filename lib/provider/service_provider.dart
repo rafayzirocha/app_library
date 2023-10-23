@@ -74,3 +74,18 @@ final buscaUsuarioLogado = StreamProvider<UserModel>((ref) async* {
     yield* getData;
   }
 });
+
+final fetchUsers = StreamProvider<List<UserModel>>((ref) async* {
+  final getData = FirebaseFirestore.instance
+      .collection('users')
+      .orderBy('rm')
+      .snapshots()
+      .map(
+        (event) => event.docs
+            .map(
+              (snapshot) => UserModel.fromSnapshot(snapshot),
+            )
+            .toList(),
+      );
+  yield* getData;
+});
