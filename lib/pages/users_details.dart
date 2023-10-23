@@ -151,16 +151,9 @@ class UsersDetails extends ConsumerWidget {
                         style: AppStyle.title3,
                       ),
                       const Gap(20),
-                      Container(
-                        height: 200,
-                        width: 200,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppStyle.dark2,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                        ),
+                      CircleAvatar(
+                        radius: 100,
+                        backgroundColor: AppStyle.dark2,
                         child: Icon(
                           Icons.image_rounded,
                           size: 40,
