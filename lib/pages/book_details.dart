@@ -1,4 +1,5 @@
 import 'package:app_library/constants/app_style.dart';
+import 'package:app_library/provider/service_provider.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +36,10 @@ class BookDetails extends ConsumerWidget {
                     },
                     icon: const Icon(FeatherIcons.chevronLeft),
                     iconSize: 18,
-                    color: AppStyle.gray,
+                    color: AppStyle.white,
                     style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        AppStyle.dark2,
+                      backgroundColor: const MaterialStatePropertyAll(
+                        Colors.transparent,
                       ),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
@@ -54,15 +55,15 @@ class BookDetails extends ConsumerWidget {
                           onPressed: () {},
                           icon: SvgPicture.asset(
                             'assets/images/pen.svg',
-                            color: AppStyle.gray,
+                            color: AppStyle.white,
                             height: 16,
                             width: 16,
                           ),
                           iconSize: 18,
-                          color: AppStyle.gray,
+                          color: AppStyle.white,
                           style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.dark2,
+                            backgroundColor: const MaterialStatePropertyAll(
+                              Colors.transparent,
                             ),
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
@@ -72,18 +73,66 @@ class BookDetails extends ConsumerWidget {
                           ),
                         ),
                         IconButton.filled(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                backgroundColor: AppStyle.dark1,
+                                elevation: 0,
+                                title: Text(
+                                  'Confirmação de exclusão',
+                                  style: AppStyle.title1,
+                                ),
+                                content: Text(
+                                  'Tem certeza que deseja excluir este livro?',
+                                  style: AppStyle.title3,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStatePropertyAll(
+                                        AppStyle.dark2,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      'Cancelar',
+                                      style: GoogleFonts.inter(
+                                        color: AppStyle.primary,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(bookProvider)
+                                          .deleteBook(data.docId);
+
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                      'Excluir',
+                                      style: GoogleFonts.inter(
+                                        color: AppStyle.primary,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                           icon: SvgPicture.asset(
                             'assets/images/trash-2.svg',
-                            color: AppStyle.gray,
+                            color: Colors.red,
                             height: 16,
                             width: 16,
                           ),
                           iconSize: 18,
-                          color: AppStyle.gray,
+                          color: Colors.red,
                           style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.dark2,
+                            backgroundColor: const MaterialStatePropertyAll(
+                              Colors.transparent,
                             ),
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
@@ -142,27 +191,31 @@ class BookDetails extends ConsumerWidget {
                               ),
                             ),
                       const Gap(20),
-                      IconButton.filled(
-                        onPressed: () {},
-                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        icon: Text(
-                          data.category,
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            color: AppStyle.white,
+                      Container(
+                        decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
                           ),
+                          color: AppStyle.primary,
                         ),
-                        iconSize: 18,
-                        color: AppStyle.white,
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                            AppStyle.primary,
-                          ),
-                          shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/category.svg',
+                              color: AppStyle.white,
+                              height: 16,
+                              width: 16,
                             ),
-                          ),
+                            const Gap(10),
+                            Text(
+                              data.category,
+                              style: GoogleFonts.inter(
+                                color: AppStyle.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const Gap(20),
@@ -170,238 +223,101 @@ class BookDetails extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset(
-                            'assets/images/id.svg',
-                            color: AppStyle.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            'ISBN ',
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.white,
+                          Container(
+                            decoration: ShapeDecoration(
+                              shape: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppStyle.dark2,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: ShapeDecoration(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  ),
+                                  child: SvgPicture.asset(
+                                    'assets/images/star.svg',
+                                    color: AppStyle.primary,
+                                    height: 16,
+                                    width: 16,
+                                  ),
+                                ),
+                                const Gap(10),
+                                Text(
+                                  '${data.averageRating} estrelas',
+                                  style: AppStyle.title3,
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            data.isbn.join(', '),
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.gray,
+                          const Gap(20),
+                          Container(
+                            decoration: ShapeDecoration(
+                              shape: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppStyle.dark2,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: ShapeDecoration(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  ),
+                                  child: SvgPicture.asset(
+                                    'assets/images/file.svg',
+                                    color: AppStyle.primary,
+                                    height: 16,
+                                    width: 16,
+                                  ),
+                                ),
+                                const Gap(10),
+                                Text(
+                                  '${data.pageCount} páginas',
+                                  style: AppStyle.title3,
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/mortarboard.svg',
-                            color: AppStyle.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            'Editora ',
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.white,
+                          const Gap(20),
+                          Container(
+                            decoration: ShapeDecoration(
+                              shape: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppStyle.dark2,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                             ),
-                          ),
-                          Text(
-                            data.publisher,
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.gray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/globe.svg',
-                            color: AppStyle.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            'Idioma ',
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.white,
-                            ),
-                          ),
-                          Text(
-                            data.language,
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.gray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/calender.svg',
-                            color: AppStyle.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            'Ano de Publicação ',
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.white,
-                            ),
-                          ),
-                          Text(
-                            data.publishedDate.toString(),
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.gray,
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/copy.svg',
+                                  color: AppStyle.primary,
+                                  height: 16,
+                                  width: 16,
+                                ),
+                                const Gap(10),
+                                Text(
+                                  '${data.copyCount} cópias',
+                                  style: AppStyle.title3,
+                                ),
+                              ],
                             ),
                           ),
                         ],
-                      ),
-                      const Gap(20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/file.svg',
-                            color: AppStyle.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            'Quantidade de Páginas ',
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.white,
-                            ),
-                          ),
-                          Text(
-                            data.pageCount.toString(),
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.gray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/copy.svg',
-                            color: AppStyle.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            'Quantidade de Cópias ',
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.white,
-                            ),
-                          ),
-                          Text(
-                            data.copyCount.toString(),
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.gray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/love.svg',
-                            color: AppStyle.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            'Quantidade de Empréstimos ',
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.white,
-                            ),
-                          ),
-                          Text(
-                            data.loansCount.toString(),
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.gray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/star.svg',
-                            color: AppStyle.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            'Média de Avaliações ',
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.white,
-                            ),
-                          ),
-                          Text(
-                            data.averageRating.toString(),
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.gray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/medal.svg',
-                            color: AppStyle.primary,
-                          ),
-                          const Gap(10),
-                          Text(
-                            'Total de Avaliações ',
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.white,
-                            ),
-                          ),
-                          Text(
-                            data.ratingsCount.toString(),
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              color: AppStyle.gray,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Divider(
-                        color: AppStyle.dark2,
                       ),
                       const Gap(20),
                       Column(
@@ -424,6 +340,7 @@ class BookDetails extends ConsumerWidget {
                         width: double.infinity,
                         child: FilledButton(
                           style: ButtonStyle(
+                            splashFactory: InkRipple.splashFactory,
                             elevation: const MaterialStatePropertyAll(0),
                             backgroundColor: MaterialStatePropertyAll(
                               AppStyle.primary,

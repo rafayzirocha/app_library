@@ -58,26 +58,6 @@ class BookCard extends ConsumerWidget {
                   ),
           ),
         ),
-        trailing: IconButton.filled(
-          onPressed: () {},
-          icon: SvgPicture.asset(
-            'assets/images/love.svg',
-            height: 16,
-            width: 16,
-            color: AppStyle.primary,
-          ),
-          color: AppStyle.gray,
-          style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(
-              AppStyle.dark2,
-            ),
-            shape: MaterialStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-          ),
-        ),
         onTap: () {
           Navigator.of(context).pushNamed(
             AppRoutes.bookDetails,
