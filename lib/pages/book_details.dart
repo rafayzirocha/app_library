@@ -1,7 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/provider/service_provider.dart';
 import 'package:feather_icons/feather_icons.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,7 +16,6 @@ class BookDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ModalRoute.of(context)!.settings.arguments as BookModel;
-    final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
@@ -48,121 +46,120 @@ class BookDetails extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  if (user?.email == 'e096bibli@cps.sp.gov.br')
-                    Row(
-                      children: [
-                        IconButton.filled(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            'assets/images/pen.svg',
-                            color: AppStyle.gray,
-                            height: 16,
-                            width: 16,
-                          ),
-                          iconSize: 18,
+                  Row(
+                    children: [
+                      IconButton.filled(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          'assets/images/pen.svg',
                           color: AppStyle.gray,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.dark2,
-                            ),
-                            shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                          height: 16,
+                          width: 16,
+                        ),
+                        iconSize: 18,
+                        color: AppStyle.gray,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            AppStyle.dark2,
+                          ),
+                          shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
                           ),
                         ),
-                        IconButton.filled(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                backgroundColor: AppStyle.dark1,
-                                elevation: 0,
-                                title: Text(
-                                  'Confirmação de exclusão',
-                                  style: AppStyle.title1,
-                                ),
-                                content: Text(
-                                  'Tem certeza que deseja excluir este livro?',
-                                  style: AppStyle.title3,
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    style: ButtonStyle(
-                                      overlayColor: MaterialStatePropertyAll(
-                                        AppStyle.dark2,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Cancelar',
-                                      style: GoogleFonts.inter(
-                                        color: AppStyle.primary,
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      ref
-                                          .read(bookProvider)
-                                          .deleteBook(data.docId);
-
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).pop();
-
-                                      final snackBar = SnackBar(
-                                        elevation: 0,
-                                        backgroundColor: AppStyle.dark1,
-                                        showCloseIcon: true,
-                                        closeIconColor: AppStyle.gray,
-                                        content: Text(
-                                          'Livro Excluído com Sucesso!',
-                                          style: AppStyle.subtitle,
-                                        ),
-                                        duration: const Duration(seconds: 5),
-                                      );
-
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    },
-                                    style: ButtonStyle(
-                                      overlayColor: MaterialStatePropertyAll(
-                                        AppStyle.dark2,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Excluir',
-                                      style: GoogleFonts.inter(
-                                        color: AppStyle.primary,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                      ),
+                      IconButton.filled(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              backgroundColor: AppStyle.dark1,
+                              elevation: 0,
+                              title: Text(
+                                'Confirmação de exclusão',
+                                style: AppStyle.title1,
                               ),
-                            );
-                          },
-                          icon: SvgPicture.asset(
-                            'assets/images/trash-2.svg',
-                            color: AppStyle.white,
-                            height: 16,
-                            width: 16,
-                          ),
-                          iconSize: 18,
+                              content: Text(
+                                'Tem certeza que deseja excluir este livro?',
+                                style: AppStyle.title3,
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  style: ButtonStyle(
+                                    overlayColor: MaterialStatePropertyAll(
+                                      AppStyle.dark2,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Cancelar',
+                                    style: GoogleFonts.inter(
+                                      color: AppStyle.primary,
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(bookProvider)
+                                        .deleteBook(data.docId);
+
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+
+                                    final snackBar = SnackBar(
+                                      elevation: 0,
+                                      backgroundColor: AppStyle.dark1,
+                                      showCloseIcon: true,
+                                      closeIconColor: AppStyle.gray,
+                                      content: Text(
+                                        'Livro Excluído com Sucesso!',
+                                        style: AppStyle.subtitle,
+                                      ),
+                                      duration: const Duration(seconds: 5),
+                                    );
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  },
+                                  style: ButtonStyle(
+                                    overlayColor: MaterialStatePropertyAll(
+                                      AppStyle.dark2,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Excluir',
+                                    style: GoogleFonts.inter(
+                                      color: AppStyle.primary,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        icon: SvgPicture.asset(
+                          'assets/images/trash-2.svg',
                           color: AppStyle.white,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.primary,
-                            ),
-                            shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                          height: 16,
+                          width: 16,
+                        ),
+                        iconSize: 18,
+                        color: AppStyle.white,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            AppStyle.primary,
+                          ),
+                          shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               const Gap(20),

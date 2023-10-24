@@ -6,10 +6,9 @@ class AppRoutes {
   static const warningPage = '/warningPage';
   static const warningForm = '/warningForm';
   static const warningDetails = '/warningDetails';
-  static const emprestimoPage = '/emprestimoPage';
-  static const emprestimoForm = '/emprestimoForm';
   static const perfilPage = '/perfilPage';
   static const loginPage = '/loginPage';
   static const registerPage = '/registerPage';
   static const usersDetails = '/usersDetails';
+  static const usersForm = '/usersForm';
 }

@@ -7,6 +7,7 @@ import '../model/book_model.dart';
 import '../model/user_model.dart';
 import '../services/auth_service.dart';
 import '../services/book_service.dart';
+import '../services/users_service.dart';
 
 final bookProvider = StateProvider<BookService>(
   (ref) {
@@ -22,6 +23,13 @@ final warningProvider = StateProvider<WarningService>(
 
 final authServiceProvider = Provider<AuthService>((ref) {
   return AuthService(
+    firebaseAuth: FirebaseAuth.instance,
+    firestore: FirebaseFirestore.instance,
+  );
+});
+
+final usersServiceProvider = Provider<UsersService>((ref) {
+  return UsersService(
     firebaseAuth: FirebaseAuth.instance,
     firestore: FirebaseFirestore.instance,
   );

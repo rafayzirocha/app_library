@@ -1,12 +1,11 @@
 import 'package:app_library/pages/book_details.dart';
 import 'package:app_library/pages/book_page.dart';
-import 'package:app_library/pages/emprestimo_form.dart';
-import 'package:app_library/pages/emprestimo_page.dart';
 import 'package:app_library/pages/home_page.dart';
 import 'package:app_library/pages/login_page.dart';
 import 'package:app_library/pages/perfil_page.dart';
 import 'package:app_library/pages/register_page.dart';
 import 'package:app_library/pages/users_details.dart';
+import 'package:app_library/pages/users_form.dart';
 import 'package:app_library/pages/warnings_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -45,13 +44,12 @@ class AppLibrary extends StatelessWidget {
           AppRoutes.warningPage: (_) => const AvisosPage(),
           AppRoutes.warningForm: (_) => const AddNewWarningScreen(),
           AppRoutes.warningDetails: (_) => const WarningDetails(),
-          AppRoutes.emprestimoPage: (_) => const EmprestimoPage(),
-          AppRoutes.emprestimoForm: (_) => const AddNewEmprestimoScreen(),
           AppRoutes.perfilPage: (_) => const PerfilPage(),
           AppRoutes.homePage: (_) => const HomePage(),
           AppRoutes.loginPage: (_) => const LoginPage(),
           AppRoutes.registerPage: (_) => const RegisterPage(),
           AppRoutes.usersDetails: (_) => const UsersDetails(),
+          AppRoutes.usersForm: (_) => const AddNewUserPage(),
         },
       ),
     );

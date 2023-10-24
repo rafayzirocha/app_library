@@ -1,12 +1,13 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/user_model.dart';
 import 'package:feather_icons/feather_icons.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../provider/service_provider.dart';
 
 class UsersDetails extends ConsumerWidget {
   const UsersDetails({super.key});
@@ -14,7 +15,7 @@ class UsersDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ModalRoute.of(context)!.settings.arguments as UserModel;
-    final user = FirebaseAuth.instance.currentUser;
+    final usersService = ref.watch(usersServiceProvider);
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
@@ -45,94 +46,72 @@ class UsersDetails extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  if (user?.email == 'e096bibli@cps.sp.gov.br')
-                    Row(
-                      children: [
-                        IconButton.filled(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            'assets/images/pen.svg',
-                            color: AppStyle.gray,
-                            height: 16,
-                            width: 16,
+                  IconButton.filled(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          backgroundColor: AppStyle.dark1,
+                          elevation: 0,
+                          title: Text(
+                            'Confirmação de exclusão',
+                            style: AppStyle.title1,
                           ),
-                          iconSize: 18,
-                          color: AppStyle.gray,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.dark2,
-                            ),
-                            shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
+                          content: Text(
+                            'Tem certeza que deseja excluir esse usuário?',
+                            style: AppStyle.title3,
                           ),
-                        ),
-                        IconButton.filled(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                backgroundColor: AppStyle.dark1,
-                                elevation: 0,
-                                title: Text(
-                                  'Confirmação de exclusão',
-                                  style: AppStyle.title1,
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              style: ButtonStyle(
+                                overlayColor: MaterialStatePropertyAll(
+                                  AppStyle.dark2,
                                 ),
-                                content: Text(
-                                  'Tem certeza que deseja excluir este livro?',
-                                  style: AppStyle.title3,
+                              ),
+                              child: Text(
+                                'Cancelar',
+                                style: GoogleFonts.inter(
+                                  color: AppStyle.primary,
                                 ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    style: ButtonStyle(
-                                      overlayColor: MaterialStatePropertyAll(
-                                        AppStyle.dark2,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Cancelar',
-                                      style: GoogleFonts.inter(
-                                        color: AppStyle.primary,
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      'Excluir',
-                                      style: GoogleFonts.inter(
-                                        color: AppStyle.primary,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          icon: SvgPicture.asset(
-                            'assets/images/trash-2.svg',
-                            color: AppStyle.white,
-                            height: 16,
-                            width: 16,
-                          ),
-                          iconSize: 18,
-                          color: AppStyle.white,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.primary,
-                            ),
-                            shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
                               ),
                             ),
-                          ),
+                            TextButton(
+                              onPressed: () {
+                                usersService.deleteUser(data.docId);
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                'Excluir',
+                                style: GoogleFonts.inter(
+                                  color: AppStyle.primary,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      );
+                    },
+                    icon: SvgPicture.asset(
+                      'assets/images/trash-2.svg',
+                      color: AppStyle.white,
+                      height: 16,
+                      width: 16,
                     ),
+                    iconSize: 18,
+                    color: AppStyle.white,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        AppStyle.primary,
+                      ),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const Gap(20),
