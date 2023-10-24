@@ -1,4 +1,6 @@
+import 'package:app_library/model/loan_model.dart';
 import 'package:app_library/model/warning_model.dart';
+import 'package:app_library/services/loan_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +20,12 @@ final bookProvider = StateProvider<BookService>(
 final warningProvider = StateProvider<WarningService>(
   (ref) {
     return WarningService();
+  },
+);
+
+final loanProvider = StateProvider<LoanService>(
+  (ref) {
+    return LoanService();
   },
 );
 
@@ -92,6 +100,21 @@ final fetchUsers = StreamProvider<List<UserModel>>((ref) async* {
         (event) => event.docs
             .map(
               (snapshot) => UserModel.fromSnapshot(snapshot),
+            )
+            .toList(),
+      );
+  yield* getData;
+});
+
+final fetchLoans = StreamProvider<List<LoanModel>>((ref) async* {
+  final getData = FirebaseFirestore.instance
+      .collection('loans')
+      .orderBy('dueDate')
+      .snapshots()
+      .map(
+        (event) => event.docs
+            .map(
+              (snapshot) => LoanModel.fromSnapshot(snapshot),
             )
             .toList(),
       );
