@@ -110,7 +110,27 @@ class BookDetails extends ConsumerWidget {
 
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();
+
+                                      final snackBar = SnackBar(
+                                        elevation: 0,
+                                        backgroundColor: AppStyle.dark1,
+                                        showCloseIcon: true,
+                                        closeIconColor: AppStyle.gray,
+                                        content: Text(
+                                          'Livro Excluído com Sucesso!',
+                                          style: AppStyle.subtitle,
+                                        ),
+                                        duration: const Duration(seconds: 5),
+                                      );
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     },
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStatePropertyAll(
+                                        AppStyle.dark2,
+                                      ),
+                                    ),
                                     child: Text(
                                       'Excluir',
                                       style: GoogleFonts.inter(

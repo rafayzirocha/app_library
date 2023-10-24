@@ -34,10 +34,10 @@ class WarningDetails extends ConsumerWidget {
                     },
                     icon: const Icon(FeatherIcons.chevronLeft),
                     iconSize: 18,
-                    color: AppStyle.white,
+                    color: AppStyle.gray,
                     style: ButtonStyle(
-                      backgroundColor: const MaterialStatePropertyAll(
-                        Colors.transparent,
+                      backgroundColor: MaterialStatePropertyAll(
+                        AppStyle.dark2,
                       ),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
@@ -58,10 +58,10 @@ class WarningDetails extends ConsumerWidget {
                             width: 16,
                           ),
                           iconSize: 18,
-                          color: AppStyle.white,
+                          color: AppStyle.gray,
                           style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                              Colors.transparent,
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.dark2,
                             ),
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
@@ -108,6 +108,21 @@ class WarningDetails extends ConsumerWidget {
 
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();
+
+                                      final snackBar = SnackBar(
+                                        elevation: 0,
+                                        backgroundColor: AppStyle.dark1,
+                                        showCloseIcon: true,
+                                        closeIconColor: AppStyle.gray,
+                                        content: Text(
+                                          'Aviso Excluído com Sucesso!',
+                                          style: AppStyle.subtitle,
+                                        ),
+                                        duration: const Duration(seconds: 5),
+                                      );
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     },
                                     child: Text(
                                       'Excluir',
@@ -122,15 +137,15 @@ class WarningDetails extends ConsumerWidget {
                           },
                           icon: SvgPicture.asset(
                             'assets/images/trash-2.svg',
-                            color: Colors.red,
+                            color: AppStyle.white,
                             height: 16,
                             width: 16,
                           ),
                           iconSize: 18,
-                          color: Colors.red,
+                          color: AppStyle.white,
                           style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                              Colors.transparent,
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.primary,
                             ),
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(

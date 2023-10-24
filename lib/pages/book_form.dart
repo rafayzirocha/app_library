@@ -6,7 +6,6 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:lottie/lottie.dart';
 import '../model/book_model.dart';
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
@@ -21,8 +20,8 @@ class AddNewBookData {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController authorsController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
-  final TextEditingController publisherController = TextEditingController();
-  final TextEditingController publishedDateController = TextEditingController();
+  //final TextEditingController publisherController = TextEditingController();
+  //final TextEditingController publishedDateController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController pageCountController = TextEditingController();
   final TextEditingController copyCountController = TextEditingController();
@@ -37,8 +36,8 @@ class AddNewBookModalController extends StateNotifier<AddNewBookData> {
     state.titleController.dispose();
     state.authorsController.dispose();
     state.isbnController.dispose();
-    state.publisherController.dispose();
-    state.publishedDateController.dispose();
+    //state.publisherController.dispose();
+    //state.publishedDateController.dispose();
     state.descriptionController.dispose();
     state.pageCountController.dispose();
     state.copyCountController.dispose();
@@ -55,8 +54,8 @@ class AddNewBookScreen extends ConsumerWidget {
     final titleController = AddNewBookData().titleController;
     final authorsController = AddNewBookData().authorsController;
     final isbnController = AddNewBookData().isbnController;
-    final publisherController = AddNewBookData().publisherController;
-    final publishedDateController = AddNewBookData().publishedDateController;
+    //final publisherController = AddNewBookData().publisherController;
+    //final publishedDateController = AddNewBookData().publishedDateController;
     final descriptionController = AddNewBookData().descriptionController;
     final pageCountController = AddNewBookData().pageCountController;
     final copyCountController = AddNewBookData().copyCountController;
@@ -366,48 +365,6 @@ class AddNewBookScreen extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Editora',
-                                  style: AppStyle.title2,
-                                ),
-                                const Gap(10),
-                                CustomField(
-                                  controller: publisherController,
-                                  hintText: '',
-                                  keyboardType: TextInputType.name,
-                                  maxLines: 1,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Gap(20),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Ano de Publicação',
-                                  style: AppStyle.title2,
-                                ),
-                                const Gap(10),
-                                CustomField(
-                                  controller: publishedDateController,
-                                  hintText: '',
-                                  keyboardType: TextInputType.number,
-                                  maxLines: 1,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
                                   'Páginas',
                                   style: AppStyle.title2,
                                 ),
@@ -472,6 +429,7 @@ class AddNewBookScreen extends ConsumerWidget {
                         width: double.infinity,
                         child: FilledButton(
                           style: ButtonStyle(
+                            splashFactory: InkRipple.splashFactory,
                             elevation: const MaterialStatePropertyAll(0),
                             backgroundColor: MaterialStatePropertyAll(
                               AppStyle.primary,
@@ -523,21 +481,6 @@ class AddNewBookScreen extends ConsumerWidget {
                                 closeIconColor: AppStyle.gray,
                                 content: Text(
                                   'Preencha o Isbn',
-                                  style: AppStyle.subtitle,
-                                ),
-                                duration: const Duration(seconds: 5),
-                              );
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else if (publisherController.text.isEmpty) {
-                              final snackBar = SnackBar(
-                                elevation: 0,
-                                backgroundColor: AppStyle.dark1,
-                                showCloseIcon: true,
-                                closeIconColor: AppStyle.gray,
-                                content: Text(
-                                  'Preencha a Editora',
                                   style: AppStyle.subtitle,
                                 ),
                                 duration: const Duration(seconds: 5),
@@ -597,12 +540,12 @@ class AddNewBookScreen extends ConsumerWidget {
                                   authorsController.text.split(', ');
                               int pageCount;
                               int copyCount;
-                              int ano;
+                              //int ano;
 
                               try {
                                 pageCount = int.parse(pageCountController.text);
                                 copyCount = int.parse(copyCountController.text);
-                                ano = int.parse(publishedDateController.text);
+                                //ano = int.parse(publishedDateController.text);
                               } catch (e) {
                                 return;
                               }
@@ -617,8 +560,8 @@ class AddNewBookScreen extends ConsumerWidget {
                                       isbn: isbnList,
                                       authors: authorsList,
                                       category: selectedCategory.toString(),
-                                      publisher: publisherController.text,
-                                      publishedDate: ano,
+                                      publisher: '0',
+                                      publishedDate: 0,
                                       description: descriptionController.text,
                                       pageCount: pageCount,
                                       copyCount: copyCount,
@@ -632,14 +575,24 @@ class AddNewBookScreen extends ConsumerWidget {
                                   );
 
                               Navigator.of(context).pop();
-                              Navigator.of(context)
-                                  .pushNamed(AppRoutes.homePage);
-
-                              CustomMsgSuccess(
-                                context,
-                                'Sucesso',
-                                'O livro foi cadastrado e já está disponível na biblioteca!',
+                              Navigator.of(context).pushNamed(
+                                AppRoutes.homePage,
                               );
+
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Livro Cadastrado com Sucesso!',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             }
                           },
                           child: Text(
@@ -659,37 +612,4 @@ class AddNewBookScreen extends ConsumerWidget {
       ),
     );
   }
-}
-
-Future<dynamic> CustomMsgSuccess(
-    BuildContext context, String title, String description) {
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        backgroundColor: AppStyle.dark1,
-        elevation: 0,
-        title: Text(
-          title,
-          style: AppStyle.title1,
-        ),
-        content: Text(
-          description,
-          style: AppStyle.title3,
-          textAlign: TextAlign.center,
-        ),
-        icon: LottieBuilder.network(
-          'https://lottie.host/786c7314-fe1d-460e-8696-01848358913d/WbWfT8H3Ze.json',
-          height: 200,
-          width: 200,
-          repeat: false,
-          alignment: Alignment.center,
-        ),
-        alignment: Alignment.center,
-        insetPadding: const EdgeInsets.all(80),
-        scrollable: true,
-        contentPadding: const EdgeInsets.only(bottom: 100, left: 20, right: 20),
-      );
-    },
-  );
 }
