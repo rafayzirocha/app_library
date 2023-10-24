@@ -151,9 +151,27 @@ class BookDetails extends ConsumerWidget {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      Text(
-                        data.title,
-                        style: AppStyle.title1,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            data.title,
+                            style: AppStyle.title1,
+                          ),
+                          const Gap(5),
+                          data.isAvailable
+                              ? Icon(
+                                  Icons.circle,
+                                  size: 18,
+                                  color: AppStyle.primary,
+                                )
+                              : const Icon(
+                                  Icons.circle,
+                                  size: 18,
+                                  color: Colors.red,
+                                ),
+                        ],
                       ),
                       Text(
                         'por ${data.authors.join(', ')}',
