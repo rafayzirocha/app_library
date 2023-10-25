@@ -10,7 +10,6 @@ import 'package:gap/gap.dart';
 
 import '../constants/app_style.dart';
 import '../model/warning_model.dart';
-import '../routes/app_routes.dart';
 import '../widgets/custom_field_descricao.dart';
 
 final AddNovoAvisoProvider =
@@ -210,7 +209,6 @@ class AddNewWarningScreen extends ConsumerWidget {
                             ),
                           );
                       Navigator.of(context).pop();
-                      Navigator.of(context).pushNamed(AppRoutes.warningPage);
 
                       final snackBar = SnackBar(
                         elevation: 0,

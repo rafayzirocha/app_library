@@ -1,11 +1,13 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/pages/book_page.dart';
-import 'package:app_library/pages/dashboard_page.dart';
 import 'package:app_library/pages/avisos_page.dart';
 import 'package:app_library/pages/users_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'loans_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,13 +21,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+
     return Scaffold(
       backgroundColor: AppStyle.dark1,
       body: <Widget>[
-        const DashboardPage(),
+        const LoansPage(),
         const BookPage(),
         const AvisosPage(),
-        const UsersPage(),
+        if (user.email == 'e096bibli@cps.sp.gov.br') const UsersPage(),
       ][currentIndex],
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
@@ -41,13 +45,13 @@ class _HomePageState extends State<HomePage> {
         destinations: [
           NavigationDestination(
             icon: SvgPicture.asset(
-              'assets/images/home-1.svg',
+              'assets/images/love-1.svg',
               color: AppStyle.gray,
               height: 16,
               width: 16,
             ),
             selectedIcon: SvgPicture.asset(
-              'assets/images/home.svg',
+              'assets/images/love.svg',
               color: AppStyle.primary,
               height: 16,
               width: 16,
@@ -84,21 +88,22 @@ class _HomePageState extends State<HomePage> {
             ),
             label: '',
           ),
-          NavigationDestination(
-            icon: SvgPicture.asset(
-              'assets/images/user-group-1.svg',
-              color: AppStyle.gray,
-              height: 16,
-              width: 16,
+          if (user.email == 'e096bibli@cps.sp.gov.br')
+            NavigationDestination(
+              icon: SvgPicture.asset(
+                'assets/images/user-group-1.svg',
+                color: AppStyle.gray,
+                height: 16,
+                width: 16,
+              ),
+              selectedIcon: SvgPicture.asset(
+                'assets/images/user-group.svg',
+                color: AppStyle.primary,
+                height: 16,
+                width: 16,
+              ),
+              label: '',
             ),
-            selectedIcon: SvgPicture.asset(
-              'assets/images/user-group.svg',
-              color: AppStyle.primary,
-              height: 16,
-              width: 16,
-            ),
-            label: '',
-          ),
         ],
         selectedIndex: currentIndex,
       ),

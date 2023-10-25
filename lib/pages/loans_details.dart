@@ -8,14 +8,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../model/book_model.dart';
 
-class BookDetails extends ConsumerWidget {
-  const BookDetails({super.key});
+class LoansDetails extends ConsumerWidget {
+  const LoansDetails({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ModalRoute.of(context)!.settings.arguments as BookModel;
+    final data = ModalRoute.of(context)!.settings.arguments as LoanModel;
     final user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
@@ -83,7 +82,7 @@ class BookDetails extends ConsumerWidget {
                                   style: AppStyle.title1,
                                 ),
                                 content: Text(
-                                  'Tem certeza que deseja excluir este livro?',
+                                  'Tem certeza que deseja excluir este empréstimo?',
                                   style: AppStyle.title3,
                                 ),
                                 actions: [
@@ -104,8 +103,8 @@ class BookDetails extends ConsumerWidget {
                                   TextButton(
                                     onPressed: () {
                                       ref
-                                          .read(bookProvider)
-                                          .deleteBook(data.docId);
+                                          .read(loanProvider)
+                                          .deleteLoan(data.docId);
 
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();
@@ -116,7 +115,7 @@ class BookDetails extends ConsumerWidget {
                                         showCloseIcon: true,
                                         closeIconColor: AppStyle.gray,
                                         content: Text(
-                                          'Livro Excluído com Sucesso!',
+                                          'Empréstimo excluído com sucesso!',
                                           style: AppStyle.subtitle,
                                         ),
                                         duration: const Duration(seconds: 5),
@@ -175,11 +174,11 @@ class BookDetails extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            data.title,
+                            data.bookTitle,
                             style: AppStyle.title1,
                           ),
                           const Gap(5),
-                          data.isAvailable
+                          data.returned
                               ? Icon(
                                   Icons.circle,
                                   size: 18,
@@ -193,18 +192,18 @@ class BookDetails extends ConsumerWidget {
                         ],
                       ),
                       Text(
-                        'por ${data.authors.join(', ')}',
+                        'por ${data.bookAuthors.join(', ')}',
                         style: AppStyle.title3,
                       ),
                       const Gap(20),
-                      data.thumbnail.isNotEmpty
+                      data.bookUrl.isNotEmpty
                           ? Container(
                               height: 200,
                               alignment: Alignment.center,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: Image.network(
-                                  data.thumbnail,
+                                  data.bookUrl,
                                   fit: BoxFit.cover,
                                   width: 200,
                                   alignment: Alignment.center,
@@ -239,14 +238,14 @@ class BookDetails extends ConsumerWidget {
                         child: Column(
                           children: [
                             SvgPicture.asset(
-                              'assets/images/category.svg',
+                              'assets/images/email.svg',
                               color: AppStyle.white,
                               height: 16,
                               width: 16,
                             ),
                             const Gap(10),
                             Text(
-                              data.category,
+                              data.userEmail,
                               style: GoogleFonts.inter(
                                 color: AppStyle.white,
                                 fontSize: 16,
@@ -278,7 +277,7 @@ class BookDetails extends ConsumerWidget {
                             ),
                             const Gap(20),
                             Text(
-                              'ISBN ${data.isbn.join(',')}',
+                              'ISBN ${data.bookIsbn.join(',')}',
                               style: AppStyle.title3,
                             ),
                           ],
@@ -303,14 +302,14 @@ class BookDetails extends ConsumerWidget {
                               child: Column(
                                 children: [
                                   SvgPicture.asset(
-                                    'assets/images/language.svg',
+                                    'assets/images/calender.svg',
                                     color: AppStyle.primary,
                                     height: 16,
                                     width: 16,
                                   ),
                                   const Gap(10),
                                   Text(
-                                    data.language,
+                                    'Retirada ${data.loanDate}',
                                     style: AppStyle.title3,
                                   ),
                                 ],
@@ -332,43 +331,14 @@ class BookDetails extends ConsumerWidget {
                               child: Column(
                                 children: [
                                   SvgPicture.asset(
-                                    'assets/images/file.svg',
+                                    'assets/images/calender.svg',
                                     color: AppStyle.primary,
                                     height: 16,
                                     width: 16,
                                   ),
                                   const Gap(10),
                                   Text(
-                                    '${data.pageCount} páginas',
-                                    style: AppStyle.title3,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const Gap(20),
-                          Expanded(
-                            child: Container(
-                              decoration: ShapeDecoration(
-                                shape: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: AppStyle.dark2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              padding: const EdgeInsets.all(20),
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/copy.svg',
-                                    color: AppStyle.primary,
-                                    height: 16,
-                                    width: 16,
-                                  ),
-                                  const Gap(10),
-                                  Text(
-                                    '${data.copyCount} cópias',
+                                    'Devolução ${data.dueDate}',
                                     style: AppStyle.title3,
                                   ),
                                 ],
@@ -377,99 +347,49 @@ class BookDetails extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      const Gap(20),
-                      Column(
-                        children: [
-                          Text(
-                            'Descrição',
-                            style: AppStyle.title1,
-                          ),
-                          const Gap(20),
-                          Text(
-                            data.description,
-                            textAlign: TextAlign.justify,
-                            style: AppStyle.title3,
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      SizedBox(
-                        height: 80,
-                        width: double.infinity,
-                        child: FilledButton(
-                          style: ButtonStyle(
-                            splashFactory: InkRipple.splashFactory,
-                            elevation: const MaterialStatePropertyAll(0),
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.primary,
-                            ),
-                            shape: const MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {
-                            if (user?.email == 'e096bibli@cps.sp.gov.br') {
-                              final snackBar = SnackBar(
-                                elevation: 0,
-                                backgroundColor: AppStyle.dark1,
-                                showCloseIcon: true,
-                                closeIconColor: AppStyle.gray,
-                                content: Text(
-                                  'Não foi possível realizar o empréstimo pois o usuário é Administrador!',
-                                  style: AppStyle.subtitle,
-                                ),
-                                duration: const Duration(seconds: 5),
-                              );
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else {
-                              ref.read(loanProvider).addNewLoan(
-                                    LoanModel(
-                                      bookIsbn: data.isbn,
-                                      bookTitle: data.title,
-                                      bookAuthors: data.authors,
-                                      bookUrl: data.thumbnail,
-                                      userEmail: user.email!,
-                                      loanDate: DateTime.now(),
-                                      dueDate: DateTime.now(),
-                                      returned: false,
-                                    ),
-                                  );
-
-                              Navigator.of(context).pop();
-
-                              final snackBar = SnackBar(
-                                elevation: 0,
-                                backgroundColor: AppStyle.dark1,
-                                showCloseIcon: true,
-                                closeIconColor: AppStyle.gray,
-                                content: Text(
-                                  'Empréstimo realizado com Sucesso!',
-                                  style: AppStyle.subtitle,
-                                ),
-                                duration: const Duration(seconds: 5),
-                              );
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            }
-                          },
-                          child: Text(
-                            'Realizar empréstimo',
-                            style: AppStyle.title2,
-                          ),
-                        ),
-                      ),
-                      const Gap(20),
                     ],
                   ),
                 ),
               ),
+              SizedBox(
+                height: 80,
+                width: double.infinity,
+                child: FilledButton(
+                  style: ButtonStyle(
+                    splashFactory: InkRipple.splashFactory,
+                    elevation: const MaterialStatePropertyAll(0),
+                    backgroundColor: MaterialStatePropertyAll(
+                      AppStyle.primary,
+                    ),
+                    shape: const MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/images/whatsapp.svg',
+                        color: AppStyle.white,
+                        height: 16,
+                        width: 16,
+                      ),
+                      const Gap(10),
+                      Text(
+                        'Enviar mensagem',
+                        style: AppStyle.title2,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Gap(20),
             ],
           ),
         ),

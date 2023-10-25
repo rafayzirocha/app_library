@@ -1,5 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/routes/app_routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +14,7 @@ class BookPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(buscaLivros);
+    final user = FirebaseAuth.instance.currentUser;
 
     /*List<String> suaListaDeStrings = [
       'Arte, Fotografia e Design',
@@ -93,28 +95,29 @@ class BookPage extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      IconButton.filled(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(AppRoutes.bookForm);
-                        },
-                        icon: SvgPicture.asset(
-                          'assets/images/plus.svg',
-                          height: 12,
-                          width: 12,
-                          color: AppStyle.white,
-                        ),
-                        color: AppStyle.gray,
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                            AppStyle.primary,
+                      if (user?.email == 'e096bibli@cps.sp.gov.br')
+                        IconButton.filled(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(AppRoutes.bookForm);
+                          },
+                          icon: SvgPicture.asset(
+                            'assets/images/plus.svg',
+                            height: 12,
+                            width: 12,
+                            color: AppStyle.white,
                           ),
-                          shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                          color: AppStyle.gray,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.primary,
+                            ),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                             ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ],

@@ -1,6 +1,7 @@
 import 'package:app_library/pages/book_details.dart';
 import 'package:app_library/pages/book_page.dart';
 import 'package:app_library/pages/home_page.dart';
+import 'package:app_library/pages/loans_details.dart';
 import 'package:app_library/pages/login_page.dart';
 import 'package:app_library/pages/perfil_page.dart';
 import 'package:app_library/pages/register_page.dart';
@@ -50,6 +51,7 @@ class AppLibrary extends StatelessWidget {
           AppRoutes.registerPage: (_) => const RegisterPage(),
           AppRoutes.usersDetails: (_) => const UsersDetails(),
           AppRoutes.usersForm: (_) => const AddNewUserPage(),
+          AppRoutes.loansDetails: (_) => const LoansDetails(),
         },
       ),
     );

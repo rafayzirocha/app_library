@@ -190,6 +190,7 @@ class RegisterPage extends ConsumerWidget {
                         width: double.infinity,
                         child: FilledButton(
                           style: ButtonStyle(
+                            splashFactory: InkRipple.splashFactory,
                             elevation: const MaterialStatePropertyAll(0),
                             backgroundColor: MaterialStatePropertyAll(
                               AppStyle.primary,
