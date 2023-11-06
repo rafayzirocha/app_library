@@ -8,6 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 class LoansDetails extends ConsumerWidget {
   const LoansDetails({super.key});
@@ -16,6 +18,10 @@ class LoansDetails extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ModalRoute.of(context)!.settings.arguments as LoanModel;
     final user = FirebaseAuth.instance.currentUser!;
+
+    final formatter = DateFormat('dd/MM/yyyy');
+    final retirada = formatter.format(data.loanDate);
+    final devolucao = formatter.format(data.dueDate);
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
@@ -309,7 +315,7 @@ class LoansDetails extends ConsumerWidget {
                                   ),
                                   const Gap(10),
                                   Text(
-                                    'Retirada ${data.loanDate}',
+                                    'Retirada $retirada',
                                     style: AppStyle.title3,
                                   ),
                                 ],
@@ -338,7 +344,7 @@ class LoansDetails extends ConsumerWidget {
                                   ),
                                   const Gap(10),
                                   Text(
-                                    'Devolução ${data.dueDate}',
+                                    'Devolução $devolucao',
                                     style: AppStyle.title3,
                                   ),
                                 ],
