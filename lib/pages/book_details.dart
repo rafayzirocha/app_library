@@ -412,7 +412,7 @@ class BookDetails extends ConsumerWidget {
                             ),
                           ),
                           onPressed: () {
-                            if (user?.email == 'e096bibli@cps.sp.gov.br') {
+                            if (user.email == 'e096bibli@cps.sp.gov.br') {
                               final snackBar = SnackBar(
                                 elevation: 0,
                                 backgroundColor: AppStyle.dark1,
