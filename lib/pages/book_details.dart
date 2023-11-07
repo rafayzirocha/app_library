@@ -39,7 +39,15 @@ class BookDetails extends ConsumerWidget {
       if (bookRef != null) {
         await bookRef.update({
           'copyCount': FieldValue.increment(-1),
+          'loansCount': FieldValue.increment(1),
         });
+
+        final book = await bookRef.get();
+        if (book.get('copyCount') == 0) {
+          await bookRef.update({
+            'isAvailable': false,
+          });
+        }
       }
     }
 
@@ -445,6 +453,36 @@ class BookDetails extends ConsumerWidget {
                                 closeIconColor: AppStyle.gray,
                                 content: Text(
                                   'Não foi possível realizar o empréstimo pois o usuário é Administrador!',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (data.copyCount == 0) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Sem cópias disponíveis do livro',
+                                  style: AppStyle.subtitle,
+                                ),
+                                duration: const Duration(seconds: 5),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (data.isAvailable == false) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                backgroundColor: AppStyle.dark1,
+                                showCloseIcon: true,
+                                closeIconColor: AppStyle.gray,
+                                content: Text(
+                                  'Livro não disponível para empréstimo',
                                   style: AppStyle.subtitle,
                                 ),
                                 duration: const Duration(seconds: 5),
