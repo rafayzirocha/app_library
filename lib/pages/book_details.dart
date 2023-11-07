@@ -18,6 +18,9 @@ class BookDetails extends ConsumerWidget {
     final data = ModalRoute.of(context)!.settings.arguments as BookModel;
     final user = FirebaseAuth.instance.currentUser!;
 
+    DateTime dataAtual = DateTime.now();
+    DateTime dataComUmaSemana = dataAtual.add(const Duration(days: 7));
+
     return Scaffold(
       backgroundColor: AppStyle.dark1,
       body: Padding(
@@ -435,8 +438,8 @@ class BookDetails extends ConsumerWidget {
                                       bookAuthors: data.authors,
                                       bookUrl: data.thumbnail,
                                       userEmail: user.email!,
-                                      loanDate: DateTime.now(),
-                                      dueDate: DateTime.now(),
+                                      loanDate: dataAtual,
+                                      dueDate: dataComUmaSemana,
                                       returned: false,
                                     ),
                                   );

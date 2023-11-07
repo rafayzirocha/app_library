@@ -4,6 +4,7 @@ import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
@@ -23,10 +24,26 @@ class BookCard extends ConsumerWidget {
     final data = ref.watch(buscaLivros);
     return data.when(
       data: (data) => ListTile(
-        title: Text(
-          data[getIndex].title,
-          overflow: TextOverflow.ellipsis,
-          style: AppStyle.title2,
+        title: Row(
+          children: [
+            Text(
+              data[getIndex].title,
+              overflow: TextOverflow.ellipsis,
+              style: AppStyle.title2,
+            ),
+            const Gap(5),
+            livro.isAvailable
+                ? Icon(
+                    Icons.circle,
+                    size: 18,
+                    color: AppStyle.primary,
+                  )
+                : const Icon(
+                    Icons.circle,
+                    size: 18,
+                    color: Colors.red,
+                  ),
+          ],
         ),
         titleAlignment: ListTileTitleAlignment.center,
         subtitle: Text(

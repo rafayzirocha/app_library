@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class LoansDetails extends ConsumerWidget {
   const LoansDetails({super.key});
@@ -16,6 +17,11 @@ class LoansDetails extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ModalRoute.of(context)!.settings.arguments as LoanModel;
     final user = FirebaseAuth.instance.currentUser!;
+
+    String formatDateBR(DateTime date) {
+      final formatter = DateFormat('dd/MM/yyyy');
+      return formatter.format(date);
+    }
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
@@ -49,27 +55,6 @@ class LoansDetails extends ConsumerWidget {
                   if (user.email == 'e096bibli@cps.sp.gov.br')
                     Row(
                       children: [
-                        IconButton.filled(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            'assets/images/pen.svg',
-                            color: AppStyle.gray,
-                            height: 16,
-                            width: 16,
-                          ),
-                          iconSize: 18,
-                          color: AppStyle.gray,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.dark2,
-                            ),
-                            shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
                         IconButton.filled(
                           onPressed: () {
                             showDialog(
@@ -309,7 +294,7 @@ class LoansDetails extends ConsumerWidget {
                                   ),
                                   const Gap(10),
                                   Text(
-                                    'Retirada ${data.loanDate}',
+                                    'Retirada ${formatDateBR(data.loanDate)}',
                                     style: AppStyle.title3,
                                   ),
                                 ],
@@ -338,7 +323,7 @@ class LoansDetails extends ConsumerWidget {
                                   ),
                                   const Gap(10),
                                   Text(
-                                    'Devolução ${data.dueDate}',
+                                    'Vencimento ${formatDateBR(data.dueDate)}',
                                     style: AppStyle.title3,
                                   ),
                                 ],
@@ -351,44 +336,45 @@ class LoansDetails extends ConsumerWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 80,
-                width: double.infinity,
-                child: FilledButton(
-                  style: ButtonStyle(
-                    splashFactory: InkRipple.splashFactory,
-                    elevation: const MaterialStatePropertyAll(0),
-                    backgroundColor: MaterialStatePropertyAll(
-                      AppStyle.primary,
-                    ),
-                    shape: const MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
+              if (user.email == 'e096bibli@cps.sp.gov.br')
+                SizedBox(
+                  height: 80,
+                  width: double.infinity,
+                  child: FilledButton(
+                    style: ButtonStyle(
+                      splashFactory: InkRipple.splashFactory,
+                      elevation: const MaterialStatePropertyAll(0),
+                      backgroundColor: MaterialStatePropertyAll(
+                        AppStyle.primary,
+                      ),
+                      shape: const MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  onPressed: () {},
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/whatsapp.svg',
-                        color: AppStyle.white,
-                        height: 16,
-                        width: 16,
-                      ),
-                      const Gap(10),
-                      Text(
-                        'Enviar mensagem',
-                        style: AppStyle.title2,
-                      ),
-                    ],
+                    onPressed: () {},
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/whatsapp.svg',
+                          color: AppStyle.white,
+                          height: 16,
+                          width: 16,
+                        ),
+                        const Gap(10),
+                        Text(
+                          'Enviar mensagem',
+                          style: AppStyle.title2,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
               const Gap(20),
             ],
           ),

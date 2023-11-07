@@ -4,6 +4,8 @@ import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/loan_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
@@ -21,18 +23,53 @@ class LoanCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(fetchLoans);
+
+    String formatDateBR(DateTime date) {
+      final formatter = DateFormat('dd/MM/yyyy');
+      return formatter.format(date);
+    }
+
     return data.when(
       data: (data) => ListTile(
-        title: Text(
-          data[getIndex].bookTitle,
-          overflow: TextOverflow.ellipsis,
-          style: AppStyle.title2,
+        isThreeLine: true,
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              data[getIndex].bookTitle,
+              overflow: TextOverflow.ellipsis,
+              style: AppStyle.title2,
+            ),
+            const Gap(5),
+            loan.returned
+                ? Icon(
+                    Icons.circle,
+                    size: 18,
+                    color: AppStyle.primary,
+                  )
+                : const Icon(
+                    Icons.circle,
+                    size: 18,
+                    color: Colors.red,
+                  ),
+          ],
         ),
         titleAlignment: ListTileTitleAlignment.center,
-        subtitle: Text(
-          data[getIndex].dueDate.toString(),
-          style: AppStyle.subtitle,
-          overflow: TextOverflow.ellipsis,
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Retirada: ${formatDateBR(data[getIndex].loanDate)}',
+              style: AppStyle.subtitle,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              'Vencimento: ${formatDateBR(data[getIndex].dueDate)}',
+              style: AppStyle.subtitle,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
         ),
         leading: SizedBox(
           height: 60,
