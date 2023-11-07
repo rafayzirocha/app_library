@@ -1,6 +1,7 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/loan_model.dart';
 import 'package:app_library/provider/service_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,27 @@ class BookDetails extends ConsumerWidget {
 
     DateTime dataAtual = DateTime.now();
     DateTime dataComUmaSemana = dataAtual.add(const Duration(days: 7));
+
+    Future<void> updateBookCopyCount(String title) async {
+      final booksCollection = FirebaseFirestore.instance.collection('books');
+
+      final bookRef = await booksCollection
+          .where('title', isEqualTo: title)
+          .get()
+          .then((docs) {
+        if (docs.docs.isNotEmpty) {
+          return docs.docs.first.reference;
+        } else {
+          return null;
+        }
+      });
+
+      if (bookRef != null) {
+        await bookRef.update({
+          'copyCount': FieldValue.increment(-1),
+        });
+      }
+    }
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
@@ -443,6 +465,8 @@ class BookDetails extends ConsumerWidget {
                                       returned: false,
                                     ),
                                   );
+
+                              updateBookCopyCount(data.title);
 
                               Navigator.of(context).pop();
 
