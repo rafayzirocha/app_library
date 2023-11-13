@@ -1,5 +1,5 @@
 import 'package:app_library/constants/app_style.dart';
-import 'package:app_library/model/loan_model.dart';
+import 'package:app_library/model/emprestimo_model.dart';
 import 'package:app_library/provider/service_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:feather_icons/feather_icons.dart';
@@ -491,16 +491,20 @@ class BookDetails extends ConsumerWidget {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
                             } else {
-                              ref.read(loanProvider).addNewLoan(
-                                    LoanModel(
-                                      bookIsbn: data.isbn,
-                                      bookTitle: data.title,
-                                      bookAuthors: data.authors,
-                                      bookUrl: data.thumbnail,
-                                      userEmail: user.email!,
-                                      loanDate: dataAtual,
-                                      dueDate: dataComUmaSemana,
-                                      returned: false,
+                              ref.read(emprestimoProvider).novoEmprestimo(
+                                    EmprestimoModel(
+                                      aluno: '',
+                                      email: user.email!,
+                                      curso: '',
+                                      contato: 0,
+                                      rm: 0,
+                                      livro: data.title,
+                                      isbn: data.isbn,
+                                      autores: data.authors,
+                                      urlCapa: data.thumbnail,
+                                      retirada: dataAtual,
+                                      devolucao: dataComUmaSemana,
+                                      status: true,
                                     ),
                                   );
 

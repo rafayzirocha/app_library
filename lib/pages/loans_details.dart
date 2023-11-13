@@ -1,5 +1,5 @@
 import 'package:app_library/constants/app_style.dart';
-import 'package:app_library/model/loan_model.dart';
+import 'package:app_library/model/emprestimo_model.dart';
 import 'package:app_library/provider/service_provider.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
