@@ -10,15 +10,15 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class LoansDetails extends ConsumerWidget {
-  const LoansDetails({super.key});
+class EmprestimosDetails extends ConsumerWidget {
+  const EmprestimosDetails({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ModalRoute.of(context)!.settings.arguments as LoanModel;
+    final data = ModalRoute.of(context)!.settings.arguments as EmprestimoModel;
     final user = FirebaseAuth.instance.currentUser!;
 
-    String formatDateBR(DateTime date) {
+    String dataBr(DateTime date) {
       final formatter = DateFormat('dd/MM/yyyy');
       return formatter.format(date);
     }
@@ -88,8 +88,8 @@ class LoansDetails extends ConsumerWidget {
                                   TextButton(
                                     onPressed: () {
                                       ref
-                                          .read(loanProvider)
-                                          .deleteLoan(data.docId);
+                                          .read(emprestimoProvider)
+                                          .excluirEmprestimo(data.docId);
 
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();
@@ -159,11 +159,11 @@ class LoansDetails extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            data.bookTitle,
+                            data.livro,
                             style: AppStyle.title1,
                           ),
                           const Gap(5),
-                          data.returned
+                          data.status
                               ? Icon(
                                   Icons.circle,
                                   size: 18,
@@ -177,18 +177,18 @@ class LoansDetails extends ConsumerWidget {
                         ],
                       ),
                       Text(
-                        'por ${data.bookAuthors.join(', ')}',
+                        'por ${data.autores.join(', ')}',
                         style: AppStyle.title3,
                       ),
                       const Gap(20),
-                      data.bookUrl.isNotEmpty
+                      data.urlCapa.isNotEmpty
                           ? Container(
                               height: 200,
                               alignment: Alignment.center,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: Image.network(
-                                  data.bookUrl,
+                                  data.urlCapa,
                                   fit: BoxFit.cover,
                                   width: 200,
                                   alignment: Alignment.center,
@@ -230,7 +230,7 @@ class LoansDetails extends ConsumerWidget {
                             ),
                             const Gap(10),
                             Text(
-                              data.userEmail,
+                              data.email,
                               style: GoogleFonts.inter(
                                 color: AppStyle.white,
                                 fontSize: 16,
@@ -262,7 +262,7 @@ class LoansDetails extends ConsumerWidget {
                             ),
                             const Gap(20),
                             Text(
-                              'ISBN ${data.bookIsbn.join(',')}',
+                              'ISBN ${data.isbn.join(',')}',
                               style: AppStyle.title3,
                             ),
                           ],
@@ -294,7 +294,7 @@ class LoansDetails extends ConsumerWidget {
                                   ),
                                   const Gap(10),
                                   Text(
-                                    'Retirada ${formatDateBR(data.loanDate)}',
+                                    'Retirada ${dataBr(data.retirada)}',
                                     style: AppStyle.title3,
                                   ),
                                 ],
@@ -323,7 +323,7 @@ class LoansDetails extends ConsumerWidget {
                                   ),
                                   const Gap(10),
                                   Text(
-                                    'Vencimento ${formatDateBR(data.dueDate)}',
+                                    'Devolução ${dataBr(data.devolucao)}',
                                     style: AppStyle.title3,
                                   ),
                                 ],

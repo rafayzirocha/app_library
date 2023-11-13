@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'loans_page.dart';
+import 'emprestimos_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppStyle.dark1,
       body: <Widget>[
-        const LoansPage(),
+        const EmprestimosPage(),
         const BookPage(),
         const AvisosPage(),
         if (user.email == 'e096bibli@cps.sp.gov.br') const UsersPage(),

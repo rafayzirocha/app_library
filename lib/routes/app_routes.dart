@@ -11,5 +11,7 @@ class AppRoutes {
   static const registerPage = '/registerPage';
   static const usersDetails = '/usersDetails';
   static const usersForm = '/usersForm';
-  static const loansDetails = '/loansDetails';
+
+  static const emprestimosPage = '/emprestimosPage';
+  static const emprestimosDetails = '/emprestimosDetails';
 }

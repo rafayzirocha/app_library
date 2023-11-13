@@ -24,7 +24,7 @@ class EmprestimoCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(buscaEmprestimos);
 
-    String formatDateBR(DateTime date) {
+    String dataBr(DateTime date) {
       final formatter = DateFormat('dd/MM/yyyy');
       return formatter.format(date);
     }
@@ -60,12 +60,12 @@ class EmprestimoCard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Retirada: ${formatDateBR(data[getIndex].retirada)}',
+              'Retirada: ${dataBr(data[getIndex].retirada)}',
               style: AppStyle.subtitle,
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              'Vencimento: ${formatDateBR(data[getIndex].devolucao)}',
+              'Devolução: ${dataBr(data[getIndex].devolucao)}',
               style: AppStyle.subtitle,
               overflow: TextOverflow.ellipsis,
             ),
@@ -96,7 +96,7 @@ class EmprestimoCard extends ConsumerWidget {
         ),
         onTap: () {
           Navigator.of(context).pushNamed(
-            AppRoutes.loansDetails,
+            AppRoutes.emprestimosDetails,
             arguments: emprestimo,
           );
         },

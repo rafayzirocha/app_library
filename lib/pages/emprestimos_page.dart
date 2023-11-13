@@ -1,18 +1,18 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/routes/app_routes.dart';
-import 'package:app_library/widgets/loan_card.dart';
+import 'package:app_library/widgets/emprestimo_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import '../provider/service_provider.dart';
 
-class LoansPage extends ConsumerWidget {
-  const LoansPage({super.key});
+class EmprestimosPage extends ConsumerWidget {
+  const EmprestimosPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(fetchLoans);
+    final data = ref.watch(buscaEmprestimos);
 
     return data.when(
       data: (data) => Scaffold(
@@ -69,9 +69,9 @@ class LoansPage extends ConsumerWidget {
                   physics: const BouncingScrollPhysics(),
                   itemCount: data.length,
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => LoanCard(
+                  itemBuilder: (context, index) => EmprestimoCard(
                     getIndex: index,
-                    loan: data[index],
+                    emprestimo: data[index],
                   ),
                   separatorBuilder: (BuildContext context, int index) {
                     return const Gap(8);
