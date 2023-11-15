@@ -240,35 +240,6 @@ class EmprestimosDetails extends ConsumerWidget {
                         ),
                       ),
                       const Gap(20),
-                      Container(
-                        decoration: ShapeDecoration(
-                          shape: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppStyle.dark2,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(20),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/mortarboard.svg',
-                              color: AppStyle.primary,
-                              height: 16,
-                              width: 16,
-                            ),
-                            const Gap(20),
-                            Text(
-                              'ISBN ${data.isbn.join(',')}',
-                              style: AppStyle.title3,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Gap(20),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -356,22 +327,9 @@ class EmprestimosDetails extends ConsumerWidget {
                       ),
                     ),
                     onPressed: () {},
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/whatsapp.svg',
-                          color: AppStyle.white,
-                          height: 16,
-                          width: 16,
-                        ),
-                        const Gap(10),
-                        Text(
-                          'Enviar mensagem',
-                          style: AppStyle.title2,
-                        ),
-                      ],
+                    child: Text(
+                      'Confirmar Devolução',
+                      style: AppStyle.title2,
                     ),
                   ),
                 ),
