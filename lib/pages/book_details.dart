@@ -18,6 +18,7 @@ class BookDetails extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ModalRoute.of(context)!.settings.arguments as BookModel;
     final user = FirebaseAuth.instance.currentUser!;
+    final dataUser = ref.watch(buscaUsuarioLogado);
 
     DateTime dataAtual = DateTime.now();
     DateTime dataComUmaSemana = dataAtual.add(const Duration(days: 7));
@@ -51,497 +52,507 @@ class BookDetails extends ConsumerWidget {
       }
     }
 
-    return Scaffold(
-      backgroundColor: AppStyle.dark1,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-        child: SafeArea(
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton.filled(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(FeatherIcons.chevronLeft),
-                    iconSize: 18,
-                    color: AppStyle.gray,
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        AppStyle.dark2,
-                      ),
-                      shape: MaterialStatePropertyAll(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+    return dataUser.when(
+      data: (dataUser) => Scaffold(
+        backgroundColor: AppStyle.dark1,
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          child: SafeArea(
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton.filled(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(FeatherIcons.chevronLeft),
+                      iconSize: 18,
+                      color: AppStyle.gray,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(
+                          AppStyle.dark2,
                         ),
-                      ),
-                    ),
-                  ),
-                  if (user.email == 'e096bibli@cps.sp.gov.br')
-                    Row(
-                      children: [
-                        IconButton.filled(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            'assets/images/pen.svg',
-                            color: AppStyle.gray,
-                            height: 16,
-                            width: 16,
-                          ),
-                          iconSize: 18,
-                          color: AppStyle.gray,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.dark2,
-                            ),
-                            shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
-                        IconButton.filled(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                backgroundColor: AppStyle.dark1,
-                                elevation: 0,
-                                title: Text(
-                                  'Confirmação de exclusão',
-                                  style: AppStyle.title1,
-                                ),
-                                content: Text(
-                                  'Tem certeza que deseja excluir este livro?',
-                                  style: AppStyle.title3,
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    style: ButtonStyle(
-                                      overlayColor: MaterialStatePropertyAll(
-                                        AppStyle.dark2,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Cancelar',
-                                      style: GoogleFonts.inter(
-                                        color: AppStyle.primary,
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      ref
-                                          .read(bookProvider)
-                                          .deleteBook(data.docId);
-
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).pop();
-
-                                      final snackBar = SnackBar(
-                                        elevation: 0,
-                                        backgroundColor: AppStyle.dark1,
-                                        showCloseIcon: true,
-                                        closeIconColor: AppStyle.gray,
-                                        content: Text(
-                                          'Livro Excluído com Sucesso!',
-                                          style: AppStyle.subtitle,
-                                        ),
-                                        duration: const Duration(seconds: 5),
-                                      );
-
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    },
-                                    style: ButtonStyle(
-                                      overlayColor: MaterialStatePropertyAll(
-                                        AppStyle.dark2,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Excluir',
-                                      style: GoogleFonts.inter(
-                                        color: AppStyle.primary,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          icon: SvgPicture.asset(
-                            'assets/images/trash-2.svg',
-                            color: AppStyle.white,
-                            height: 16,
-                            width: 16,
-                          ),
-                          iconSize: 18,
-                          color: AppStyle.white,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.primary,
-                            ),
-                            shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-              const Gap(20),
-              Expanded(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            data.title,
-                            style: AppStyle.title1,
-                          ),
-                          const Gap(5),
-                          data.isAvailable
-                              ? Icon(
-                                  Icons.circle,
-                                  size: 18,
-                                  color: AppStyle.primary,
-                                )
-                              : const Icon(
-                                  Icons.circle,
-                                  size: 18,
-                                  color: Colors.red,
-                                ),
-                        ],
-                      ),
-                      Text(
-                        'por ${data.authors.join(', ')}',
-                        style: AppStyle.title3,
-                      ),
-                      const Gap(20),
-                      data.thumbnail.isNotEmpty
-                          ? Container(
-                              height: 200,
-                              alignment: Alignment.center,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.network(
-                                  data.thumbnail,
-                                  fit: BoxFit.cover,
-                                  width: 200,
-                                  alignment: Alignment.center,
-                                ),
-                              ),
-                            )
-                          : Container(
-                              height: 200,
-                              width: 200,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: AppStyle.dark2,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                              ),
-                              child: Icon(
-                                Icons.image_rounded,
-                                size: 40,
-                                color: AppStyle.gray,
-                              ),
-                            ),
-                      const Gap(20),
-                      Container(
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          color: AppStyle.primary,
                         ),
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/category.svg',
+                      ),
+                    ),
+                    if (user.email == 'e096bibli@cps.sp.gov.br')
+                      Row(
+                        children: [
+                          IconButton.filled(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                              'assets/images/pen.svg',
+                              color: AppStyle.gray,
+                              height: 16,
+                              width: 16,
+                            ),
+                            iconSize: 18,
+                            color: AppStyle.gray,
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                AppStyle.dark2,
+                              ),
+                              shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                          ),
+                          IconButton.filled(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  backgroundColor: AppStyle.dark1,
+                                  elevation: 0,
+                                  title: Text(
+                                    'Confirmação de exclusão',
+                                    style: AppStyle.title1,
+                                  ),
+                                  content: Text(
+                                    'Tem certeza que deseja excluir este livro?',
+                                    style: AppStyle.title3,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      style: ButtonStyle(
+                                        overlayColor: MaterialStatePropertyAll(
+                                          AppStyle.dark2,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Cancelar',
+                                        style: GoogleFonts.inter(
+                                          color: AppStyle.primary,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        ref
+                                            .read(bookProvider)
+                                            .deleteBook(data.docId);
+
+                                        Navigator.of(context).pop();
+                                        Navigator.of(context).pop();
+
+                                        final snackBar = SnackBar(
+                                          elevation: 0,
+                                          backgroundColor: AppStyle.dark1,
+                                          showCloseIcon: true,
+                                          closeIconColor: AppStyle.gray,
+                                          content: Text(
+                                            'Livro Excluído com Sucesso!',
+                                            style: AppStyle.subtitle,
+                                          ),
+                                          duration: const Duration(seconds: 5),
+                                        );
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                      },
+                                      style: ButtonStyle(
+                                        overlayColor: MaterialStatePropertyAll(
+                                          AppStyle.dark2,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Excluir',
+                                        style: GoogleFonts.inter(
+                                          color: AppStyle.primary,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/images/trash-2.svg',
                               color: AppStyle.white,
                               height: 16,
                               width: 16,
                             ),
-                            const Gap(10),
+                            iconSize: 18,
+                            color: AppStyle.white,
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                AppStyle.primary,
+                              ),
+                              shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+                const Gap(20),
+                Expanded(
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
                             Text(
-                              data.category,
-                              style: GoogleFonts.inter(
+                              data.title,
+                              style: AppStyle.title1,
+                            ),
+                            const Gap(5),
+                            data.isAvailable
+                                ? Icon(
+                                    Icons.circle,
+                                    size: 18,
+                                    color: AppStyle.primary,
+                                  )
+                                : const Icon(
+                                    Icons.circle,
+                                    size: 18,
+                                    color: Colors.red,
+                                  ),
+                          ],
+                        ),
+                        Text(
+                          'por ${data.authors.join(', ')}',
+                          style: AppStyle.title3,
+                        ),
+                        const Gap(20),
+                        data.thumbnail.isNotEmpty
+                            ? Container(
+                                height: 200,
+                                alignment: Alignment.center,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.network(
+                                    data.thumbnail,
+                                    fit: BoxFit.cover,
+                                    width: 200,
+                                    alignment: Alignment.center,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                height: 200,
+                                width: 200,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: AppStyle.dark2,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.image_rounded,
+                                  size: 40,
+                                  color: AppStyle.gray,
+                                ),
+                              ),
+                        const Gap(20),
+                        Container(
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            color: AppStyle.primary,
+                          ),
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/category.svg',
                                 color: AppStyle.white,
-                                fontSize: 16,
+                                height: 16,
+                                width: 16,
+                              ),
+                              const Gap(10),
+                              Text(
+                                data.category,
+                                style: GoogleFonts.inter(
+                                  color: AppStyle.white,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Gap(20),
+                        Container(
+                          decoration: ShapeDecoration(
+                            shape: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: AppStyle.dark2,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(20),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/mortarboard.svg',
+                                color: AppStyle.primary,
+                                height: 16,
+                                width: 16,
+                              ),
+                              const Gap(20),
+                              Text(
+                                'ISBN ${data.isbn.join(',')}',
+                                style: AppStyle.title3,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Gap(20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: ShapeDecoration(
+                                  shape: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppStyle.dark2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/language.svg',
+                                      color: AppStyle.primary,
+                                      height: 16,
+                                      width: 16,
+                                    ),
+                                    const Gap(10),
+                                    Text(
+                                      data.language,
+                                      style: AppStyle.title3,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const Gap(20),
+                            Expanded(
+                              child: Container(
+                                decoration: ShapeDecoration(
+                                  shape: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppStyle.dark2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/file.svg',
+                                      color: AppStyle.primary,
+                                      height: 16,
+                                      width: 16,
+                                    ),
+                                    const Gap(10),
+                                    Text(
+                                      '${data.pageCount} páginas',
+                                      style: AppStyle.title3,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const Gap(20),
+                            Expanded(
+                              child: Container(
+                                decoration: ShapeDecoration(
+                                  shape: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: AppStyle.dark2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/copy.svg',
+                                      color: AppStyle.primary,
+                                      height: 16,
+                                      width: 16,
+                                    ),
+                                    const Gap(10),
+                                    Text(
+                                      '${data.copyCount} cópias',
+                                      style: AppStyle.title3,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      const Gap(20),
-                      Container(
-                        decoration: ShapeDecoration(
-                          shape: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppStyle.dark2,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(20),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        const Gap(20),
+                        Column(
                           children: [
-                            SvgPicture.asset(
-                              'assets/images/mortarboard.svg',
-                              color: AppStyle.primary,
-                              height: 16,
-                              width: 16,
+                            Text(
+                              'Descrição',
+                              style: AppStyle.title1,
                             ),
                             const Gap(20),
                             Text(
-                              'ISBN ${data.isbn.join(',')}',
+                              data.description,
+                              textAlign: TextAlign.justify,
                               style: AppStyle.title3,
                             ),
                           ],
                         ),
-                      ),
-                      const Gap(20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: ShapeDecoration(
-                                shape: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: AppStyle.dark2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
+                        const Gap(20),
+                        SizedBox(
+                          height: 80,
+                          width: double.infinity,
+                          child: FilledButton(
+                            style: ButtonStyle(
+                              splashFactory: InkRipple.splashFactory,
+                              elevation: const MaterialStatePropertyAll(0),
+                              backgroundColor: MaterialStatePropertyAll(
+                                AppStyle.primary,
                               ),
-                              padding: const EdgeInsets.all(20),
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/language.svg',
-                                    color: AppStyle.primary,
-                                    height: 16,
-                                    width: 16,
+                              shape: const MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
                                   ),
-                                  const Gap(10),
-                                  Text(
-                                    data.language,
-                                    style: AppStyle.title3,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const Gap(20),
-                          Expanded(
-                            child: Container(
-                              decoration: ShapeDecoration(
-                                shape: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: AppStyle.dark2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              padding: const EdgeInsets.all(20),
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/file.svg',
-                                    color: AppStyle.primary,
-                                    height: 16,
-                                    width: 16,
-                                  ),
-                                  const Gap(10),
-                                  Text(
-                                    '${data.pageCount} páginas',
-                                    style: AppStyle.title3,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const Gap(20),
-                          Expanded(
-                            child: Container(
-                              decoration: ShapeDecoration(
-                                shape: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: AppStyle.dark2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              padding: const EdgeInsets.all(20),
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/copy.svg',
-                                    color: AppStyle.primary,
-                                    height: 16,
-                                    width: 16,
-                                  ),
-                                  const Gap(10),
-                                  Text(
-                                    '${data.copyCount} cópias',
-                                    style: AppStyle.title3,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      Column(
-                        children: [
-                          Text(
-                            'Descrição',
-                            style: AppStyle.title1,
-                          ),
-                          const Gap(20),
-                          Text(
-                            data.description,
-                            textAlign: TextAlign.justify,
-                            style: AppStyle.title3,
-                          ),
-                        ],
-                      ),
-                      const Gap(20),
-                      SizedBox(
-                        height: 80,
-                        width: double.infinity,
-                        child: FilledButton(
-                          style: ButtonStyle(
-                            splashFactory: InkRipple.splashFactory,
-                            elevation: const MaterialStatePropertyAll(0),
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.primary,
-                            ),
-                            shape: const MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
                                 ),
                               ),
                             ),
-                          ),
-                          onPressed: () {
-                            if (user.email == 'e096bibli@cps.sp.gov.br') {
-                              final snackBar = SnackBar(
-                                elevation: 0,
-                                backgroundColor: AppStyle.dark1,
-                                showCloseIcon: true,
-                                closeIconColor: AppStyle.gray,
-                                content: Text(
-                                  'Não foi possível realizar o empréstimo pois o usuário é Administrador!',
-                                  style: AppStyle.subtitle,
-                                ),
-                                duration: const Duration(seconds: 5),
-                              );
+                            onPressed: () {
+                              if (user.email == 'e096bibli@cps.sp.gov.br') {
+                                final snackBar = SnackBar(
+                                  elevation: 0,
+                                  backgroundColor: AppStyle.dark1,
+                                  showCloseIcon: true,
+                                  closeIconColor: AppStyle.gray,
+                                  content: Text(
+                                    'Não foi possível realizar o empréstimo pois o usuário é Administrador!',
+                                    style: AppStyle.subtitle,
+                                  ),
+                                  duration: const Duration(seconds: 5),
+                                );
 
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else if (data.copyCount == 0) {
-                              final snackBar = SnackBar(
-                                elevation: 0,
-                                backgroundColor: AppStyle.dark1,
-                                showCloseIcon: true,
-                                closeIconColor: AppStyle.gray,
-                                content: Text(
-                                  'Sem cópias disponíveis do livro',
-                                  style: AppStyle.subtitle,
-                                ),
-                                duration: const Duration(seconds: 5),
-                              );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else if (data.copyCount == 0) {
+                                final snackBar = SnackBar(
+                                  elevation: 0,
+                                  backgroundColor: AppStyle.dark1,
+                                  showCloseIcon: true,
+                                  closeIconColor: AppStyle.gray,
+                                  content: Text(
+                                    'Sem cópias disponíveis do livro',
+                                    style: AppStyle.subtitle,
+                                  ),
+                                  duration: const Duration(seconds: 5),
+                                );
 
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else if (data.isAvailable == false) {
-                              final snackBar = SnackBar(
-                                elevation: 0,
-                                backgroundColor: AppStyle.dark1,
-                                showCloseIcon: true,
-                                closeIconColor: AppStyle.gray,
-                                content: Text(
-                                  'Livro não disponível para empréstimo',
-                                  style: AppStyle.subtitle,
-                                ),
-                                duration: const Duration(seconds: 5),
-                              );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else if (data.isAvailable == false) {
+                                final snackBar = SnackBar(
+                                  elevation: 0,
+                                  backgroundColor: AppStyle.dark1,
+                                  showCloseIcon: true,
+                                  closeIconColor: AppStyle.gray,
+                                  content: Text(
+                                    'Livro não disponível para empréstimo',
+                                    style: AppStyle.subtitle,
+                                  ),
+                                  duration: const Duration(seconds: 5),
+                                );
 
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else {
-                              ref.read(emprestimoProvider).novoEmprestimo(
-                                    EmprestimoModel(
-                                      aluno: '',
-                                      email: user.email!,
-                                      curso: '',
-                                      contato: 0,
-                                      rm: 0,
-                                      livro: data.title,
-                                      isbn: data.isbn,
-                                      autores: data.authors,
-                                      urlCapa: data.thumbnail,
-                                      retirada: dataAtual,
-                                      devolucao: dataComUmaSemana,
-                                      status: true,
-                                    ),
-                                  );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else {
+                                int rm = int.parse(dataUser.rm);
 
-                              updateBookCopyCount(data.title);
+                                ref.read(emprestimoProvider).novoEmprestimo(
+                                      EmprestimoModel(
+                                        aluno: dataUser.nome,
+                                        email: dataUser.email,
+                                        curso: dataUser.curso,
+                                        contato: dataUser.contato,
+                                        rm: rm,
+                                        livro: data.title,
+                                        isbn: data.isbn,
+                                        autores: data.authors,
+                                        urlCapa: data.thumbnail,
+                                        retirada: dataAtual,
+                                        devolucao: dataComUmaSemana,
+                                        status: true,
+                                      ),
+                                    );
 
-                              Navigator.of(context).pop();
+                                updateBookCopyCount(data.title);
 
-                              final snackBar = SnackBar(
-                                elevation: 0,
-                                backgroundColor: AppStyle.dark1,
-                                showCloseIcon: true,
-                                closeIconColor: AppStyle.gray,
-                                content: Text(
-                                  'Empréstimo realizado com Sucesso!',
-                                  style: AppStyle.subtitle,
-                                ),
-                                duration: const Duration(seconds: 5),
-                              );
+                                Navigator.of(context).pop();
 
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            }
-                          },
-                          child: Text(
-                            'Realizar empréstimo',
-                            style: AppStyle.title2,
+                                final snackBar = SnackBar(
+                                  elevation: 0,
+                                  backgroundColor: AppStyle.dark1,
+                                  showCloseIcon: true,
+                                  closeIconColor: AppStyle.gray,
+                                  content: Text(
+                                    'Empréstimo realizado com Sucesso!',
+                                    style: AppStyle.subtitle,
+                                  ),
+                                  duration: const Duration(seconds: 5),
+                                );
+
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                            },
+                            child: Text(
+                              'Realizar empréstimo',
+                              style: AppStyle.title2,
+                            ),
                           ),
                         ),
-                      ),
-                      const Gap(20),
-                    ],
+                        const Gap(20),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
+      ),
+      error: (error, StackTrace) => Center(
+        child: Text(StackTrace.toString()),
+      ),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
