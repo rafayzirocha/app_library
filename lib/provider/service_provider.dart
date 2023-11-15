@@ -107,6 +107,8 @@ final fetchUsers = StreamProvider<List<UserModel>>((ref) async* {
 });
 
 final buscaEmprestimos = StreamProvider<List<EmprestimoModel>>((ref) async* {
+  final emailUsuarioLogado = FirebaseAuth.instance.currentUser?.email;
+
   final getData = FirebaseFirestore.instance
       .collection('emprestimos')
       .orderBy('devolucao')
@@ -114,9 +116,15 @@ final buscaEmprestimos = StreamProvider<List<EmprestimoModel>>((ref) async* {
       .map(
         (event) => event.docs
             .map(
-              (snapshot) => EmprestimoModel.fromSnapshot(snapshot),
-            )
-            .toList(),
+          (snapshot) => EmprestimoModel.fromSnapshot(snapshot),
+        )
+            .where((emprestimo) {
+          if (emailUsuarioLogado == "e096bibli@cps.sp.gov.br") {
+            return true;
+          } else {
+            return emprestimo.email == emailUsuarioLogado;
+          }
+        }).toList(),
       );
   yield* getData;
 });
