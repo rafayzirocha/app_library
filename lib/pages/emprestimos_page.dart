@@ -65,18 +65,25 @@ class EmprestimosPage extends ConsumerWidget {
               ),
               const Gap(20),
               Expanded(
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: data.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => EmprestimoCard(
-                    getIndex: index,
-                    emprestimo: data[index],
-                  ),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Gap(8);
-                  },
-                ),
+                child: data.isEmpty
+                    ? Center(
+                        child: Text(
+                          'Não há empréstimos',
+                          style: AppStyle.title3,
+                        ),
+                      )
+                    : ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: data.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => EmprestimoCard(
+                          getIndex: index,
+                          emprestimo: data[index],
+                        ),
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Gap(8);
+                        },
+                      ),
               )
             ],
           ),
