@@ -128,3 +128,28 @@ final buscaEmprestimos = StreamProvider<List<EmprestimoModel>>((ref) async* {
       );
   yield* getData;
 });
+
+final buscaEmprestimosConcluidos =
+    StreamProvider<List<EmprestimoModel>>((ref) async* {
+  final emailUsuarioLogado = FirebaseAuth.instance.currentUser?.email;
+
+  final getData = FirebaseFirestore.instance
+      .collection('emprestimos')
+      .where('status', isEqualTo: false)
+      .orderBy('devolucao')
+      .snapshots()
+      .map(
+        (event) => event.docs
+            .map(
+          (snapshot) => EmprestimoModel.fromSnapshot(snapshot),
+        )
+            .where((emprestimo) {
+          if (emailUsuarioLogado == "e096bibli@cps.sp.gov.br") {
+            return true;
+          } else {
+            return emprestimo.email == emailUsuarioLogado;
+          }
+        }).toList(),
+      );
+  yield* getData;
+});
