@@ -1,4 +1,5 @@
 import 'package:app_library/provider/service_provider.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,6 +23,56 @@ class PerfilPage extends ConsumerWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton.filled(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(FeatherIcons.chevronLeft),
+                      iconSize: 18,
+                      color: AppStyle.gray,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(
+                          AppStyle.dark2,
+                        ),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        IconButton.filled(
+                          onPressed: () {},
+                          icon: SvgPicture.asset(
+                            'assets/images/pen.svg',
+                            color: AppStyle.white,
+                            height: 16,
+                            width: 16,
+                          ),
+                          iconSize: 18,
+                          color: AppStyle.white,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.primary,
+                            ),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Gap(20),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Container(
@@ -35,60 +86,36 @@ class PerfilPage extends ConsumerWidget {
                             style: AppStyle.title1,
                           ),
                           Text(
-                            'Etec Pedro Ferreira Alves',
+                            data.email,
                             style: AppStyle.title3,
                           ),
                           const Gap(20),
                           CircleAvatar(
                             backgroundColor: AppStyle.dark2,
                             radius: 64,
+                            child: SvgPicture.asset(
+                              'assets/images/user.svg',
+                              height: 24,
+                              width: 24,
+                              color: AppStyle.gray,
+                            ),
                           ),
                           const Gap(20),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Seu RM é ',
-                                style: AppStyle.title2,
+                          Container(
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              Text(
-                                data.rm,
-                                style: AppStyle.title3,
+                              color: AppStyle.primary,
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            child: Text(
+                              data.rm,
+                              style: GoogleFonts.inter(
+                                color: AppStyle.white,
+                                fontSize: 16,
                               ),
-                            ],
-                          ),
-                          const Gap(20),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/email.svg',
-                                color: AppStyle.primary,
-                              ),
-                              const Gap(10),
-                              Text(
-                                data.email,
-                                style: AppStyle.title2,
-                              ),
-                            ],
-                          ),
-                          const Gap(20),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/mobile-phone.svg',
-                                color: AppStyle.primary,
-                              ),
-                              const Gap(10),
-                              Text(
-                                data.contato.toString(),
-                                style: AppStyle.title2,
-                              ),
-                            ],
+                            ),
                           ),
                           const Gap(20),
                           Row(
@@ -111,19 +138,13 @@ class PerfilPage extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                'Você tem ',
-                                style: AppStyle.title2,
+                              SvgPicture.asset(
+                                'assets/images/mobile-phone.svg',
+                                color: AppStyle.primary,
                               ),
+                              const Gap(10),
                               Text(
-                                '0',
-                                style: GoogleFonts.inter(
-                                  color: AppStyle.primary,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(
-                                ' empréstimos realizados!',
+                                data.contato.toString(),
                                 style: AppStyle.title2,
                               ),
                             ],
