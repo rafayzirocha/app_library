@@ -1,6 +1,7 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/routes/app_routes.dart';
 import 'package:app_library/widgets/emprestimo_card.dart';
+import 'package:app_library/widgets/emprestimo_concluido_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,7 +15,7 @@ class EmprestimosPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         backgroundColor: AppStyle.dark1,
         body: SafeArea(
@@ -77,8 +78,7 @@ class EmprestimosPage extends ConsumerWidget {
                     const MaterialStatePropertyAll(Colors.transparent),
                 splashFactory: NoSplash.splashFactory,
                 tabs: const [
-                  Tab(text: 'Em andamento'),
-                  Tab(text: 'Pendentes'),
+                  Tab(text: 'Abertos'),
                   Tab(text: 'Concluídos'),
                 ],
               ),
@@ -88,9 +88,6 @@ class EmprestimosPage extends ConsumerWidget {
                   children: [
                     ProviderScope(
                       child: TabEmprestimosEmAndamento(),
-                    ),
-                    ProviderScope(
-                      child: TabEmprestimosPendentes(),
                     ),
                     ProviderScope(
                       child: TabEmprestimosConcluidos(),
@@ -143,43 +140,6 @@ class TabEmprestimosEmAndamento extends ConsumerWidget {
   }
 }
 
-class TabEmprestimosPendentes extends ConsumerWidget {
-  const TabEmprestimosPendentes({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(buscaEmprestimos);
-
-    return data.when(
-      data: (data) => data.isEmpty
-          ? Center(
-              child: Text(
-                'Não há empréstimos pendentes',
-                style: AppStyle.title3,
-              ),
-            )
-          : ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              itemCount: data.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) => EmprestimoCard(
-                getIndex: index,
-                emprestimo: data[index],
-              ),
-              separatorBuilder: (BuildContext context, int index) {
-                return const Gap(8);
-              },
-            ),
-      error: (error, StackTrace) => Center(
-        child: Text(StackTrace.toString()),
-      ),
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-}
-
 class TabEmprestimosConcluidos extends ConsumerWidget {
   const TabEmprestimosConcluidos({Key? key}) : super(key: key);
 
@@ -199,7 +159,7 @@ class TabEmprestimosConcluidos extends ConsumerWidget {
               physics: const BouncingScrollPhysics(),
               itemCount: data.length,
               shrinkWrap: true,
-              itemBuilder: (context, index) => EmprestimoCard(
+              itemBuilder: (context, index) => EmprestimoConcluidoCard(
                 getIndex: index,
                 emprestimo: data[index],
               ),

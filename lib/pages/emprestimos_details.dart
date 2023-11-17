@@ -1,6 +1,7 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/emprestimo_model.dart';
 import 'package:app_library/provider/service_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,31 @@ class EmprestimosDetails extends ConsumerWidget {
     String dataBr(DateTime date) {
       final formatter = DateFormat('dd/MM/yyyy');
       return formatter.format(date);
+    }
+
+    Future<void> alteraStatus(int rm) async {
+      final emprestimosCollection =
+          FirebaseFirestore.instance.collection('emprestimos');
+
+      final emprestimosRef = await emprestimosCollection
+          .where(
+            'rm',
+            isEqualTo: rm,
+          )
+          .get()
+          .then((docs) {
+        if (docs.docs.isNotEmpty) {
+          return docs.docs.first.reference;
+        } else {
+          return null;
+        }
+      });
+
+      if (emprestimosRef != null) {
+        await emprestimosRef.update({
+          'status': false,
+        });
+      }
     }
 
     return Scaffold(
@@ -447,7 +473,11 @@ class EmprestimosDetails extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      alteraStatus(data.rm);
+
+                      Navigator.of(context).pop();
+                    },
                     child: Text(
                       'Confirmar Devolução',
                       style: AppStyle.title2,

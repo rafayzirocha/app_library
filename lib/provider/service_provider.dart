@@ -120,9 +120,10 @@ final buscaEmprestimos = StreamProvider<List<EmprestimoModel>>((ref) async* {
         )
             .where((emprestimo) {
           if (emailUsuarioLogado == "e096bibli@cps.sp.gov.br") {
-            return true;
+            return true && emprestimo.status == true;
           } else {
-            return emprestimo.email == emailUsuarioLogado;
+            return emprestimo.email == emailUsuarioLogado &&
+                emprestimo.status == true;
           }
         }).toList(),
       );
@@ -135,7 +136,6 @@ final buscaEmprestimosConcluidos =
 
   final getData = FirebaseFirestore.instance
       .collection('emprestimos')
-      .where('status', isEqualTo: false)
       .orderBy('devolucao')
       .snapshots()
       .map(
@@ -145,9 +145,10 @@ final buscaEmprestimosConcluidos =
         )
             .where((emprestimo) {
           if (emailUsuarioLogado == "e096bibli@cps.sp.gov.br") {
-            return true;
+            return true && emprestimo.status == false;
           } else {
-            return emprestimo.email == emailUsuarioLogado;
+            return emprestimo.email == emailUsuarioLogado &&
+                emprestimo.status == false;
           }
         }).toList(),
       );
