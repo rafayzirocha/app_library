@@ -2,6 +2,7 @@ import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/routes/app_routes.dart';
 import 'package:app_library/widgets/emprestimo_card.dart';
 import 'package:app_library/widgets/emprestimo_concluido_card.dart';
+import 'package:app_library/widgets/emprestimo_pendente_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +16,7 @@ class EmprestimosPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         backgroundColor: AppStyle.dark1,
         body: SafeArea(
@@ -79,6 +80,7 @@ class EmprestimosPage extends ConsumerWidget {
                 splashFactory: NoSplash.splashFactory,
                 tabs: const [
                   Tab(text: 'Abertos'),
+                  Tab(text: 'Pendentes'),
                   Tab(text: 'Concluídos'),
                 ],
               ),
@@ -88,6 +90,9 @@ class EmprestimosPage extends ConsumerWidget {
                   children: [
                     ProviderScope(
                       child: TabEmprestimosEmAndamento(),
+                    ),
+                    ProviderScope(
+                      child: TabEmprestimosPendentes(),
                     ),
                     ProviderScope(
                       child: TabEmprestimosConcluidos(),
@@ -108,7 +113,7 @@ class TabEmprestimosEmAndamento extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(buscaEmprestimos);
+    final data = ref.watch(buscaEmprestimosAbertos);
 
     return data.when(
       data: (data) => data.isEmpty
@@ -123,6 +128,43 @@ class TabEmprestimosEmAndamento extends ConsumerWidget {
               itemCount: data.length,
               shrinkWrap: true,
               itemBuilder: (context, index) => EmprestimoCard(
+                getIndex: index,
+                emprestimo: data[index],
+              ),
+              separatorBuilder: (BuildContext context, int index) {
+                return const Gap(8);
+              },
+            ),
+      error: (error, StackTrace) => Center(
+        child: Text(StackTrace.toString()),
+      ),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+}
+
+class TabEmprestimosPendentes extends ConsumerWidget {
+  const TabEmprestimosPendentes({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final data = ref.watch(buscaEmprestimosPendentes);
+
+    return data.when(
+      data: (data) => data.isEmpty
+          ? Center(
+              child: Text(
+                'Não há empréstimos pendentes',
+                style: AppStyle.title3,
+              ),
+            )
+          : ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              itemCount: data.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) => EmprestimoPendenteCard(
                 getIndex: index,
                 emprestimo: data[index],
               ),

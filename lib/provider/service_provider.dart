@@ -106,7 +106,8 @@ final fetchUsers = StreamProvider<List<UserModel>>((ref) async* {
   yield* getData;
 });
 
-final buscaEmprestimos = StreamProvider<List<EmprestimoModel>>((ref) async* {
+final buscaEmprestimosAbertos =
+    StreamProvider<List<EmprestimoModel>>((ref) async* {
   final emailUsuarioLogado = FirebaseAuth.instance.currentUser?.email;
 
   final getData = FirebaseFirestore.instance
@@ -120,10 +121,41 @@ final buscaEmprestimos = StreamProvider<List<EmprestimoModel>>((ref) async* {
         )
             .where((emprestimo) {
           if (emailUsuarioLogado == "e096bibli@cps.sp.gov.br") {
-            return true && emprestimo.status == true;
+            return true &&
+                emprestimo.status == true &&
+                emprestimo.devolucao.isAfter(DateTime.now());
           } else {
             return emprestimo.email == emailUsuarioLogado &&
-                emprestimo.status == true;
+                emprestimo.status == true &&
+                emprestimo.devolucao.isAfter(DateTime.now());
+          }
+        }).toList(),
+      );
+  yield* getData;
+});
+
+final buscaEmprestimosPendentes =
+    StreamProvider<List<EmprestimoModel>>((ref) async* {
+  final emailUsuarioLogado = FirebaseAuth.instance.currentUser?.email;
+
+  final getData = FirebaseFirestore.instance
+      .collection('emprestimos')
+      .orderBy('devolucao')
+      .snapshots()
+      .map(
+        (event) => event.docs
+            .map(
+          (snapshot) => EmprestimoModel.fromSnapshot(snapshot),
+        )
+            .where((emprestimo) {
+          if (emailUsuarioLogado == "e096bibli@cps.sp.gov.br") {
+            return true &&
+                emprestimo.status == true &&
+                emprestimo.devolucao.isBefore(DateTime.now());
+          } else {
+            return emprestimo.email == emailUsuarioLogado &&
+                emprestimo.status == true &&
+                emprestimo.devolucao.isBefore(DateTime.now());
           }
         }).toList(),
       );
