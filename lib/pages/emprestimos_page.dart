@@ -46,20 +46,6 @@ class EmprestimosPage extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Empréstimos',
-                            style: AppStyle.title2,
-                          ),
-                          Text(
-                            user.nome,
-                            style: AppStyle.title3,
-                          )
-                        ],
-                      ),
                       IconButton.filled(
                         onPressed: () {},
                         icon: SvgPicture.asset(

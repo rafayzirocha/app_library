@@ -161,8 +161,6 @@ class EmprestimosDetails extends ConsumerWidget {
       }
     }
 
-    final Uri whatsapp = Uri.parse('https://wa.me/${data.contato}');
-
     return Scaffold(
       backgroundColor: AppStyle.dark1,
       body: Padding(
@@ -221,6 +219,9 @@ class EmprestimosDetails extends ConsumerWidget {
                         ),
                         IconButton.filled(
                           onPressed: () async {
+                            final Uri whatsapp = Uri.parse(
+                              'https://wa.me/${data.contato}',
+                            );
                             launchUrl(whatsapp);
                           },
                           icon: SvgPicture.asset(
@@ -247,16 +248,23 @@ class EmprestimosDetails extends ConsumerWidget {
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
+                                icon: SvgPicture.asset(
+                                  'assets/images/trash-2.svg',
+                                  color: AppStyle.primary,
+                                  height: 16,
+                                  width: 16,
+                                ),
                                 backgroundColor: AppStyle.dark1,
                                 elevation: 0,
                                 title: Text(
-                                  'Confirmação de exclusão',
+                                  'Cancelar o Empréstimo',
                                   style: AppStyle.title1,
                                 ),
                                 content: Text(
-                                  'Tem certeza que deseja excluir este empréstimo?',
+                                  'Tem certeza que deseja cancelar esse empréstimo?',
                                   style: AppStyle.title3,
                                 ),
+                                actionsAlignment: MainAxisAlignment.center,
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
@@ -266,7 +274,7 @@ class EmprestimosDetails extends ConsumerWidget {
                                       ),
                                     ),
                                     child: Text(
-                                      'Cancelar',
+                                      'Não',
                                       style: GoogleFonts.inter(
                                         color: AppStyle.primary,
                                       ),
@@ -287,7 +295,7 @@ class EmprestimosDetails extends ConsumerWidget {
                                         showCloseIcon: true,
                                         closeIconColor: AppStyle.gray,
                                         content: Text(
-                                          'Empréstimo excluído com sucesso!',
+                                          'Empréstimo cancelado com sucesso!',
                                           style: AppStyle.subtitle,
                                         ),
                                         duration: const Duration(seconds: 5),
@@ -302,7 +310,7 @@ class EmprestimosDetails extends ConsumerWidget {
                                       ),
                                     ),
                                     child: Text(
-                                      'Excluir',
+                                      'Sim',
                                       style: GoogleFonts.inter(
                                         color: AppStyle.primary,
                                       ),
