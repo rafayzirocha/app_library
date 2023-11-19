@@ -19,6 +19,90 @@ class EmprestimosDetails extends ConsumerWidget {
     final data = ModalRoute.of(context)!.settings.arguments as EmprestimoModel;
     final user = FirebaseAuth.instance.currentUser!;
 
+    ValueNotifier<DateTime> selectedDate = ValueNotifier(data.devolucao);
+
+    Future<void> _selectDate(BuildContext context) async {
+      final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: selectedDate.value,
+        firstDate: data.retirada,
+        lastDate: DateTime(DateTime.now().year + 1),
+        cancelText: 'Cancelar',
+        confirmText: 'Confirmar',
+        locale: const Locale('pt', 'BR'),
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData.light(useMaterial3: true).copyWith(
+              primaryColor: AppStyle.primary,
+              colorScheme: ColorScheme.dark(primary: AppStyle.primary),
+              buttonTheme:
+                  const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+              datePickerTheme: DatePickerThemeData(
+                rangePickerSurfaceTintColor: AppStyle.primary,
+                headerForegroundColor: AppStyle.white,
+                rangePickerHeaderForegroundColor: AppStyle.white,
+                rangeSelectionOverlayColor: MaterialStatePropertyAll(
+                  AppStyle.primary,
+                ),
+                elevation: 0,
+                backgroundColor: AppStyle.dark1,
+                dayStyle: AppStyle.title2,
+                headerHeadlineStyle: AppStyle.title1,
+                headerHelpStyle: AppStyle.title2,
+                surfaceTintColor: AppStyle.primary,
+                todayForegroundColor: MaterialStatePropertyAll(
+                  AppStyle.primary,
+                ),
+                weekdayStyle: AppStyle.title2,
+                rangePickerBackgroundColor: AppStyle.primary,
+                rangePickerElevation: 0,
+                rangeSelectionBackgroundColor: AppStyle.primary,
+                yearStyle: GoogleFonts.inter(),
+              ),
+            ),
+            child: child!,
+          );
+        },
+      );
+
+      if (pickedDate != null) {
+        selectedDate.value = pickedDate;
+
+        Future<void> atualizaDevolucao() async {
+          final emprestimosCollection =
+              FirebaseFirestore.instance.collection('emprestimos');
+
+          final emprestimosRef = await emprestimosCollection
+              .where(
+                'rm',
+                isEqualTo: data.rm,
+              )
+              .where(
+                'livro',
+                isEqualTo: data.livro,
+              )
+              .get()
+              .then((docs) {
+            if (docs.docs.isNotEmpty) {
+              return docs.docs.first.reference;
+            } else {
+              return null;
+            }
+          });
+
+          if (emprestimosRef != null) {
+            await emprestimosRef.update({
+              'devolucao': pickedDate,
+            });
+          }
+        }
+
+        atualizaDevolucao();
+
+        Navigator.pop(context);
+      }
+    }
+
     String dataBr(DateTime date) {
       final formatter = DateFormat('dd/MM/yyyy');
       return formatter.format(date);
@@ -105,13 +189,37 @@ class EmprestimosDetails extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  if (user.email == 'e096bibli@cps.sp.gov.br')
+                  if (user.email == 'e096bibli@cps.sp.gov.br' &&
+                      data.status == true)
                     Row(
                       children: [
                         IconButton.filled(
-                          onPressed: () {},
+                          onPressed: () {
+                            _selectDate(context);
+                          },
                           icon: SvgPicture.asset(
                             'assets/images/calender.svg',
+                            color: AppStyle.gray,
+                            height: 16,
+                            width: 16,
+                          ),
+                          iconSize: 18,
+                          color: AppStyle.gray,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.dark2,
+                            ),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          ),
+                        ),
+                        IconButton.filled(
+                          onPressed: () {},
+                          icon: SvgPicture.asset(
+                            'assets/images/whatsapp.svg',
                             color: AppStyle.gray,
                             height: 16,
                             width: 16,
@@ -228,27 +336,9 @@ class EmprestimosDetails extends ConsumerWidget {
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            data.livro,
-                            style: AppStyle.title1,
-                          ),
-                          const Gap(5),
-                          data.status
-                              ? Icon(
-                                  Icons.circle,
-                                  size: 18,
-                                  color: AppStyle.primary,
-                                )
-                              : const Icon(
-                                  Icons.circle,
-                                  size: 18,
-                                  color: Colors.red,
-                                ),
-                        ],
+                      Text(
+                        data.livro,
+                        style: AppStyle.title1,
                       ),
                       Text(
                         'por ${data.autores.join(', ')}',

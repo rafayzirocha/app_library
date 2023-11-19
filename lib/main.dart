@@ -11,6 +11,7 @@ import 'package:app_library/pages/users_form.dart';
 import 'package:app_library/pages/warnings_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
@@ -39,6 +40,11 @@ class AppLibrary extends StatelessWidget {
         darkTheme: ThemeData.dark(useMaterial3: true),
         themeMode: ThemeMode.dark,
         home: const RegisterPage(),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: const [Locale('pt', 'BR')],
         routes: {
           AppRoutes.bookPage: (_) => const BookPage(),
           AppRoutes.bookForm: (_) => const AddNewBookScreen(),
