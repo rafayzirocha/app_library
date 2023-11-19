@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EmprestimosDetails extends ConsumerWidget {
   const EmprestimosDetails({super.key});
@@ -160,6 +161,8 @@ class EmprestimosDetails extends ConsumerWidget {
       }
     }
 
+    final Uri whatsapp = Uri.parse('https://wa.me/55${data.contato}');
+
     return Scaffold(
       backgroundColor: AppStyle.dark1,
       body: Padding(
@@ -217,7 +220,9 @@ class EmprestimosDetails extends ConsumerWidget {
                           ),
                         ),
                         IconButton.filled(
-                          onPressed: () {},
+                          onPressed: () async {
+                            launchUrl(whatsapp);
+                          },
                           icon: SvgPicture.asset(
                             'assets/images/whatsapp.svg',
                             color: AppStyle.gray,
