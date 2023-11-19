@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import '../model/book_model.dart';
 
 class BookDetails extends ConsumerWidget {
@@ -516,20 +517,45 @@ class BookDetails extends ConsumerWidget {
 
                                 Navigator.of(context).pop();
 
-                                final snackBar = SnackBar(
-                                  elevation: 0,
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 0, 20, 20),
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          maxHeight: double.infinity,
+                                          minWidth:
+                                              MediaQuery.of(context).size.width,
+                                        ),
+                                        child: Wrap(
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          alignment: WrapAlignment.center,
+                                          children: [
+                                            LottieBuilder.network(
+                                              'https://lottie.host/786c7314-fe1d-460e-8696-01848358913d/WbWfT8H3Ze.json',
+                                              height: 200,
+                                              repeat: true,
+                                              alignment: Alignment.center,
+                                            ),
+                                            Text(
+                                              'Empréstimo realizado com sucesso!',
+                                              style: AppStyle.title1,
+                                            ),
+                                            Text(
+                                              'Você já pode retirar seu livro na biblioteca.',
+                                              style: AppStyle.title3,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   backgroundColor: AppStyle.dark1,
-                                  showCloseIcon: true,
-                                  closeIconColor: AppStyle.gray,
-                                  content: Text(
-                                    'Empréstimo realizado com Sucesso!',
-                                    style: AppStyle.subtitle,
-                                  ),
-                                  duration: const Duration(seconds: 5),
+                                  elevation: 0,
                                 );
-
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
                               }
                             },
                             child: Text(

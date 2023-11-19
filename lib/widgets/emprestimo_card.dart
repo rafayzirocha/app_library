@@ -4,7 +4,6 @@ import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/model/emprestimo_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
 import '../provider/service_provider.dart';
@@ -32,28 +31,10 @@ class EmprestimoCard extends ConsumerWidget {
     return data.when(
       data: (data) => ListTile(
         isThreeLine: true,
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              data[getIndex].livro,
-              overflow: TextOverflow.ellipsis,
-              style: AppStyle.title2,
-            ),
-            const Gap(5),
-            emprestimo.status
-                ? Icon(
-                    Icons.circle,
-                    size: 18,
-                    color: AppStyle.primary,
-                  )
-                : const Icon(
-                    Icons.circle,
-                    size: 18,
-                    color: Colors.red,
-                  ),
-          ],
+        title: Text(
+          data[getIndex].livro,
+          overflow: TextOverflow.ellipsis,
+          style: AppStyle.title2,
         ),
         titleAlignment: ListTileTitleAlignment.center,
         subtitle: Column(

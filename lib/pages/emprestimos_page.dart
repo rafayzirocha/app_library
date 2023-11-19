@@ -108,7 +108,7 @@ class EmprestimosPage extends ConsumerWidget {
                     physics: BouncingScrollPhysics(),
                     children: [
                       ProviderScope(
-                        child: TabEmprestimosEmAndamento(),
+                        child: TabEmprestimosAbertos(),
                       ),
                       ProviderScope(
                         child: TabEmprestimosPendentes(),
@@ -134,8 +134,8 @@ class EmprestimosPage extends ConsumerWidget {
   }
 }
 
-class TabEmprestimosEmAndamento extends ConsumerWidget {
-  const TabEmprestimosEmAndamento({Key? key}) : super(key: key);
+class TabEmprestimosAbertos extends ConsumerWidget {
+  const TabEmprestimosAbertos({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -155,7 +155,7 @@ class TabEmprestimosEmAndamento extends ConsumerWidget {
                     alignment: Alignment.center,
                   ),
                   Text(
-                    'Não há empréstimos concluídos',
+                    'Não há empréstimos abertos',
                     style: AppStyle.title3,
                   ),
                 ],
@@ -204,7 +204,7 @@ class TabEmprestimosPendentes extends ConsumerWidget {
                     alignment: Alignment.center,
                   ),
                   Text(
-                    'Não há empréstimos concluídos',
+                    'Não há empréstimos pendentes',
                     style: AppStyle.title3,
                   ),
                 ],

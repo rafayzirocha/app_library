@@ -1,4 +1,5 @@
 import 'package:app_library/provider/service_provider.dart';
+import 'package:app_library/routes/app_routes.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -159,6 +160,7 @@ class PerfilPage extends ConsumerWidget {
                   width: double.infinity,
                   child: FilledButton(
                     style: ButtonStyle(
+                      splashFactory: InkRipple.splashFactory,
                       elevation: const MaterialStatePropertyAll(0),
                       backgroundColor: MaterialStatePropertyAll(
                         AppStyle.primary,
@@ -173,7 +175,7 @@ class PerfilPage extends ConsumerWidget {
                     ),
                     onPressed: () async {
                       ref.watch(authServiceProvider).signOut();
-                      Navigator.of(context).pop();
+                      Navigator.pushNamed(context, AppRoutes.loginPage);
                     },
                     child: Text(
                       'Sair da conta',

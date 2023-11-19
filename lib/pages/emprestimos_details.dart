@@ -24,14 +24,20 @@ class EmprestimosDetails extends ConsumerWidget {
       return formatter.format(date);
     }
 
-    Future<void> alteraStatus(int rm) async {
+    Future<void> atualizaEmprestimo(int rm, String livro) async {
       final emprestimosCollection =
           FirebaseFirestore.instance.collection('emprestimos');
+
+      final livrosCollection = FirebaseFirestore.instance.collection('books');
 
       final emprestimosRef = await emprestimosCollection
           .where(
             'rm',
             isEqualTo: rm,
+          )
+          .where(
+            'livro',
+            isEqualTo: livro,
           )
           .get()
           .then((docs) {
@@ -45,6 +51,27 @@ class EmprestimosDetails extends ConsumerWidget {
       if (emprestimosRef != null) {
         await emprestimosRef.update({
           'status': false,
+        });
+      }
+
+      final livrosRef = await livrosCollection
+          .where(
+            'title',
+            isEqualTo: livro,
+          )
+          .get()
+          .then((docs) {
+        if (docs.docs.isNotEmpty) {
+          return docs.docs.first.reference;
+        } else {
+          return null;
+        }
+      });
+
+      if (livrosRef != null) {
+        await livrosRef.update({
+          'isAvailable': true,
+          'copyCount': FieldValue.increment(1),
         });
       }
     }
@@ -81,6 +108,27 @@ class EmprestimosDetails extends ConsumerWidget {
                   if (user.email == 'e096bibli@cps.sp.gov.br')
                     Row(
                       children: [
+                        IconButton.filled(
+                          onPressed: () {},
+                          icon: SvgPicture.asset(
+                            'assets/images/calender.svg',
+                            color: AppStyle.gray,
+                            height: 16,
+                            width: 16,
+                          ),
+                          iconSize: 18,
+                          color: AppStyle.gray,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              AppStyle.dark2,
+                            ),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          ),
+                        ),
                         IconButton.filled(
                           onPressed: () {
                             showDialog(
@@ -381,7 +429,8 @@ class EmprestimosDetails extends ConsumerWidget {
                   ),
                 ),
               ),
-              if (user.email == 'e096bibli@cps.sp.gov.br')
+              if (user.email == 'e096bibli@cps.sp.gov.br' &&
+                  data.status == true)
                 SizedBox(
                   height: 80,
                   width: double.infinity,
@@ -401,7 +450,7 @@ class EmprestimosDetails extends ConsumerWidget {
                       ),
                     ),
                     onPressed: () {
-                      alteraStatus(data.rm);
+                      atualizaEmprestimo(data.rm, data.livro);
 
                       Navigator.of(context).pop();
                     },
