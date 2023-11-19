@@ -161,7 +161,7 @@ class EmprestimosDetails extends ConsumerWidget {
       }
     }
 
-    final Uri whatsapp = Uri.parse('https://wa.me/55${data.contato}');
+    final Uri whatsapp = Uri.parse('https://wa.me/${data.contato}');
 
     return Scaffold(
       backgroundColor: AppStyle.dark1,
