@@ -105,6 +105,7 @@ class EmprestimosPage extends ConsumerWidget {
                 const Gap(20),
                 const Expanded(
                   child: TabBarView(
+                    physics: BouncingScrollPhysics(),
                     children: [
                       ProviderScope(
                         child: TabEmprestimosEmAndamento(),
