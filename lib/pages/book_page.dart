@@ -16,38 +16,6 @@ class BookPage extends ConsumerWidget {
     final data = ref.watch(buscaLivros);
     final user = FirebaseAuth.instance.currentUser;
 
-    /*List<String> suaListaDeStrings = [
-      'Arte, Fotografia e Design',
-      'História',
-      'Administração, Economia e Negócios',
-      'Religião, Espiritualidade e Esoterismo',
-      'Biografias e Histórias reais',
-      'Esportes, Hobbies e Estilo de Vida',
-      'Direito, Política e Ciências Sociais',
-      'HQ, Mangás e Graphic Novels',
-      'Erótico',
-      'Gastronomia e Culinária',
-      'Tecnologia, Informática e Mídias Digitais',
-      'Literatura e Ficção',
-      'Educação e Didáticos',
-      'Ciência',
-      'Psicologia e Comportamento',
-      'Romance',
-      'Clássicos',
-      'Policial e Suspense',
-      'Contos, Crônicas e Humor',
-      'Saúde',
-      'Young Adult',
-      'Juvenil',
-      'Terror',
-      'Ficção Científica',
-      'Fantasia',
-      'Poesias e Ensaios',
-      'Autoajuda e Desenvolvimento Pessoal',
-      'Viagem',
-      'Não classificado',
-    ];*/
-
     return Scaffold(
       backgroundColor: AppStyle.dark1,
       body: SafeArea(

@@ -106,6 +106,21 @@ final fetchUsers = StreamProvider<List<UserModel>>((ref) async* {
   yield* getData;
 });
 
+final buscaEmprestimos = StreamProvider<List<EmprestimoModel>>((ref) async* {
+  final getData = FirebaseFirestore.instance
+      .collection('emprestimos')
+      .orderBy('devolucao')
+      .snapshots()
+      .map(
+        (event) => event.docs
+            .map(
+              (snapshot) => EmprestimoModel.fromSnapshot(snapshot),
+            )
+            .toList(),
+      );
+  yield* getData;
+});
+
 final buscaEmprestimosAbertos =
     StreamProvider<List<EmprestimoModel>>((ref) async* {
   final emailUsuarioLogado = FirebaseAuth.instance.currentUser?.email;

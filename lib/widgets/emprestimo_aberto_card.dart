@@ -9,8 +9,8 @@ import 'package:intl/intl.dart';
 import '../provider/service_provider.dart';
 import '../routes/app_routes.dart';
 
-class EmprestimoCard extends ConsumerWidget {
-  const EmprestimoCard({
+class EmprestimoAbertoCard extends ConsumerWidget {
+  const EmprestimoAbertoCard({
     super.key,
     required this.getIndex,
     required this.emprestimo,
@@ -21,7 +21,7 @@ class EmprestimoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(buscaEmprestimos);
+    final data = ref.watch(buscaEmprestimosAbertos);
 
     String dataBr(DateTime date) {
       final formatter = DateFormat('dd/MM/yyyy');

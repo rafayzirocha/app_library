@@ -1,6 +1,6 @@
 import 'package:app_library/constants/app_style.dart';
 import 'package:app_library/routes/app_routes.dart';
-import 'package:app_library/widgets/emprestimo_card.dart';
+import 'package:app_library/widgets/emprestimo_aberto_card.dart';
 import 'package:app_library/widgets/emprestimo_concluido_card.dart';
 import 'package:app_library/widgets/emprestimo_pendente_card.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +47,11 @@ class EmprestimosPage extends ConsumerWidget {
                         ),
                       ),
                       IconButton.filled(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                            AppRoutes.emprestimosSearchPage,
+                          );
+                        },
                         icon: SvgPicture.asset(
                           'assets/images/search.svg',
                           height: 16,
@@ -151,7 +155,7 @@ class TabEmprestimosAbertos extends ConsumerWidget {
               physics: const BouncingScrollPhysics(),
               itemCount: data.length,
               shrinkWrap: true,
-              itemBuilder: (context, index) => EmprestimoCard(
+              itemBuilder: (context, index) => EmprestimoAbertoCard(
                 getIndex: index,
                 emprestimo: data[index],
               ),
