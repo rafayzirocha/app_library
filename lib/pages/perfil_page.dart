@@ -46,31 +46,6 @@ class PerfilPage extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        IconButton.filled(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            'assets/images/pen.svg',
-                            color: AppStyle.white,
-                            height: 16,
-                            width: 16,
-                          ),
-                          iconSize: 18,
-                          color: AppStyle.white,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AppStyle.primary,
-                            ),
-                            shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
                 const Gap(20),

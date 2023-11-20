@@ -47,11 +47,7 @@ class EmprestimosPage extends ConsumerWidget {
                         ),
                       ),
                       IconButton.filled(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(
-                            AppRoutes.emprestimosSearchPage,
-                          );
-                        },
+                        onPressed: () {},
                         icon: SvgPicture.asset(
                           'assets/images/search.svg',
                           height: 16,

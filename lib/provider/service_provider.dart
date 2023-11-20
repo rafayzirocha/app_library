@@ -201,3 +201,20 @@ final buscaEmprestimosConcluidos =
       );
   yield* getData;
 });
+
+final pesquisaLivros =
+    StreamProvider.family<List<BookModel>, String>((ref, title) async* {
+  final getData = FirebaseFirestore.instance
+      .collection('books')
+      .orderBy('title')
+      .where('title', isEqualTo: title)
+      .snapshots()
+      .map(
+        (event) => event.docs
+            .map(
+              (snapshot) => BookModel.fromSnapshot(snapshot),
+            )
+            .toList(),
+      );
+  yield* getData;
+});
