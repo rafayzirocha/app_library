@@ -44,11 +44,7 @@ class BookPage extends ConsumerWidget {
                   Row(
                     children: [
                       IconButton.filled(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(
-                            AppRoutes.searchBookPage,
-                          );
-                        },
+                        onPressed: () {},
                         icon: SvgPicture.asset(
                           'assets/images/search.svg',
                           height: 16,

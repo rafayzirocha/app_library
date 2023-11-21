@@ -6,7 +6,6 @@ import 'package:app_library/pages/emprestimos_details.dart';
 import 'package:app_library/pages/login_page.dart';
 import 'package:app_library/pages/perfil_page.dart';
 import 'package:app_library/pages/register_page.dart';
-import 'package:app_library/pages/search_book_page.dart';
 import 'package:app_library/pages/users_details.dart';
 import 'package:app_library/pages/users_form.dart';
 import 'package:app_library/pages/warnings_details.dart';
@@ -61,7 +60,6 @@ class AppLibrary extends StatelessWidget {
           AppRoutes.usersForm: (_) => const AddNewUserPage(),
           AppRoutes.emprestimosPage: (_) => const EmprestimosPage(),
           AppRoutes.emprestimosDetails: (_) => const EmprestimosDetails(),
-          AppRoutes.searchBookPage: (_) => const SearchBookPage(),
         },
       ),
     );

@@ -89,16 +89,23 @@ class BookDetails extends ConsumerWidget {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
+                              icon: SvgPicture.asset(
+                                'assets/images/trash-2.svg',
+                                color: AppStyle.primary,
+                                height: 16,
+                                width: 16,
+                              ),
                               backgroundColor: AppStyle.dark1,
                               elevation: 0,
                               title: Text(
-                                'Confirmação de exclusão',
+                                'Excluir o Livro',
                                 style: AppStyle.title1,
                               ),
                               content: Text(
-                                'Tem certeza que deseja excluir este livro?',
+                                'Tem certeza que deseja excluir o livro?',
                                 style: AppStyle.title3,
                               ),
+                              actionsAlignment: MainAxisAlignment.center,
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
@@ -129,7 +136,7 @@ class BookDetails extends ConsumerWidget {
                                       showCloseIcon: true,
                                       closeIconColor: AppStyle.gray,
                                       content: Text(
-                                        'Livro Excluído com Sucesso!',
+                                        'Livro ${data.title} excluído com sucesso!',
                                         style: AppStyle.subtitle,
                                       ),
                                       duration: const Duration(seconds: 5),

@@ -14,6 +14,4 @@ class AppRoutes {
 
   static const emprestimosPage = '/emprestimosPage';
   static const emprestimosDetails = '/emprestimosDetails';
-
-  static const searchBookPage = '/searchBookPage';
 }

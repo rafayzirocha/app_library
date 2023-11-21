@@ -585,7 +585,7 @@ class AddNewBookScreen extends ConsumerWidget {
                                 showCloseIcon: true,
                                 closeIconColor: AppStyle.gray,
                                 content: Text(
-                                  'Livro Cadastrado com Sucesso!',
+                                  'Livro cadastrado com sucesso!',
                                   style: AppStyle.subtitle,
                                 ),
                                 duration: const Duration(seconds: 5),

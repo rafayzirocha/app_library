@@ -52,16 +52,23 @@ class WarningDetails extends ConsumerWidget {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
+                            icon: SvgPicture.asset(
+                              'assets/images/trash-2.svg',
+                              color: AppStyle.primary,
+                              height: 16,
+                              width: 16,
+                            ),
                             backgroundColor: AppStyle.dark1,
                             elevation: 0,
                             title: Text(
-                              'Confirmação de exclusão',
+                              'Excluir o Aviso',
                               style: AppStyle.title1,
                             ),
                             content: Text(
-                              'Tem certeza que deseja excluir este livro?',
+                              'Tem certeza que deseja excluir o aviso?',
                               style: AppStyle.title3,
                             ),
+                            actionsAlignment: MainAxisAlignment.center,
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
@@ -92,7 +99,7 @@ class WarningDetails extends ConsumerWidget {
                                     showCloseIcon: true,
                                     closeIconColor: AppStyle.gray,
                                     content: Text(
-                                      'Aviso Excluído com Sucesso!',
+                                      'Aviso excluído com sucesso!',
                                       style: AppStyle.subtitle,
                                     ),
                                     duration: const Duration(seconds: 5),
@@ -101,6 +108,11 @@ class WarningDetails extends ConsumerWidget {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(snackBar);
                                 },
+                                style: ButtonStyle(
+                                  overlayColor: MaterialStatePropertyAll(
+                                    AppStyle.dark2,
+                                  ),
+                                ),
                                 child: Text(
                                   'Excluir',
                                   style: GoogleFonts.inter(

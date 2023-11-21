@@ -80,16 +80,23 @@ class UsersDetails extends ConsumerWidget {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
+                              icon: SvgPicture.asset(
+                                'assets/images/trash-2.svg',
+                                color: AppStyle.primary,
+                                height: 16,
+                                width: 16,
+                              ),
                               backgroundColor: AppStyle.dark1,
                               elevation: 0,
                               title: Text(
-                                'Confirmação de exclusão',
+                                'Excluir Aluno(a)',
                                 style: AppStyle.title1,
                               ),
                               content: Text(
-                                'Tem certeza que deseja excluir esse usuário?',
+                                'Tem certeza que deseja excluir o aluno(a)?',
                                 style: AppStyle.title3,
                               ),
+                              actionsAlignment: MainAxisAlignment.center,
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
@@ -107,10 +114,33 @@ class UsersDetails extends ConsumerWidget {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    usersService.deleteUser(data.docId);
+                                    ref
+                                        .read(usersServiceProvider)
+                                        .deleteUser(data.docId);
+
                                     Navigator.of(context).pop();
                                     Navigator.of(context).pop();
+
+                                    final snackBar = SnackBar(
+                                      elevation: 0,
+                                      backgroundColor: AppStyle.dark1,
+                                      showCloseIcon: true,
+                                      closeIconColor: AppStyle.gray,
+                                      content: Text(
+                                        'Aluno(a) ${data.nome} excluído com sucesso!',
+                                        style: AppStyle.subtitle,
+                                      ),
+                                      duration: const Duration(seconds: 5),
+                                    );
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
                                   },
+                                  style: ButtonStyle(
+                                    overlayColor: MaterialStatePropertyAll(
+                                      AppStyle.dark2,
+                                    ),
+                                  ),
                                   child: Text(
                                     'Excluir',
                                     style: GoogleFonts.inter(
